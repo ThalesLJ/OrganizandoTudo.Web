@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import "../styles/Settings.css";
 
 export default function Settings() {
   return (

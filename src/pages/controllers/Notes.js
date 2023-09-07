@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, Link } from "react-router-dom";
+import "../styles/Notes.css";
 
 export default function Notes() {
   return (

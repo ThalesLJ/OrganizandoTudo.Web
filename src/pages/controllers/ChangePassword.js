@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import "../styles/ChangePassword.css";
 
 export default function ChangePassword() {
     return (

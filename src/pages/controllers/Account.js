@@ -1,5 +1,6 @@
 import React from 'react';
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import "../styles/Account.css";
 
 export default function Account() {
     return (
