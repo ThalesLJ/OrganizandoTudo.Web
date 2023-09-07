@@ -1,0 +1,38 @@
+.container {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.navbar {
+    height: 95vh;
+    width: 6%;
+    color: white;
+}
+
+.navbar-body {
+    height: 92vh;
+    width: 70%;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 10%;
+    margin-left: 15%;
+    color: white;
+    background-color: greenyellow;
+}
+
+.body {
+    height: 95vh;
+    width: 94%;
+    color: white;
+    background-color: #282c34;
+}
+
+.footer {
+    height: 5vh;
+    width: 100%;
+    color: white;
+    background-color: blue;
+    text-align: center;
+    margin: auto;
+}
