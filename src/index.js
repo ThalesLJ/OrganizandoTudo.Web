@@ -20,12 +20,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },    
   {
-    path: "/login",
-    element: <Account />,
+    path: "/app",
+    element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "",
+        path: "login",
         element: <Login />,
       },
       {
@@ -40,15 +40,8 @@ const router = createBrowserRouter([
         path: "change",
         element: <ChangePassword />,
       },
-    ]
-  },
-  {
-    path: "/app",
-    element: <App />,
-    errorElement: <ErrorPage />,
-    children: [
       {
-        path: "notes",
+        path: "",
         element: <Notes />,
       },
       {

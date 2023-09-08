@@ -8,7 +8,7 @@ export default function App() {
             <div className="navbar">
                 <div className='navbar-body'>
                     <br />
-                    <span><Link to="notes">Notes</Link></span>
+                    <span><Link to="">Notes</Link></span>
                     <br /><br />
                     <span><Link to="settings">Settings</Link></span>
                 </div>
