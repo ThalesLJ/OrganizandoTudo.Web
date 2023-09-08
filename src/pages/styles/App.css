@@ -5,34 +5,38 @@
 }
 
 .navbar {
-    height: 95vh;
+    height: 100vh;
+    min-height: 100vh;
     width: 6%;
+    max-width: 6%;
+    min-width: 6%;
+    top: 0;
+    left: 0;
+    background-color: pink;
     color: white;
+    position: sticky;
 }
 
 .navbar-body {
-    height: 92vh;
+    height: 96vh;
+    min-height: 96vh;
     width: 70%;
+    margin: 15%;
     border-radius: 20px;
-    text-align: center;
-    margin-top: 10%;
-    margin-left: 15%;
-    color: white;
     background-color: greenyellow;
+    color: white;
+    text-align: center;
 }
 
 .body {
-    height: 95vh;
-    width: 94%;
-    color: white;
+    flex: 1;
     background-color: #282c34;
 }
 
-.footer {
-    height: 5vh;
-    width: 100%;
-    color: white;
-    background-color: blue;
+.App {
     text-align: center;
-    margin: auto;
+}
+
+.App-link {
+    color: #61dafb;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 
 import App from "./pages/controllers/App.js";
 import CreateAccount from "./pages/controllers/CreateAccount.js";
@@ -14,6 +14,11 @@ import Settings from "./pages/controllers/Settings.js";
 import ErrorPage from "./pages/controllers/ErrorPage.js";
 
 const router = createBrowserRouter([
+  {
+    path: "",
+    element: <Navigate to="/app" />,
+    errorElement: <ErrorPage />,
+  },    
   {
     path: "/login",
     element: <Account />,
@@ -38,12 +43,12 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: "",
+    path: "/app",
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "",
+        path: "notes",
         element: <Notes />,
       },
       {
