@@ -1,8 +1,8 @@
 import React from 'react';
 import { Outlet } from "react-router-dom";
-import "../styles/Account.css";
+import "../styles/Main.css";
 
-export default function Account() {
+export default function Main() {
     return (
         <div>
             <Outlet />

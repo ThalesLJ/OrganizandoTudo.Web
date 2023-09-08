@@ -8,7 +8,7 @@ import Login from "./pages/controllers/Login.js";
 import ForgotPassword from "./pages/controllers/ForgotPassword.js";
 import ChangePassword from "./pages/controllers/ChangePassword.js";
 import Notes from "./pages/controllers/Notes.js";
-import Account from "./pages/controllers/Account.js";
+import Main from "./pages/controllers/Main.js";
 import Settings from "./pages/controllers/Settings.js";
 
 import ErrorPage from "./pages/controllers/ErrorPage.js";
@@ -16,16 +16,11 @@ import ErrorPage from "./pages/controllers/ErrorPage.js";
 const router = createBrowserRouter([
   {
     path: "",
-    element: <Navigate to="/app" />,
-    errorElement: <ErrorPage />,
-  },    
-  {
-    path: "/app",
-    element: <App />,
+    element: <Main />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "login",
+        path: "",
         element: <Login />,
       },
       {
@@ -41,12 +36,18 @@ const router = createBrowserRouter([
         element: <ChangePassword />,
       },
       {
-        path: "",
-        element: <Notes />,
-      },
-      {
-        path: "settings",
-        element: <Settings />,
+        path: "app",
+        element: <App />,
+        children: [
+          {
+            path: "",
+            element: <Notes />,
+          },
+          {
+            path: "settings",
+            element: <Settings />,
+          },
+        ]
       },
     ]
   },
