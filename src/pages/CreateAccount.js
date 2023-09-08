@@ -3,7 +3,7 @@ import "../styles/CreateAccount.css";
 
 export default function CreateAccount() {
     return (
-        <div>
+        <div className='main'>
             <span>CreateAccount</span>
         </div>
     );

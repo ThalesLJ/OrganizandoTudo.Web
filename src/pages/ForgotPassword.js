@@ -3,7 +3,7 @@ import "../styles/ForgotPassword.css";
 
 export default function ForgotPassword() {
     return (
-        <div>
+        <div className='main'>
             <span>ForgotPassword</span>
         </div>
     );

@@ -3,7 +3,7 @@ import "../styles/ChangePassword.css";
 
 export default function ChangePassword() {
     return (
-        <div>
+        <div className='main'>
             <span>ChangePassword</span>
         </div>
     );

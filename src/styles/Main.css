@@ -5,3 +5,8 @@
 span{
     font-size: 2rem;
 }
+
+.main{
+    height: 100vh;
+    text-align: center;
+}
