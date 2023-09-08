@@ -4,7 +4,7 @@ import "../styles/CreateAccount.css";
 export default function CreateAccount() {
     return (
         <div>
-            CreateAccount
+            <span>CreateAccount</span>
         </div>
     );
 }

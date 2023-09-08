@@ -4,7 +4,7 @@ import "../styles/ChangePassword.css";
 export default function ChangePassword() {
     return (
         <div>
-            ChangePassword
+            <span>ChangePassword</span>
         </div>
     );
 }

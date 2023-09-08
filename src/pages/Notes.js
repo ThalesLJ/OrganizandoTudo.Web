@@ -4,7 +4,7 @@ import "../styles/Notes.css";
 export default function Notes() {
   return (
     <div>
-      Notes
+      <span>Notes</span>
     </div>
   );
 }

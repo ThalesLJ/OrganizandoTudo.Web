@@ -1,0 +1,55 @@
+.container {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.nav {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.navbody {
+    width: 5rem;
+    height: 90%;
+    padding: 15px;
+    margin: 15px;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.navicon{
+    font-size: 2rem;
+}
+
+.navicon :hover{
+    font-size: 3rem;
+}
+
+.body {
+    flex: 1;
+    padding: 20px;
+}
+
+.App {
+    text-align: center;
+}
+
+.App-link {
+    color: #61dafb;
+}

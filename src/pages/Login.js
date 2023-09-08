@@ -4,7 +4,7 @@ import "../styles/Login.css";
 export default function Login() {
   return (
     <div>
-      Login
+      <span>Login</span>
     </div>
   );
 }

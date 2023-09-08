@@ -2,16 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 
-import App from "./pages/controllers/App.js";
-import CreateAccount from "./pages/controllers/CreateAccount.js";
-import Login from "./pages/controllers/Login.js";
-import ForgotPassword from "./pages/controllers/ForgotPassword.js";
-import ChangePassword from "./pages/controllers/ChangePassword.js";
-import Notes from "./pages/controllers/Notes.js";
-import Main from "./pages/controllers/Main.js";
-import Settings from "./pages/controllers/Settings.js";
-
-import ErrorPage from "./pages/controllers/ErrorPage.js";
+import App from "./pages//App.js";
+import CreateAccount from "./pages//CreateAccount.js";
+import Login from "./pages//Login.js";
+import ForgotPassword from "./pages//ForgotPassword.js";
+import ChangePassword from "./pages//ChangePassword.js";
+import Notes from "./pages//Notes.js";
+import Main from "./pages//Main.js";
+import Settings from "./pages//Settings.js";
+import ErrorPage from "./pages//ErrorPage.js";
 
 const router = createBrowserRouter([
   {
