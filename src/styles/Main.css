@@ -1,12 +1,14 @@
+.main {
+    height: 100vh;
+    text-align: center;
+}
+
 .app-background {
     background: linear-gradient(179deg, #35C0ED, #8924E8);
 }
 
-span{
+span {
     font-size: 2rem;
-}
-
-.main{
-    height: 100vh;
-    text-align: center;
+    user-select: none;
+    color: black;
 }

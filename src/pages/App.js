@@ -10,16 +10,16 @@ export default function App() {
             <div className="nav">
                 <div className='navbody'>
                     <br />
-                    <div className='navicon'>
-                        <FiHome>
-                            <Link to=""></Link>
-                        </FiHome>
+                    <div className='navicon-content'>
+                        <div className='navicon'>
+                            <Link className='icon' to=""><FiHome /></Link>
+                        </div>
                     </div>
                     <br /><br />
-                    <div className='navicon'>
-                        <FiSettings className='navicon'>
-                            <Link to="settings"></Link>
-                        </FiSettings>
+                    <div className='navicon-content'>
+                        <div className='navicon'>
+                            <Link className='icon' to="settings"><FiSettings /></Link>
+                        </div>
                     </div>
                 </div>
             </div>
