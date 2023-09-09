@@ -1,6 +1,5 @@
 import React from 'react';
 import { Outlet, Link } from "react-router-dom";
-import "../styles/App.css";
 
 import { FiHome, FiSettings } from "react-icons/fi";
 

@@ -1,9 +1,8 @@
 import React from 'react';
-import "../styles/Notes.css";
 
 export default function Notes() {
   return (
-    <div>
+    <div className='container'>
       <span>Notes</span>
     </div>
   );

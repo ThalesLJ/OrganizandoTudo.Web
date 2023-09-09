@@ -1,9 +1,8 @@
 import React from 'react';
-import "../styles/Settings.css";
 
 export default function Settings() {
   return (
-    <div>
+    <div className='container'>
       <span>Settings</span>
     </div>
   );

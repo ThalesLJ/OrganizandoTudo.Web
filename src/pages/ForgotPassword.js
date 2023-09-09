@@ -1,9 +1,8 @@
 import React from 'react';
-import "../styles/ForgotPassword.css";
 
 export default function ForgotPassword() {
     return (
-        <div className='main'>
+        <div className='container'>
             <span>ForgotPassword</span>
         </div>
     );
