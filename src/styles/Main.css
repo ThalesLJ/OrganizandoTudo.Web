@@ -1,6 +1,7 @@
 /*MAIN*/
 .app-background {
     height: 100vh;
+    width: 100%;
     background: linear-gradient(179deg, #35C0ED, #8924E8);
 }
 
@@ -16,9 +17,21 @@
     flex-direction: column;
 }
 
+.not-vis{
+    opacity: 0;
+}
+
 .center {
     text-align: center;
     justify-content: center;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.height100 {
+    height: 100vh;
 }
 
 span {
@@ -97,6 +110,12 @@ span {
     color: #61dafb;
 }
 
+.logout{
+    position: absolute;
+    bottom: 30px;
+    right: 1px;
+}
+
 
 /*LOGIN*/
 .loginForm {
@@ -110,18 +129,6 @@ span {
     background-color: white;
     display: flex;
     flex-direction: row;
-}
-
-.vis {
-    opacity: 100%;
-    background-color: white;
-    width: 100%;
-}
-
-.invis {
-    opacity: 0%;
-    background-color: white;
-    width: 0%;
 }
 
 .rights-container {

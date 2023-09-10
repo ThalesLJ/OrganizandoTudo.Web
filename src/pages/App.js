@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet, Link } from "react-router-dom";
 
-import { FiHome, FiSettings } from "react-icons/fi";
+import { FiHome, FiSettings, FiLogOut } from "react-icons/fi";
 
 export default function App() {
     return (
@@ -18,6 +18,36 @@ export default function App() {
                     <div className='navicon-content'>
                         <div className='navicon'>
                             <Link className='icon' to="settings"><FiSettings /></Link>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div className='navicon-content not-vis'>
+                        <div className='navicon'>
+                            <Link className='icon' to="settings"><FiSettings /></Link>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div className='navicon-content not-vis'>
+                        <div className='navicon'>
+                            <Link className='icon' to="settings"><FiSettings /></Link>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div className='navicon-content not-vis'>
+                        <div className='navicon'>
+                            <Link className='icon' to="settings"><FiSettings /></Link>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div className='navicon-content not-vis'>
+                        <div className='navicon'>
+                            <Link className='icon' to="settings"><FiSettings /></Link>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div className='navicon-content logout'>
+                        <div className='navicon'>
+                            <Link className='icon' to="/"><FiLogOut /></Link>
                         </div>
                     </div>
                 </div>

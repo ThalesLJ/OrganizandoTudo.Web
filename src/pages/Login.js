@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { AiFillLinkedin } from 'react-icons/ai';
-import { AnimatePresence, AnimationControls, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
 
   const [login, setLogin] = useState(true);
-  const [sign, setSign] = useState(true);
+  const [sign, setSign] = useState(false);
 
   const toogleLogin = () => {
     if (login === true) {
@@ -33,19 +34,20 @@ export default function Login() {
 
         {login === true && (
           <AnimatePresence>
-            <motion.div id='login' className={login === true ? 'vis fade' : 'invis'}
+            <motion.div className="width100"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5 }}
               exit={{ scale: 0 }} >
-              <span onClick={() => toogleLogin()}>login</span>
+              <span onClick={() => toogleLogin()}>login</span><br/><br/>
+              <Link to="/app"><button>Login</button></Link>
             </motion.div>
           </AnimatePresence>
         )}
 
         {sign === true && (
           <AnimatePresence>
-            <motion.div id='create' className={login === true ? 'invis' : 'vis'}
+            <motion.div className="width100"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5 }}
