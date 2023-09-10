@@ -1,15 +1,29 @@
 import React, { useState } from 'react';
 import { AiFillLinkedin } from 'react-icons/ai';
+import { AnimatePresence, AnimationControls, motion } from 'framer-motion';
 
 export default function Login() {
 
   const [login, setLogin] = useState(true);
+  const [sign, setSign] = useState(true);
 
-  const toogle = () => {
+  const toogleLogin = () => {
     if (login === true) {
       setLogin(false);
+      setSign(true);
     } else {
       setLogin(true);
+      setSign(false);
+    }
+  };
+
+  const toogleSign = () => {
+    if (sign === true) {
+      setSign(false);
+      setLogin(true);
+    } else {
+      setSign(true);
+      setLogin(false);
     }
   };
 
@@ -17,24 +31,36 @@ export default function Login() {
     <div className='container2 center'>
       <div className="loginForm">
 
-        <div className='welcome'>
-          <span>welcome</span>
-        </div>
+        {login === true && (
+          <AnimatePresence>
+            <motion.div id='login' className={login === true ? 'vis fade' : 'invis'}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+              exit={{ scale: 0 }} >
+              <span onClick={() => toogleLogin()}>login</span>
+            </motion.div>
+          </AnimatePresence>
+        )}
 
-        <div id='login' className={login === true ? 'vis fade' : 'invis'}>
-          <span onClick={() => toogle()}>login</span>
-        </div>
-
-        <div id='create' className={login === true ? 'invis' : 'vis'}>
-          <span onClick={() => toogle()}>create</span>
-        </div>
+        {sign === true && (
+          <AnimatePresence>
+            <motion.div id='create' className={login === true ? 'invis' : 'vis'}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+              exit={{ scale: 0 }} >
+              <span onClick={() => toogleSign()}>create</span>
+            </motion.div>
+          </AnimatePresence>
+        )}
 
       </div>
 
-      <div className='rights-container'>
+      <a href='https://www.linkedin.com/in/thaleslj/' className='rights-container'>
         <span className='rights'>by Thales Lima </span>
-        <a href='https://www.linkedin.com/in/thaleslj/'><AiFillLinkedin className='rights-linkedin' /></a>
-      </div>
+        <AiFillLinkedin className='rights-linkedin' />
+      </a>
     </div>
   );
 }

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 
 import App from "./pages//App.js";
-import CreateAccount from "./pages//CreateAccount.js";
 import Login from "./pages//Login.js";
 import ForgotPassword from "./pages//ForgotPassword.js";
 import ChangePassword from "./pages//ChangePassword.js";
@@ -25,10 +24,6 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
-      },
-      {
-        path: "create",
-        element: <CreateAccount />,
       },
       {
         path: "forgot",

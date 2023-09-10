@@ -100,32 +100,26 @@ span {
 
 /*LOGIN*/
 .loginForm {
-    width: 60%;
+    width: 25%;
     height: 60vh;
     margin-top: 4rem;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 37%;
+    margin-right: 37%;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     color: white;
+    background-color: white;
     display: flex;
     flex-direction: row;
 }
 
-.welcome {
-    background-color: pink;
-    width: 60%;
-    background-image: url("../assets/images/welcome.webp");
-    background-size: auto;
-}
-
 .vis {
+    opacity: 100%;
     background-color: white;
-    width: 40%;
-    transition: margin 5s;
+    width: 100%;
 }
 
 .invis {
-    opacity: 0;
+    opacity: 0%;
     background-color: white;
     width: 0%;
 }
@@ -133,6 +127,8 @@ span {
 .rights-container {
     text-align: center;
     margin-top: 15px;
+    text-decoration: none;
+    user-select: none;
 }
 
 .rights {
