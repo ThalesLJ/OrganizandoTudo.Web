@@ -17,8 +17,14 @@
     flex-direction: column;
 }
 
-.not-vis{
+.vis {
+    opacity: 1;
+    display: block;
+}
+
+.not-vis {
     opacity: 0;
+    display: none;
 }
 
 .center {
@@ -32,6 +38,18 @@
 
 .height100 {
     height: 100vh;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.bg-black {
+    background-color: black;
+}
+
+.no-decoration {
+    text-decoration: none;
 }
 
 span {
@@ -110,7 +128,7 @@ span {
     color: #61dafb;
 }
 
-.logout{
+.logout {
     position: absolute;
     bottom: 30px;
     right: 1px;
@@ -118,17 +136,83 @@ span {
 
 
 /*LOGIN*/
-.loginForm {
-    width: 25%;
+.login-form {
+    width: 50%;
     height: 60vh;
     margin-top: 4rem;
-    margin-left: 37%;
-    margin-right: 37%;
+    margin-left: 25%;
+    margin-right: 25%;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    color: white;
+    border-radius: 15px;
     background-color: white;
+    color: white;
     display: flex;
     flex-direction: row;
+    overflow: hidden;
+}
+
+.info {
+    width: 40%;
+    background-color: #1E2F4C;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.info-txt {
+    color: white;
+}
+
+.login {
+    width: 60%;
+    background-color: white;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.login-txt {
+    color: black;
+}
+
+.not-vis-welcome {
+    opacity: 0;
+    display: none;
+    transform: translateX(650px) translateZ(0px);
+}
+
+.not-vis-create {
+    opacity: 0;
+    display: none;
+    transform: translateX(-420px) translateZ(0px);
+}
+
+.login-form2 {
+    width: 40%;
+    height: 60vh;
+    margin-top: 4rem;
+    margin-left: 30%;
+    margin-right: 25%;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border-radius: 15px;
+    background-color: white;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.login-form3 {
+    width: 80%;
+    height: 60vh;
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border-radius: 15px;
+    background-color: white;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
 }
 
 .rights-container {
@@ -147,25 +231,4 @@ span {
     margin-bottom: -5px;
     color: white;
     font-size: 25px;
-}
-
-
-/*CREATE*/
-.createForm {
-    width: 29rem;
-    height: 52vh;
-    padding: 15px;
-    margin-top: 8rem;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    color: white;
-
-    background: rgba(255, 255, 255, 0);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    border-radius: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
 }
