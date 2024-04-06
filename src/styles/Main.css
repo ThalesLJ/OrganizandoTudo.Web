@@ -198,41 +198,7 @@ span {
 
 .login-btnAcessar {
     padding: 10px;
-    width: 50%;
-}
-
-.login-logo {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display: inline-block;
-    text-align: start;
-}
-
-.login-logo img {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 4vw;
-    height: 4vw;
-}
-
-.login-logo span {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 100%;
-}
-
-.login-folhinha {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    display: inline-block;
-    text-align: start;
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    z-index: 99;
+    width: 80%;
 }
 
 .rights-container {

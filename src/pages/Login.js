@@ -9,8 +9,6 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AiFillLinkedin } from 'react-icons/ai';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import LogoNegativo from '../assets/icone-negativo/logo.png';
-import FolhinhaPositiva from '../assets/folhinha-positiva.png';
 
 export default function Login() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -36,7 +34,7 @@ export default function Login() {
 
           <br /><br />
           <span className='login-txtTitulo' onClick={() => { }}>Login</span>
-          <br /><br /><br />
+          <br /><br />
 
           <FormControl className='login-divUsuario' sx={{ m: 1, width: '25ch' }} variant="outlined">
             <span className='login-txtLabels'>Usuário</span>
@@ -77,15 +75,6 @@ export default function Login() {
 
         </AnimatePresence>
       </motion.div>
-
-      <div className='login-logo'>
-        <img alt='OrganizandoTudo' src={LogoNegativo} />
-        <span>OrganizandoTudo</span>
-      </div>
-
-      <div className='login-folhinha'>
-        <img alt='' src={FolhinhaPositiva} />
-      </div>
 
     </div>
   );
