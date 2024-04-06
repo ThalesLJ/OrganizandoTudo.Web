@@ -12,13 +12,18 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AiFillLinkedin } from 'react-icons/ai';
 
 export default function Login() {
-  const [usuario, setUsuario] = React.useState('');
+  const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+  function Login() {
+    console.log(username);
+    console.log(password);
+  }
 
   const ColorButton = styled(Button)(({ theme }) => ({
     color: '#ffe3d5',
@@ -37,38 +42,42 @@ export default function Login() {
           <span className='login-txtTitulo' onClick={() => { }}>Login</span>
           <br /><br />
 
-          <FormControl className='login-divUsuario' sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <span className='login-txtLabels'>Usuário</span>
-            <OutlinedInput className='login-inputUsuario' id="usuario" type='text'
-              onChange={(e) => { setUsuario(e.target.value) }}
-            />
-          </FormControl>
+          <form onSubmit={() => { Login() }}>
 
-          <br />
+            <FormControl className='login-divUsuario' sx={{ m: 1, width: '25ch' }} variant="outlined">
+              <span className='login-txtLabels'>Usuário</span>
+              <OutlinedInput className='login-inputUsuario' id="usuario" type='text' required
+                onChange={(e) => { setUsername(e.target.value) }}
+              />
+            </FormControl>
 
-          <FormControl className='login-divSenha' sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <span className='login-txtLabels'>Senha</span>
-            <OutlinedInput className='login-inputSenha' id="senha"
-              onChange={(e) => { setUsuario(e.target.value) }}
-              type={
-                showPassword ? 'text' : 'password'
-              }
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end" > {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
+            <br />
 
-          <br /><br />
+            <FormControl className='login-divSenha' sx={{ m: 1, width: '25ch' }} variant="outlined">
+              <span className='login-txtLabels'>Senha</span>
+              <OutlinedInput className='login-inputSenha' id="senha" required
+                onChange={(e) => { setPassword(e.target.value) }}
+                type={
+                  showPassword ? 'text' : 'password'
+                }
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end" > {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+            
+            <br /><br />
 
-          <Link to='/notes'><ColorButton className='login-btnAcessar' variant="contained">Acessar</ColorButton></Link>
+            <Link to='/notes'><ColorButton type='submit' className='login-btnAcessar' variant="contained">Acessar</ColorButton></Link>
+
+          </form>
 
           <br /><br /><br /><br />
 
