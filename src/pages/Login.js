@@ -1,120 +1,92 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import { Button, styled } from '@mui/material';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AiFillLinkedin } from 'react-icons/ai';
-import { AnimatePresence, motion, useAnimation } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import LogoNegativo from '../assets/icone-negativo/logo.png';
+import FolhinhaPositiva from '../assets/folhinha-positiva.png';
 
 export default function Login() {
-
-  const [slide, setSlide] = useState(true);
-  const infoControl = useAnimation();
-  const formControl = useAnimation();
-
-  const welcomeBack = useAnimation();
-  const welcome = useAnimation();
-  const loginAction = useAnimation();
-  const createAction = useAnimation();
-
-  const toogle = () => {
-    setSlide(!slide);
-
-    if (slide) {
-      welcome.start({ x: 650, opacity: 0, display: 'none' }, { duration: 0 }); // Hide
-      createAction.start({ x: -420, opacity: 0, display: 'none' }, { duration: 0 }); // Hide
-      welcomeBack.start({ x: -650, opacity: 0, display: 'none' }, { duration: 0 }); // Hide
-      loginAction.start({ x: 420, opacity: 0, display: 'none' }, { duration: 0 }); // Hide
-
-      welcome.start({ opacity: 1, display: 'block' }, { duration: 1 }); // Show
-      welcome.start({ x: 0 }, { duration: 1 }); // Show
-      createAction.start({ opacity: 1, display: 'block' }, { duration: 1 }); // Show
-      createAction.start({ x: 0 }, { duration: 1 }); // Show
-
-      infoControl.start({ x: '60.3vh' }, { duration: 1 }); // Slide
-      formControl.start({ x: '-40vh' }, { duration: 1 }); // Slide
-    } else {
-      welcomeBack.start({ x: -650, opacity: 0, display: 'none' }, { duration: 0 }); // Hide
-      loginAction.start({ x: 420, opacity: 0, display: 'none' }, { duration: 0 }); // Hide
-      welcome.start({ x: 650, opacity: 0, display: 'none' }, { duration: 0 }); // Hide
-      createAction.start({ x: -420, opacity: 0, display: 'none' }, { duration: 0 }); // Hide
-
-      welcomeBack.start({ opacity: 1, display: 'block' }, { duration: 1 }); // Show
-      welcomeBack.start({ x: 0 }, { duration: 1 }); // Show
-      loginAction.start({ opacity: 1, display: 'block' }, { duration: 1 }); // Show
-      loginAction.start({ x: 0 }, { duration: 1 }); // Show
-
-      infoControl.start({ x: '0%' }, { duration: 1 }); // Slide
-      formControl.start({ x: '0%' }, { duration: 1 }); // Slide
-    }
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
-  const [width, setWidth] = useState(window.innerWidth);
-
-  setTimeout(() => {
-    // alert('Width: ' + width)
-  }, 0);
+  const ColorButton = styled(Button)(({ theme }) => ({
+    color: '#ffe3d5',
+    backgroundColor: '#946a56',
+    '&:hover': {
+      backgroundColor: '#a87861',
+      color: '#e2c8bc'
+    },
+  }));
 
   return (
     <div className='container2 center'>
 
-      {width === 2134 && (
-        <div className='login-form'>
-          <AnimatePresence>
-            <motion.div className='info' animate={infoControl}>
+      <motion.div className='login' initial={{ x: 0, opacity: 1, display: 'block' }}>
+        <AnimatePresence>
 
-              <AnimatePresence>
-                <motion.div initial={{ x: 0, opacity: 1, display: 'block' }} animate={welcomeBack}>
-                  <span className='info-txt' onClick={() => toogle()}>Welcome back!</span>
-                </motion.div>
-              </AnimatePresence>
+          <br /><br />
+          <span className='login-txtTitulo' onClick={() => { }}>Login</span>
+          <br /><br /><br />
 
+          <FormControl className='login-divUsuario' sx={{ m: 1, width: '25ch' }} variant="outlined">
+            <span className='login-txtLabels'>Usuário</span>
+            <OutlinedInput className='login-inputUsuario' id="usuario" type='text' />
+          </FormControl>
 
-              <AnimatePresence>
-                <motion.div initial={{ x: 650, opacity: 0, display: 'none' }} animate={welcome}>
-                  <span className='info-txt' onClick={() => toogle()}>Welcome!</span>
-                </motion.div>
-              </AnimatePresence>
+          <br />
 
-            </motion.div>
-          </AnimatePresence>
+          <FormControl className='login-divSenha' sx={{ m: 1, width: '25ch' }} variant="outlined">
+            <span className='login-txtLabels'>Senha</span>
+            <OutlinedInput className='login-inputSenha' id="senha" type={showPassword ? 'text' : 'password'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end" > {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
 
-          <AnimatePresence>
-            <motion.div className='login' animate={formControl}>
+          <br /><br />
 
-              <AnimatePresence>
-                <motion.div initial={{ x: 0, opacity: 1, display: 'block' }} animate={loginAction}>
-                  <span className='login-txt' onClick={() => toogle()}>Login</span>
-                  <br /><br /><Link to='/app'><button>Acessar</button></Link>
-                </motion.div>
-              </AnimatePresence>
+          <Link to='/app'><ColorButton className='login-btnAcessar' variant="contained">Acessar</ColorButton></Link>
 
-              <AnimatePresence>
-                <motion.div initial={{ x: -420, opacity: 0, display: 'none' }} animate={createAction}>
-                  <span className='login-txt' onClick={() => toogle()}>Create Account</span>
-                </motion.div>
-              </AnimatePresence>
+          <br /><br /><br /><br />
 
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      )}
+          <div className='rights-container'>
+            <a href='https://www.linkedin.com/in/thaleslj' className='no-decoration'>
+              <span className='rights'>Thales Lima </span>
+              <AiFillLinkedin className='rights-linkedin' />
+            </a>
+          </div>
+          <br /><br />
 
-      {width < 2134 && width >= 1000 && (
-        <div className='login-form2'>
+        </AnimatePresence>
+      </motion.div>
 
-        </div>
-      )}
-
-      {width <= 1000 && (
-        <div className='login-form3'>
-
-        </div>
-      )}
-
-      <div className='rights-container'>
-        <a href='https://www.linkedin.com/in/thaleslj/' className='no-decoration'>
-          <span className='rights'>by Thales Lima </span>
-          <AiFillLinkedin className='rights-linkedin' />
-        </a>
+      <div className='login-logo'>
+        <img alt='OrganizandoTudo' src={LogoNegativo} />
+        <span>OrganizandoTudo</span>
       </div>
+
+      <div className='login-folhinha'>
+        <img alt='' src={FolhinhaPositiva} />
+      </div>
+
     </div>
   );
 }
