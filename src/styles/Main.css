@@ -4,6 +4,7 @@
     width: 100%;
     /*background: linear-gradient(179deg, #35C0ED, #8924E8);*/
     background-color: #ffe3d5;
+    height: 100svh;
 }
 
 .container {
@@ -138,83 +139,4 @@ span {
     position: absolute;
     bottom: 30px;
     right: 1px;
-}
-
-
-/*LOGIN*/
-.login {
-    position: absolute;
-    color: #946a56;
-    background-color: transparent;
-    overflow: hidden;
-    /*border: black;
-    border-style: solid;
-    border-width: 1px;*/
-
-    width: 25vw;
-    margin: 0;
-    top: 15%;
-    border-radius: 15px;
-    z-index: 999;
-}
-
-.login-txtTitulo {
-    color: #946a56;
-    margin-top: 100px;
-    font-size: 50px;
-    font-weight: 800;
-}
-
-.login-txtLabels {
-    text-align: start;
-    color: #946a56;
-    font-size: 18px;
-    width: 50%;
-}
-
-.login-divtxtUsuario {
-    width: 50%;
-}
-
-.login-divUsuario {
-    width: 80% !important;
-}
-
-.login-inputUsuario {
-    width: 100%;
-}
-
-.login-divSenha {
-    width: 80% !important;
-}
-
-.login-divSenha {
-    width: 100%;
-}
-
-.login-inputSenha {
-    width: 100%;
-}
-
-.login-btnAcessar {
-    padding: 10px;
-    width: 80%;
-}
-
-.rights-container {
-    text-align: center;
-    margin-top: 15px;
-    text-decoration: none;
-    user-select: none;
-}
-
-.rights {
-    color: #946a56;
-    font-size: 18px;
-}
-
-.rights-linkedin {
-    margin-bottom: -5px;
-    color: #946a56;
-    font-size: 25px;
 }

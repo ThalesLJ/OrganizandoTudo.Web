@@ -1,14 +1,15 @@
 import * as React from 'react';
+import { Button, styled } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
-import { Button, styled } from '@mui/material';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AiFillLinkedin } from 'react-icons/ai';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import "../styles/Login.css";
 
 export default function Login() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -65,10 +66,10 @@ export default function Login() {
 
           <br /><br /><br /><br />
 
-          <div className='rights-container'>
+          <div className='login-rightsContainer'>
             <a href='https://www.linkedin.com/in/thaleslj' className='no-decoration'>
-              <span className='rights'>Thales Lima </span>
-              <AiFillLinkedin className='rights-linkedin' />
+              <span className='login-rights'>Thales Lima </span>
+              <AiFillLinkedin className='login-rightsLinkedin' />
             </a>
           </div>
           <br /><br />
