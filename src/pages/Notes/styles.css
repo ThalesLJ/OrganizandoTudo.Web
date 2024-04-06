@@ -1,145 +1,65 @@
-.login {
-    position: absolute;
-    background-color: transparent;
-    overflow: hidden;
-    width: 100vw;
-    margin: 0;
-    top: 10%;
+.nav {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-@media only screen and (min-width: 480px) {
-    .login {
-        position: absolute;
-        background-color: transparent;
-        overflow: hidden;
-        width: 80vw;
-        margin: 0;
-        top: 15%;
-    }
-}
-
-@media only screen and (min-width: 600px) {
-    .login {
-        position: absolute;
-        background-color: transparent;
-        overflow: hidden;
-        width: 70vw;
-        margin: 0;
-        top: 15%;
-    }
-}
-
-@media only screen and (min-width: 768px) {
-    .login {
-        position: absolute;
-        background-color: transparent;
-        overflow: hidden;
-        width: 60vw;
-        margin: 0;
-        top: 15%;
-    }
-}
-
-@media only screen and (min-width: 936px) {
-    .login {
-        position: absolute;
-        background-color: transparent;
-        overflow: hidden;
-        width: 50vw;
-        margin: 0;
-        top: 15%;
-    }
-}
-
-@media only screen and (min-width: 1100px) {
-    .login {
-        position: absolute;
-        background-color: transparent;
-        overflow: hidden;
-        width: 40vw;
-        margin: 0;
-        top: 15%;
-    }
-}
-
-@media only screen and (min-width: 1300px) {
-    .login {
-        position: absolute;
-        background-color: transparent;
-        overflow: hidden;
-        width: 30vw;
-        margin: 0;
-        top: 15%;
-    }
-}
-
-@media only screen and (min-width: 1500px) {
-    .login {
-        position: absolute;
-        background-color: transparent;
-        overflow: hidden;
-        width: 25vw;
-        margin: 0;
-        top: 15%;
-    }
-}
-
-.login-txtTitulo {
-    color: #946a56;
-    font-size: 50px;
-    font-weight: 800;
-}
-
-.login-txtLabels {
-    text-align: start;
-    color: #946a56;
-    font-size: 18px;
-    width: 50%;
-}
-
-.login-divtxtUsuario {
-    width: 50%;
-}
-
-.login-divUsuario {
-    width: 80% !important;
-}
-
-.login-inputUsuario {
-    width: 100%;
-}
-
-.login-divSenha {
-    width: 80% !important;
-}
-
-.login-divSenha {
-    width: 100%;
-}
-
-.login-inputSenha {
-    width: 100%;
-}
-
-.login-btnAcessar {
-    padding: 10px;
-    width: 80%;
-}
-
-.login-rightsContainer {
+.navbody {
+    width: 5rem;
+    height: 90%;
+    padding: 15px;
+    margin: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     text-align: center;
-    text-decoration: none;
-    user-select: none;
-    margin-top: 15px;
+    color: white;
+
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-.login-rights {
-    color: #946a56;
-    font-size: 18px;
+.navicon-content {
+    width: 100%;
+    height: 3rem;
+    text-align: center;
 }
 
-.login-rightsLinkedin {
-    margin-bottom: -5px;
-    color: #946a56;
-    font-size: 25px;
+.navicon-content :hover {
+    font-size: 3rem;
+}
+
+.navicon {
+    font-size: 2.5rem;
+}
+
+.icon {
+    color: white;
+}
+
+.body {
+    flex: 1;
+    padding: 20px;
+}
+
+.App {
+    text-align: center;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+.logout {
+    position: absolute;
+    bottom: 30px;
+    right: 1px;
 }

@@ -10,12 +10,24 @@
     flex: 1;
 }
 
-span, p, button {
+span, p, button, h1, h2, h3, h4, h5, h6 {
     font-family: Prata !important;
 }
 
 .color1 {
     color: #946a56;
+}
+
+.color2 {
+    color: #ffe3d5;
+}
+
+.color3 {
+    color: #a87861;
+}
+
+.color4 {
+    color: #e2c8bc;
 }
 
 .bg1 {
