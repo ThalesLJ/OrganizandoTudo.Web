@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Observer } from 'mobx-react-lite';
 import "./styles.css";
 import { AnimatePresence, motion } from 'framer-motion';
 import { Button, styled } from '@mui/material';
@@ -10,18 +11,20 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AiFillLinkedin } from 'react-icons/ai';
 import ILogin from '../../types/ILogin';
-import useSimplePost from '../../services/useSimplePost.ts';
+import { useNavigate } from "react-router-dom";
+import Api from '../../services/Api';
+import Auth from '../../services/Auth';
+import TokenValidator from '../../services/TokenValidator';
 
 export default function Login() {
+  TokenValidator();
+
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false);
-  const { send, sucess, error } = useSimplePost();
 
+  const navigate = useNavigate();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
 
   const Login = async (event: React.FormEvent<HTMLFormElement>) => {
     const login: ILogin = {
@@ -29,12 +32,14 @@ export default function Login() {
       senha: password
     };
 
-    try {
-      send({ url: 'Login', data: login });
-      if (!sucess) alert(error);
-    } catch (ex) {
-      ex && alert(ex);
-    }
+    Api.Login(login)
+      .then((result) => {
+        Auth.login({ Apelido: result.Apelido, Email: result.Email, Token: result.Token });
+        if (result.Token != null) navigate("/notes");
+      })
+      .catch((error) => {
+        console.error('Promise rejected with error: ' + error);
+      });
 
     event.preventDefault();
   }
@@ -49,61 +54,66 @@ export default function Login() {
   }));
 
   return (
-    <div className='container'>
-      <AnimatePresence key='divLogin'>
-        <motion.div className='login' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} >
-          <br /><br />
-          <span className='login-txtTitulo' onClick={() => { }}>Login</span>
-          <br /><br />
+    <Observer>
+      {() => (
+        <div className='container'>
+          <AnimatePresence key='divLogin'>
+            <motion.div className='login' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} >
 
-          <form onSubmit={Login}>
+              <br /><br />
+              <span className='login-txtTitulo' onClick={() => { }}>Login</span>
+              <br /><br />
 
-            <FormControl className='login-divUsuario' sx={{ m: 1, width: '25ch' }} variant="outlined">
-              <span className='login-txtLabels'>Usuário</span>
-              <OutlinedInput className='login-inputUsuario' id="usuario" type='text' required
-                onChange={(e) => { setUsername(e.target.value) }}
-              />
-            </FormControl>
+              <form onSubmit={Login}>
 
-            <br />
+                <FormControl className='login-divUsuario' sx={{ m: 1, width: '25ch' }} variant="outlined">
+                  <span className='login-txtLabels'>Usuário</span>
+                  <OutlinedInput className='login-inputUsuario' id="usuario" type='text' required
+                    onChange={(e) => { setUsername(e.target.value) }}
+                  />
+                </FormControl>
 
-            <FormControl className='login-divSenha' sx={{ m: 1, width: '25ch' }} variant="outlined">
-              <span className='login-txtLabels'>Senha</span>
-              <OutlinedInput className='login-inputSenha' id="senha" required
-                onChange={(e) => { setPassword(e.target.value) }}
-                type={
-                  showPassword ? 'text' : 'password'
-                }
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end" > {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
+                <br />
 
-            <br /><br />
+                <FormControl className='login-divSenha' sx={{ m: 1, width: '25ch' }} variant="outlined">
+                  <span className='login-txtLabels'>Senha</span>
+                  <OutlinedInput className='login-inputSenha' id="senha" required
+                    onChange={(e) => { setPassword(e.target.value) }}
+                    type={
+                      showPassword ? 'text' : 'password'
+                    }
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          edge="end" > {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
 
-            <ColorButton type='submit' className='login-btnAcessar' variant="contained">Acessar</ColorButton>
+                <br /><br />
 
-          </form>
+                <ColorButton type='submit' className='login-btnAcessar' variant="contained">Acessar</ColorButton>
 
-          <br /><br /><br /><br />
+              </form>
 
-          <div className='login-rightsContainer'>
-            <a href='https://www.linkedin.com/in/thaleslj' className='no-decoration'>
-              <span className='login-rights'>Thales Lima </span>
-              <AiFillLinkedin className='login-rightsLinkedin' />
-            </a>
-          </div>
-          <br /><br />
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  );
+              <br /><br /><br /><br />
+
+              <div className='login-rightsContainer'>
+                <a href='https://www.linkedin.com/in/thaleslj' className='no-decoration'>
+                  <span className='login-rights'>Thales Lima </span>
+                  <AiFillLinkedin className='login-rightsLinkedin' />
+                </a>
+              </div>
+              <br /><br />
+
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      )}
+    </Observer>
+  )
 }
