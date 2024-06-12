@@ -14,7 +14,7 @@ function TokenValidator() {
       }
     }, 5 * 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [navigate]);
 }
 
 export default TokenValidator;
