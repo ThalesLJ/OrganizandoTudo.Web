@@ -8,14 +8,22 @@
     flex: 1;
 }
 
-.force-txtCenter{
+.force-txtCenter {
     text-align: center !important;
     align-items: center !important;
     align-self: center !important;
     justify-content: center !important;
 }
 
-span, p, button, h1, h2, h3, h4, h5, h6 {
+span,
+p,
+button,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     user-select: none;
     font-family: Prata !important;
 }
@@ -73,7 +81,35 @@ span, p, button, h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
 }
 
+/*NAVBAR*/
 .navbar-link {
     color: #FFFFFF !important;
     font-size: 18px !important;
 }
+
+.navbar-logo {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 20px;
+    margin-top: -5px;
+}
+
+.custom-navbar {
+    background-color: #a87861;
+    padding: 0.5rem 1rem;
+  }
+  
+  .custom-navbar .navbar-brand {
+    height: 40px;
+  }
+  
+  .custom-navbar .navbar-nav .nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 16px;
+  }
+  
+  .custom-navbar .navbar-toggler {
+    padding: 0.25rem 0.75rem;
+  }
