@@ -1,5 +1,5 @@
 export default interface IUser {
-    Apelido: string,
-    Email: string,
-    Token: string
+    name: string,
+    email: string,
+    token: string
 }

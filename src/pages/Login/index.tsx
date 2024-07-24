@@ -28,14 +28,14 @@ export default function Login() {
 
   const Login = async (event: React.FormEvent<HTMLFormElement>) => {
     const login: ILogin = {
-      apelido: username,
-      senha: password
+      name: username,
+      password: password
     };
 
     Api.Login(login)
       .then((result) => {
-        Auth.login({ Apelido: result.Apelido, Email: result.Email, Token: result.Token });
-        if (result.Token != null) navigate("/notes");
+        Auth.login({ name: result.name, email: result.email, token: result.token });
+        if (result.token != null) navigate("/notes");
       })
       .catch((error) => {
         console.error('Promise rejected with error: ' + error);

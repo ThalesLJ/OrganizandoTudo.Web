@@ -1,9 +1,18 @@
-import * as React from 'react';
-//import { Link } from 'react-router-dom';
 import "./styles.css";
-//import { AnimatePresence, motion } from 'framer-motion';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import { Observer } from "mobx-react-lite";
+import Auth from "../../services/Auth";
 
 export default function EntryApp() {
-  return ( <><Outlet></Outlet></> )
+  return (
+    Auth.isTokenValid()
+      ? <>
+        <Observer>
+          {() => (
+            <Navigate to="/notes" />
+          )}
+        </Observer>
+      </>
+      : <><Outlet></Outlet></>
+  )
 }

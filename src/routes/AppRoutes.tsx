@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "../src/pages/Login/index";
-import EntryApp from "./pages/EntryApp/index";
-import BaseApp from "./pages/BaseApp/index";
-import Notes from "./pages/Notes/index";
-import PageNotFound from "./pages/PageNotFound/index";
-import Authorized from "./utils/Authorized";
+import Login from "../pages/Login/index";
+import EntryApp from "../pages/EntryApp/index";
+import BaseApp from "../pages/BaseApp/index";
+import Notes from "../pages/Notes/index";
+import PageNotFound from "../pages/PageNotFound/index";
+import Authorized from "../utils/Authorized";
 
 export default function AppRoutes() {
     return (
