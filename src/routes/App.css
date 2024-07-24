@@ -5,8 +5,6 @@
     align-items: center;
     align-self: center;
     justify-content: center;
-    width: 100svw;
-    height: 100svh;
     flex: 1;
 }
 
@@ -73,4 +71,9 @@ span, p, button, h1, h2, h3, h4, h5, h6 {
 
 .no-decoration {
     text-decoration: none;
+}
+
+.navbar-link {
+    color: #FFFFFF !important;
+    font-size: 18px !important;
 }

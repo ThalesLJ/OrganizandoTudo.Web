@@ -6,6 +6,7 @@ import BaseApp from "../pages/BaseApp/index";
 import Notes from "../pages/Notes/index";
 import PageNotFound from "../pages/PageNotFound/index";
 import Authorized from "../utils/Authorized";
+import Settings from "../pages/Settings";
 
 export default function AppRoutes() {
     return (
@@ -20,6 +21,7 @@ export default function AppRoutes() {
                 <Route element={<Authorized />}>
                     <Route path="/" element={<BaseApp />} >
                         <Route path="/notes" element={<Notes />} />
+                        <Route path="/settings" element={<Settings />} />
                         <Route path="*" element={<PageNotFound />} />
                     </Route>
                 </Route>
