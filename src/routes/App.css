@@ -1,3 +1,4 @@
+/*APP*/
 .app-container {
     display: flex;
     flex-direction: row;
@@ -80,6 +81,7 @@ h6 {
 .no-decoration {
     text-decoration: none;
 }
+/*APP*/
 
 /*NAVBAR*/
 .navbar-link {
@@ -99,17 +101,19 @@ h6 {
 .custom-navbar {
     background-color: #a87861;
     padding: 0.5rem 1rem;
-  }
-  
-  .custom-navbar .navbar-brand {
+}
+
+.custom-navbar .navbar-brand {
     height: 40px;
-  }
-  
-  .custom-navbar .navbar-nav .nav-link {
+}
+
+.custom-navbar .navbar-nav .nav-link {
     padding: 0.5rem 1rem;
     font-size: 16px;
-  }
-  
-  .custom-navbar .navbar-toggler {
+}
+
+.custom-navbar .navbar-toggler {
     padding: 0.25rem 0.75rem;
-  }
+    margin-right: 1rem;
+}
+/*NAVBAR*/
