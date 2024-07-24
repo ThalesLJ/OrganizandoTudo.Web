@@ -56,7 +56,7 @@ export default function Login() {
   return (
     <Observer>
       {() => (
-        <div className='container'>
+        <div className='app-container'>
           <AnimatePresence key='divLogin'>
             <motion.div className='login' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} >
 

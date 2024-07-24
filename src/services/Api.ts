@@ -2,7 +2,8 @@ import ILogin from "../types/ILogin";
 import IResponse from "../types/IResponse";
 import IUser from "../types/IUser";
 import IUserData from "../types/IUserData";
-import INote from "../types/Note";
+import INote from "../types/INote";
+import INotes from "../types/INotes";
 
 const baseURL = 'https://organizandotudo-api.onrender.com';
 
@@ -158,7 +159,7 @@ class Api {
 
     async GetNote(id: string, token: string) {
         try {
-            let response = await fetch(`${baseURL}/GetNote/${id}`,
+            let response = await fetch(`${baseURL}/Note/${id}`,
                 {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` }
@@ -172,19 +173,19 @@ class Api {
         }
     }
 
-    async GetNotes(token: string) {
+    async GetNotes(token: string): Promise<INotes[]> {
         try {
-            let response = await fetch(`${baseURL}/GetNotes`,
+            let response = await fetch(`${baseURL}/Notes`,
                 {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` }
                 }
             );
 
-            let result: INote[] = await response.json();
+            let result: INotes[] = await response.json();
             return result;
         } catch (ex) {
-            return { message: `${ex}`, code: "Error" };
+            return [];
         }
     }
 }

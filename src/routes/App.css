@@ -1,4 +1,4 @@
-.container {
+.app-container {
     display: flex;
     flex-direction: row;
     text-align: center;
@@ -8,6 +8,13 @@
     width: 100svw;
     height: 100svh;
     flex: 1;
+}
+
+.force-txtCenter{
+    text-align: center !important;
+    align-items: center !important;
+    align-self: center !important;
+    justify-content: center !important;
 }
 
 span, p, button, h1, h2, h3, h4, h5, h6 {
