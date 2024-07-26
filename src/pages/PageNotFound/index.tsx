@@ -1,9 +1,6 @@
-import * as React from 'react';
-//import { Link } from 'react-router-dom';
 import "./styles.css";
-//import { AnimatePresence, motion } from 'framer-motion';
 
-export default function ErrorPage() {
+export default function PageNotFound() {
   return (
     <div className="error-page">
       <h1>Oops!</h1>

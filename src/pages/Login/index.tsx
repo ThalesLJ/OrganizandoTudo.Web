@@ -1,8 +1,8 @@
+import "./styles.css";
 import * as React from 'react';
 import { Observer } from 'mobx-react-lite';
-import "./styles.css";
 import { AnimatePresence, motion } from 'framer-motion';
-import { Button, styled } from '@mui/material';
+import { Button, CircularProgress, styled } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -22,11 +22,14 @@ export default function Login() {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false);
+  const [isLogging, setIsLogging] = React.useState(false);
 
   const navigate = useNavigate();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const Login = async (event: React.FormEvent<HTMLFormElement>) => {
+    setIsLogging(true);
+
     const login: ILogin = {
       name: username,
       password: password
@@ -35,10 +38,12 @@ export default function Login() {
     Api.Login(login)
       .then((result) => {
         Auth.login({ name: result.name, email: result.email, token: result.token });
-        if (result.token != null) navigate("/notes");
+        setIsLogging(false);
+        if (result.token != null) navigate("/Notes");
       })
       .catch((error) => {
-        console.error('Promise rejected with error: ' + error);
+        setIsLogging(false);
+        alert('Promise rejected with error: ' + error);
       });
 
     event.preventDefault();
@@ -84,10 +89,8 @@ export default function Login() {
                     }
                     endAdornment={
                       <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          edge="end" > {showPassword ? <VisibilityOff /> : <Visibility />}
+                        <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} edge="end" >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
                     }
@@ -96,7 +99,9 @@ export default function Login() {
 
                 <br /><br />
 
-                <ColorButton type='submit' className='login-btnAcessar' variant="contained">Acessar</ColorButton>
+                <ColorButton type='submit' className='login-btnAcessar' variant="contained">
+                  {isLogging ? (<CircularProgress size={24} color="inherit" />) : ('Acessar')}
+                </ColorButton>
 
               </form>
 

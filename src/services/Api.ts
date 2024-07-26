@@ -91,9 +91,9 @@ class Api {
         }
     }
 
-    async PostNote(data: INote, token: string) {
+    async CreateNote(data: INote, token: string) {
         try {
-            let response = await fetch(`${baseURL}/PostNote`,
+            let response = await fetch(`${baseURL}/Note`,
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` },
@@ -110,7 +110,7 @@ class Api {
 
     async UpdateNote(data: INote, id: string, token: string) {
         try {
-            let response = await fetch(`${baseURL}/UpdateNote/${id}`,
+            let response = await fetch(`${baseURL}/Note/${id}`,
                 {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` },
@@ -127,7 +127,7 @@ class Api {
 
     async DeleteNote(id: string, token: string) {
         try {
-            let response = await fetch(`${baseURL}/DeleteNote/${id}`,
+            let response = await fetch(`${baseURL}/Note/${id}`,
                 {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` }
@@ -157,7 +157,7 @@ class Api {
         }
     }
 
-    async GetNote(id: string, token: string) {
+    async GetNote(id: string, token: string): Promise<INote> {
         try {
             let response = await fetch(`${baseURL}/Note/${id}`,
                 {
@@ -169,7 +169,7 @@ class Api {
             let result: INote = await response.json();
             return result;
         } catch (ex) {
-            return { message: `${ex}`, code: "Error" };
+            return { id: '', title: `${ex}`, content: "Error" };
         }
     }
 
