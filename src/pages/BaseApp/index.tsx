@@ -2,7 +2,7 @@ import "./styles.css";
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import logo from '../../assets/O-positivo-simples.png';
-import { AiOutlineLogout } from 'react-icons/ai';
+import { BiLogOut } from "react-icons/bi";
 import Auth from "../../services/Auth";
 
 export default function BaseApp() {
@@ -27,7 +27,7 @@ export default function BaseApp() {
           </Nav>
           <Nav className="logout-container">
             <Nav.Link onClick={Logout} className="logout-icon">
-              <AiOutlineLogout size={24} />
+              <BiLogOut size={24} />
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
