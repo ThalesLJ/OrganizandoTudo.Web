@@ -25,7 +25,21 @@ export default function CreateNote() {
 
   const navigate = useNavigate();
 
-  const Save = async (event: React.FormEvent<HTMLFormElement>) => {
+  React.useEffect(() => {
+    const handleKeyDown = (event: any) => {
+      if (event.ctrlKey && event.key === 'Enter') {
+        Save();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [title, content]);
+
+  const Save = async () => {
     setIsSaving(true);
 
     Api.CreateNote({ id: '', title, content }, Auth.user.token)
@@ -37,7 +51,10 @@ export default function CreateNote() {
         setIsSaving(false);
         alert('Promise rejected with error: ' + error);
       });
+  }
 
+  const FormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    Save();
     event.preventDefault();
   }
 
@@ -49,7 +66,7 @@ export default function CreateNote() {
     <Container className="my-4" style={{ paddingTop: '50px' }}>
       <Card className="bg-transparent border-0">
         <Card.Body>
-          <Form onSubmit={Save}>
+          <Form onSubmit={FormSubmit}>
             <Form.Group controlId="formNoteTitle">
               <Form.Label className="custom-label">Título</Form.Label>
               <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Digite o título da nota" className="bg-light" required />

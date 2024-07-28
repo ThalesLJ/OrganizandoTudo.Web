@@ -1,6 +1,6 @@
 import "./styles.css";
 import React, { useEffect, useState } from 'react';
-import { Container, Card, Spinner, Form, Row, Col } from 'react-bootstrap';
+import { Container, Card, Form, Row, Col } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import Api from '../../services/Api';
 import Auth from '../../services/Auth';
@@ -25,7 +25,7 @@ export default function EditNote() {
   TokenValidator();
   const { id } = useParams<Record<string, string | undefined>>();
   const [note, setNote] = useState<INote>({ id: '', title: '', content: '' });
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = React.useState(true);
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [isSavingKeep, setIsSavingKeep] = React.useState(false);
@@ -44,7 +44,7 @@ export default function EditNote() {
     let isMounted = true;
 
     if (id) {
-      Api.GetNote(id, Auth.user.token) // Assume que GetNoteById é o método para obter a nota por id
+      Api.GetNote(id, Auth.user.token)
         .then((result) => {
           if (isMounted) {
             setNote(result);
@@ -63,13 +63,22 @@ export default function EditNote() {
         });
     }
 
+    const handleKeyDown = (event: any) => {
+      if (event.ctrlKey && event.key === 'Enter') {
+        setExit(true);
+        Save();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
     return () => {
       isMounted = false;
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [id]);
+  }, [id, title, content]);
 
-  const Save = async (event: React.FormEvent<HTMLFormElement>) => {
-
+  const Save = () => {
     if (exit) {
       setIsSavingExit(true);
     } else {
@@ -103,22 +112,11 @@ export default function EditNote() {
           alert('Promise rejected with error: ' + error);
         });
     }
+  }
 
+  const FormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    Save();
     event.preventDefault();
-  }
-
-  if (loading) {
-    return (
-      <Container className="my-4">
-        <div className="d-flex justify-content-center" style={{ marginTop: '1rem' }}>
-          <Spinner animation="border" variant="primary" />
-        </div>
-      </Container>
-    );
-  }
-
-  if (!loading && !note) {
-    return <Container className="my-4">Nota não encontrada.</Container>;
   }
 
   const SaveAndKeep = () => {
@@ -133,11 +131,25 @@ export default function EditNote() {
     setContent(value);
   };
 
+  if (loading) {
+    return (
+      <Container className="my-4" style={{ paddingTop: '50px' }}>
+        <div className="d-flex justify-content-center" style={{ marginTop: '1rem' }}>
+          <CircularProgress size={24} color="inherit" />
+        </div>
+      </Container>
+    );
+  }
+
+  if (!loading && (!note || !content)) {
+    return <Container className="my-4">Nota não encontrada.</Container>;
+  }
+
   return (
     <Container className="my-4" style={{ paddingTop: '50px' }}>
       <Card className="bg-transparent border-0">
         <Card.Body>
-          <Form ref={form} onSubmit={Save}>
+          <Form ref={form} onSubmit={FormSubmit}>
             <Form.Group controlId="formNoteTitle">
               <Form.Label className="custom-label">Título</Form.Label>
               <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Digite o título da nota" className="bg-light" required />

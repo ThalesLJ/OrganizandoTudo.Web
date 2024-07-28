@@ -6,9 +6,10 @@ import { Observer } from 'mobx-react-lite';
 import Api from '../../services/Api';
 import Auth from '../../services/Auth';
 import INotes from '../../types/INotes';
-import { Container, Card, Row, Col, Spinner, Button, Dropdown, InputGroup, FormControl } from 'react-bootstrap';
+import { Container, Card, Row, Col, Button, Dropdown, InputGroup, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { CircularProgress } from "@mui/material";
 
 export default function Notes() {
   TokenValidator();
@@ -150,7 +151,7 @@ export default function Notes() {
                     {notes.length === 0 ? (
                       <Col>
                         <div className="d-flex justify-content-center" style={{ marginTop: '1rem' }}>
-                          <Spinner animation="border" variant="primary" />
+                          <CircularProgress size={24} color="inherit" />
                         </div>
                       </Col>
                     ) : (
