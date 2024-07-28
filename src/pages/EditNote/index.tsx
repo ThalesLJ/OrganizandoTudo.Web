@@ -1,12 +1,14 @@
 import "./styles.css";
 import React, { useEffect, useState } from 'react';
-import { Container, Card, Spinner, Form } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Container, Card, Spinner, Form, Row, Col } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
 import Api from '../../services/Api';
 import Auth from '../../services/Auth';
 import TokenValidator from '../../services/TokenValidator';
 import INote from '../../types/INote';
 import { Button, CircularProgress, styled } from '@mui/material';
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: '#ffe3d5',
@@ -15,7 +17,8 @@ const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#a87861',
     color: '#e2c8bc'
   },
-  width: '100%'
+  width: '100%',
+  marginBottom: '10px'
 }));
 
 export default function EditNote() {
@@ -25,11 +28,16 @@ export default function EditNote() {
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [isSaving, setIsSaving] = React.useState(false);
+  const [isSavingKeep, setIsSavingKeep] = React.useState(false);
+  const [isSavingExit, setIsSavingExit] = React.useState(false);
   const [initialTitle, setInitialTitle] = useState<string>('');
   const [initialContent, setInitialContent] = useState<string>('');
+  const [exit, setExit] = useState(true);
+
+  const form = React.useRef<HTMLFormElement>(null);
 
   const hasChanges = title !== initialTitle || content !== initialContent;
+  const navigate = useNavigate();
 
   // Page load
   useEffect(() => {
@@ -61,7 +69,12 @@ export default function EditNote() {
   }, [id]);
 
   const Save = async (event: React.FormEvent<HTMLFormElement>) => {
-    setIsSaving(true);
+
+    if (exit) {
+      setIsSavingExit(true);
+    } else {
+      setIsSavingKeep(true);
+    }
 
     if (id) {
       Api.UpdateNote({ id, title, content }, id, Auth.user.token)
@@ -69,10 +82,24 @@ export default function EditNote() {
           setNote({ id, title, content });
           setInitialTitle(`${title}`);
           setInitialContent(`${content}`);
-          setIsSaving(false);
+
+          if (exit) {
+            setIsSavingExit(false);
+          } else {
+            setIsSavingKeep(false);
+          }
+
+          if (exit) {
+            navigate("/Notes");
+          }
         })
         .catch((error) => {
-          setIsSaving(false);
+          if (exit) {
+            setIsSavingExit(false);
+          } else {
+            setIsSavingKeep(false);
+          }
+
           alert('Promise rejected with error: ' + error);
         });
     }
@@ -94,23 +121,44 @@ export default function EditNote() {
     return <Container className="my-4">Nota não encontrada.</Container>;
   }
 
+  const SaveAndKeep = () => {
+    setExit(false);
+  }
+
+  const SaveAndExit = () => {
+    setExit(true);
+  }
+
+  const OnContentChange = (value: string) => {
+    setContent(value);
+  };
+
   return (
     <Container className="my-4">
-      <Card className="bg-transparent border-0"> {/* Remove o fundo branco e a borda */}
+      <Card className="bg-transparent border-0">
         <Card.Body>
-          <Form onSubmit={Save}>
+          <Form ref={form} onSubmit={Save}>
             <Form.Group controlId="formNoteTitle">
               <Form.Label className="custom-label">Título</Form.Label>
               <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Digite o título da nota" className="bg-light" required />
             </Form.Group>
             <Form.Group controlId="formNoteContent" className="mt-3">
               <Form.Label className="custom-label">Conteúdo</Form.Label>
-              <Form.Control as="textarea" rows={6} value={content} onChange={(e) => setContent(e.target.value)} placeholder="Digite o conteúdo da nota" className="bg-light" required />
+              <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder="Digite o conteúdo da nota" />
             </Form.Group>
             <Form.Group controlId="formSave" className="mt-3">
-              <ColorButton type='submit' className='login-btnAcessar' variant="contained" disabled={!hasChanges} >
-                {isSaving ? (<CircularProgress size={24} color="inherit" />) : ('Save')}
-              </ColorButton>
+              <Row>
+                <Col xs={12} sm={6} md={6} lg={6}>
+                  <ColorButton type="submit" onClick={SaveAndKeep} className='login-btnAcessar' variant="contained" disabled={!hasChanges} >
+                    {isSavingKeep ? (<CircularProgress size={24} color="inherit" />) : ('Save')}
+                  </ColorButton>
+                </Col>
+                <Col xs={12} sm={6} md={6} lg={6}>
+                  <ColorButton type="submit" onClick={SaveAndExit} className='login-btnAcessar' variant="contained" disabled={!hasChanges} >
+                    {isSavingExit ? (<CircularProgress size={24} color="inherit" />) : ('Save and Close')}
+                  </ColorButton>
+                </Col>
+              </Row>
             </Form.Group>
           </Form>
         </Card.Body>

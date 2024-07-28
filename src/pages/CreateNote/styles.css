@@ -1,0 +1,16 @@
+.custom-label {
+    color: #000000 !important;
+    font-size: 18px !important;
+}
+
+.resizable-editor .ql-container {
+    resize: vertical;
+    overflow: auto;
+    min-height: 200px;
+    max-height: 1000px;
+    background-color: white !important;
+}
+
+.resizable-editor .ql-toolbar {
+    background-color: white !important;
+}

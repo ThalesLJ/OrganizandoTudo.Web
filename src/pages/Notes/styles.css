@@ -112,7 +112,7 @@
     height: 200px;
     min-height: 200px;
     max-height: 500px;
-    user-select: auto;
+    user-select: auto !important;
 }
 
 .note-visible {

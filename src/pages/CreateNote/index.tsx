@@ -6,6 +6,7 @@ import { CircularProgress, styled } from '@mui/material';
 import Api from "../../services/Api";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../services/Auth";
+import ReactQuill from "react-quill";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: '#ffe3d5',
@@ -40,6 +41,10 @@ export default function CreateNote() {
     event.preventDefault();
   }
 
+  const OnContentChange = (value: string) => {
+    setContent(value);
+  };
+
   return (
     <Container className="my-4">
       <Card className="bg-transparent border-0">
@@ -51,7 +56,7 @@ export default function CreateNote() {
             </Form.Group>
             <Form.Group controlId="formNoteContent" className="mt-3">
               <Form.Label className="custom-label">Conteúdo</Form.Label>
-              <Form.Control as="textarea" rows={6} value={content} onChange={(e) => setContent(e.target.value)} placeholder="Digite o conteúdo da nota" className="bg-light" required />
+              <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder="Digite o conteúdo da nota" />
             </Form.Group>
             <Form.Group controlId="formSave" className="mt-3">
               <ColorButton type='submit' variant="contained" disabled={isSaving} >
