@@ -32,7 +32,7 @@ export default function BaseApp() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      <div style={{ paddingTop: '70px' }}> {/* Ajusta o padding para evitar que o conteúdo fique embaixo da navbar */}
+      <div> {/* Ajusta o padding para evitar que o conteúdo fique embaixo da navbar */}
         <Outlet></Outlet>
       </div>
     </>

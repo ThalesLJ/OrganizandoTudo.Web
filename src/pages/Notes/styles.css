@@ -89,6 +89,10 @@
     overflow: hidden;
 }
 
+.note-text-container p {
+    user-select: auto !important;
+}
+
 .note-card-footer {
     background-color: #f8f9fa !important;
 }

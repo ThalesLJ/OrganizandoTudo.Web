@@ -46,7 +46,7 @@ export default function CreateNote() {
   };
 
   return (
-    <Container className="my-4">
+    <Container className="my-4" style={{ paddingTop: '50px' }}>
       <Card className="bg-transparent border-0">
         <Card.Body>
           <Form onSubmit={Save}>

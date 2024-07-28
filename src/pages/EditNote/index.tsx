@@ -134,7 +134,7 @@ export default function EditNote() {
   };
 
   return (
-    <Container className="my-4">
+    <Container className="my-4" style={{ paddingTop: '50px' }}>
       <Card className="bg-transparent border-0">
         <Card.Body>
           <Form ref={form} onSubmit={Save}>

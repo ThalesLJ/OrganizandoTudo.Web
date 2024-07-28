@@ -118,84 +118,86 @@ export default function Notes() {
   };
 
   return (
-    <Observer>
-      {() => (
-        <>
-          <AnimatePresence key='divNotes'>
-            <motion.div initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 0.2 }}>
-              <Container className="my-4 note-list">
-                <InputGroup className="mb-3">
-                  <FormControl className="txt-search" placeholder="Search notes..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-                </InputGroup>
+    <div style={{ paddingTop: '70px' }}>
+      <Observer>
+        {() => (
+          <>
+            <AnimatePresence key='divNotes'>
+              <motion.div initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 0.2 }}>
+                <Container className="my-4 note-list">
+                  <InputGroup className="mb-3">
+                    <FormControl className="txt-search" placeholder="Search notes..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+                  </InputGroup>
 
-                <div className="filter-sort-container mb-3">
-                  <div className="filter-buttons">
-                    <Button className={`filter-button ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>All</Button>
-                    <Button className={`filter-button ${filter === 'public' ? 'active' : ''}`} onClick={() => setFilter('public')}>Public</Button>
-                    <Button className={`filter-button ${filter === 'private' ? 'active' : ''}`} onClick={() => setFilter('private')}>Private</Button>
+                  <div className="filter-sort-container mb-3">
+                    <div className="filter-buttons">
+                      <Button className={`filter-button ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>All</Button>
+                      <Button className={`filter-button ${filter === 'public' ? 'active' : ''}`} onClick={() => setFilter('public')}>Public</Button>
+                      <Button className={`filter-button ${filter === 'private' ? 'active' : ''}`} onClick={() => setFilter('private')}>Private</Button>
+                    </div>
+                    <Dropdown onSelect={(eventKey) => setSortOrder(eventKey as 'title' | 'date')} className="sort-dropdown">
+                      <Dropdown.Toggle variant="primary">
+                        Sort by {sortOrder}
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item eventKey="title">Title</Dropdown.Item>
+                        <Dropdown.Item eventKey="date">Date</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </div>
-                  <Dropdown onSelect={(eventKey) => setSortOrder(eventKey as 'title' | 'date')} className="sort-dropdown">
-                    <Dropdown.Toggle variant="primary">
-                      Sort by {sortOrder}
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      <Dropdown.Item eventKey="title">Title</Dropdown.Item>
-                      <Dropdown.Item eventKey="date">Date</Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
 
-                <Row>
-                  {notes.length === 0 ? (
-                    <Col>
-                      <div className="d-flex justify-content-center" style={{ marginTop: '1rem' }}>
-                        <Spinner animation="border" variant="primary" />
-                      </div>
-                    </Col>
-                  ) : (
-                    filteredNotes.map(note => (
-                      <Col xs={12} sm={6} md={6} lg={4} key={note.id} style={{ marginTop: '1rem' }}>
-                        <Card onContextMenu={(e) => handleContextMenu(e, note.id)}>
-                          <Card.Body className="note-card-body">
-                            <Link to={`/Note/${note.id}`} style={{ textDecoration: 'none' }}>
-                              <Card.Title className="note-title">{note.title}</Card.Title>
-                            </Link>
-                            <div className="note-text-container">
-                              <Card.Text className="note-content" dangerouslySetInnerHTML={{ __html: note.content }} />
-                            </div>
-                          </Card.Body>
-                          <Card.Footer className="text-muted note-card-footer" style={{ textAlign: 'left' }}>
-                            <div className="note-visibility">
-                              <input className="note-visible" type="checkbox" checked={note.visible} onChange={(e) => PublicNote(note.id, note.visible)} />
-                              <span onClick={() => PublicNote(note.id, note.visible)} style={{ cursor: 'pointer' }}>
-                                {note.visible ? 'Public' : 'Private'}
-                              </span>
-                            </div>
-                          </Card.Footer>
-                        </Card>
+                  <Row>
+                    {notes.length === 0 ? (
+                      <Col>
+                        <div className="d-flex justify-content-center" style={{ marginTop: '1rem' }}>
+                          <Spinner animation="border" variant="primary" />
+                        </div>
                       </Col>
-                    ))
+                    ) : (
+                      filteredNotes.map(note => (
+                        <Col xs={12} sm={6} md={6} lg={4} key={note.id} style={{ marginTop: '1rem' }}>
+                          <Card onContextMenu={(e) => handleContextMenu(e, note.id)}>
+                            <Card.Body className="note-card-body">
+                              <Link to={`/Note/${note.id}`} style={{ textDecoration: 'none' }}>
+                                <Card.Title className="note-title">{note.title}</Card.Title>
+                              </Link>
+                              <div className="note-text-container">
+                                <Card.Text className="note-content" dangerouslySetInnerHTML={{ __html: note.content }} />
+                              </div>
+                            </Card.Body>
+                            <Card.Footer className="text-muted note-card-footer" style={{ textAlign: 'left' }}>
+                              <div className="note-visibility">
+                                <input className="note-visible" type="checkbox" checked={note.visible} onChange={(e) => PublicNote(note.id, note.visible)} />
+                                <span onClick={() => PublicNote(note.id, note.visible)} style={{ cursor: 'pointer' }}>
+                                  {note.visible ? 'Public' : 'Private'}
+                                </span>
+                              </div>
+                            </Card.Footer>
+                          </Card>
+                        </Col>
+                      ))
+                    )}
+                  </Row>
+
+                  {contextMenu.show && (
+                    <div className="context-menu" style={{ top: contextMenu.y, left: contextMenu.x }}>
+                      <button onClick={() => { if (contextMenu.noteId) { DeleteNote(contextMenu.noteId) } }}>Delete</button>
+                    </div>
                   )}
-                </Row>
+                </Container>
+              </motion.div>
+            </AnimatePresence>
 
-                {contextMenu.show && (
-                  <div className="context-menu" style={{ top: contextMenu.y, left: contextMenu.x }}>
-                    <button onClick={() => { if (contextMenu.noteId) { DeleteNote(contextMenu.noteId) } }}>Delete</button>
-                  </div>
-                )}
-              </Container>
-            </motion.div>
-          </AnimatePresence>
-
-          <AnimatePresence key='floatingButtons'>
-            <Link to="/AddNote" className="floating-btn">
-              <AiOutlinePlus size={40} />
-              <span className="d-none d-md-block">ADD</span>
-            </Link>
-          </AnimatePresence>
-        </>
-      )
-      }
-    </Observer >
+            <AnimatePresence key='floatingButtons'>
+              <Link to="/AddNote" className="floating-btn">
+                <AiOutlinePlus size={40} />
+                <span className="d-none d-md-block">ADD</span>
+              </Link>
+            </AnimatePresence>
+          </>
+        )
+        }
+      </Observer >
+    </div>
   );
 }
