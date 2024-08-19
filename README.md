@@ -4,7 +4,7 @@
 
 Este é um projeto de gerenciamento de notas desenvolvido em React, criado para ajudar os usuários a organizar e gerenciar suas notas de forma simples e eficiente. O aplicativo permite adicionar, editar, visualizar e excluir notas, com uma interface intuitiva e responsiva.
 
-Acesse o site em: [organizandotudo.netlify.app](https://organizandotudo.netlify.app/)
+Acesse o site em: [organizandotudo.netlify.app](https://organizandotudo.netlify.app)
 
 ## Funcionalidades
 
@@ -32,22 +32,30 @@ Acesse o site em: [organizandotudo.netlify.app](https://organizandotudo.netlify.
 - **Netlify**: Para hospedagem e CI/CD.
 
 
-## Começando
+## Instalação
 
 ### Pré-requisitos
 
-Você precisa ter o Node.js e npm instalados em sua máquina.
+Você precisa ter o React, Node.js e npm instalados em sua máquina.
 
-### Instalação
+### Configuração do Ambiente
 
 1. Clone o repositório:
    ```bash
    git clone https://github.com/ThalesLJ/OrganizandoTudo.Web.git
 
-2. Navegue até o diretório do projeto
+2. Navegue até o diretório do projeto:
+   ```bash
+   cd .\OrganizandoTudo.Web
 
-3. Instale as dependências
+3. Instale as dependências:
+   ```bash
+   npm install
 
-4. Inicie o servidor de desenvolvimento
+4. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm start
 
-5. Acesse o aplicativo no navegador
+5. Acesse o aplicativo em:
+   ```bash
+   http://localhost:3000
