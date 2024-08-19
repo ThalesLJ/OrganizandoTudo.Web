@@ -1,46 +1,44 @@
-# Getting Started with Create React App
+# Gerenciamento de Notas - React Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Netlify Status](https://api.netlify.com/api/v1/badges/your-badge-id/deploy-status)](https://organizandotudo.netlify.app/)
 
-## Available Scripts
+## Visão Geral
 
-In the project directory, you can run:
+Este é um projeto de gerenciamento de notas desenvolvido em React, criado para ajudar os usuários a organizar e gerenciar suas notas de forma simples e eficiente. O aplicativo permite adicionar, editar, visualizar e excluir notas, com uma interface intuitiva e responsiva.
 
-### `npm start`
+Acesse o site em: [organizandotudo.netlify.app](https://organizandotudo.netlify.app/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Funcionalidades
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Adicionar Notas**: Crie novas notas com título e conteúdo.
+- **Editar Notas**: Atualize o título ou conteúdo de suas notas existentes.
+- **Visualizar Notas**: Veja todas as suas notas em uma interface organizada.
+- **Excluir Notas**: Remova as notas que você não precisa mais.
+- **Pesquisa**: Encontre rapidamente notas específicas usando a barra de pesquisa.
 
-### `npm test`
+## Tecnologias Utilizadas
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **React**: Biblioteca JavaScript para construção de interfaces de usuário.
+- **MobX**: Gerenciamento de estado simples e escalável.
+- **CSS**: Para estilização e layout responsivo.
+- **Netlify**: Para hospedagem e CI/CD.
 
-### `npm run build`
+## Começando
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Pré-requisitos
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Você precisa ter o Node.js e npm instalados em sua máquina.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Instalação
 
-### `npm run eject`
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/ThalesLJ/OrganizandoTudo.Web.git
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. Navegue até o diretório do projeto
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Instale as dependências
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+4. Inicie o servidor de desenvolvimento
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+5. Acesse o aplicativo no navegador
