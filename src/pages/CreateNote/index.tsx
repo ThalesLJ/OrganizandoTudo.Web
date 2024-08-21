@@ -1,5 +1,5 @@
 import "./styles.css";
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Container, Card, Form } from 'react-bootstrap';
 import { Button } from '@mui/material';
 import { CircularProgress, styled } from '@mui/material';
@@ -24,6 +24,20 @@ export default function CreateNote() {
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  
+  const Save = useCallback(() => {
+    setIsSaving(true);
+
+    Api.CreateNote({ id: '', title, content }, Auth.user.token)
+      .then((result) => {
+        navigate("/Notes");
+        setIsSaving(false);
+      })
+      .catch((error) => {
+        setIsSaving(false);
+        alert('Promise rejected with error: ' + error);
+      });
+  }, [title, content, navigate]);
 
   React.useEffect(() => {
     const handleKeyDown = (event: any) => {
@@ -37,21 +51,7 @@ export default function CreateNote() {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [title, content]);
-
-  const Save = async () => {
-    setIsSaving(true);
-
-    Api.CreateNote({ id: '', title, content }, Auth.user.token)
-      .then((result) => {
-        navigate("/Notes");
-        setIsSaving(false);
-      })
-      .catch((error) => {
-        setIsSaving(false);
-        alert('Promise rejected with error: ' + error);
-      });
-  }
+  }, [Save]);
 
   const FormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     Save();
