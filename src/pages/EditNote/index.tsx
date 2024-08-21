@@ -1,5 +1,5 @@
 import "./styles.css";
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Container, Card, Form, Row, Col } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import Api from '../../services/Api';
@@ -39,6 +39,42 @@ export default function EditNote() {
   const hasChanges = title !== initialTitle || content !== initialContent;
   const navigate = useNavigate();
 
+  const Save = useCallback(() => {
+    if (exit) {
+      setIsSavingExit(true);
+    } else {
+      setIsSavingKeep(true);
+    }
+
+    if (id) {
+      Api.UpdateNote({ id, title, content }, id, Auth.user.token)
+        .then((result) => {
+          setNote({ id, title, content });
+          setInitialTitle(`${title}`);
+          setInitialContent(`${content}`);
+
+          if (exit) {
+            setIsSavingExit(false);
+          } else {
+            setIsSavingKeep(false);
+          }
+
+          if (exit) {
+            navigate("/Notes");
+          }
+        })
+        .catch((error) => {
+          if (exit) {
+            setIsSavingExit(false);
+          } else {
+            setIsSavingKeep(false);
+          }
+
+          alert('Promise rejected with error: ' + error);
+        });
+    }
+  }, [exit, id, title, content, navigate]);
+
   // Page load
   useEffect(() => {
     let isMounted = true;
@@ -76,43 +112,7 @@ export default function EditNote() {
       isMounted = false;
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [id]);
-
-  const Save = () => {
-    if (exit) {
-      setIsSavingExit(true);
-    } else {
-      setIsSavingKeep(true);
-    }
-
-    if (id) {
-      Api.UpdateNote({ id, title, content }, id, Auth.user.token)
-        .then((result) => {
-          setNote({ id, title, content });
-          setInitialTitle(`${title}`);
-          setInitialContent(`${content}`);
-
-          if (exit) {
-            setIsSavingExit(false);
-          } else {
-            setIsSavingKeep(false);
-          }
-
-          if (exit) {
-            navigate("/Notes");
-          }
-        })
-        .catch((error) => {
-          if (exit) {
-            setIsSavingExit(false);
-          } else {
-            setIsSavingKeep(false);
-          }
-
-          alert('Promise rejected with error: ' + error);
-        });
-    }
-  }
+  }, [id, Save]);
 
   const FormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     Save();
