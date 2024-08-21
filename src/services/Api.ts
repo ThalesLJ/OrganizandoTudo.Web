@@ -5,10 +5,10 @@ import IUserData from "../types/IUserData";
 import INote from "../types/INote";
 import INotes from "../types/INotes";
 
-const baseURL = 'https://organizandotudo-api.onrender.com';
+const baseURL = 'https://data.mongodb-api.com/app/application-0-mqvuy/endpoint';
 
 class Api {
-    async CreateAccount(data: IUser) {
+    async CreateAccount(data: IUser): Promise<IResponse> {
         try {
             let response = await fetch(`${baseURL}/CreateAccount`,
                 {
@@ -21,11 +21,11 @@ class Api {
             let result: IResponse = await response.json();
             return result;
         } catch (ex) {
-            return { message: `${ex}`, code: "Error" };
+            return { pt: { message: `${ex}`, code: "Error" }, en: { message: `${ex}`, code: "Error" } };
         }
     }
 
-    async Login(data: ILogin) {
+    async Login(data: ILogin): Promise<IUser> {
         try {
             let response = await fetch(`${baseURL}/Login`,
                 {
@@ -38,11 +38,11 @@ class Api {
             let result: IUser = await response.json();
             return result;
         } catch (ex) {
-            return { name: "", email: "", token: "" };
+            return { token: "", username: "", email: "" };
         }
     }
 
-    async VerifyToken(data: IUser) {
+    async VerifyToken(data: IUser): Promise<IResponse> {
         try {
             let response = await fetch(`${baseURL}/VerifyToken`,
                 {
@@ -54,13 +54,13 @@ class Api {
             let result: IResponse = await response.json();
             return result;
         } catch (ex) {
-            return { message: `${ex}`, code: "Error" };
+            return { pt: { message: `${ex}`, code: "Error" }, en: { message: `${ex}`, code: "Error" } };
         }
     }
 
-    async GetUser(data: IUser) {
+    async GetUser(data: IUser): Promise<IResponse> {
         try {
-            let response = await fetch(`${baseURL}/GetUser`,
+            let response = await fetch(`${baseURL}/User`,
                 {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${data.token}` }
@@ -70,13 +70,13 @@ class Api {
             let result: IResponse = await response.json();
             return result;
         } catch (ex) {
-            return { name: "", email: "" };
+            return { pt: { message: `${ex}`, code: "Error" }, en: { message: `${ex}`, code: "Error" } };
         }
     }
 
-    async UpdateUser(data: IUserData, token: string) {
+    async UpdateUser(data: IUserData, token: string): Promise<IResponse> {
         try {
-            let response = await fetch(`${baseURL}/UpdateUser`,
+            let response = await fetch(`${baseURL}/User`,
                 {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` },
@@ -87,11 +87,11 @@ class Api {
             let result: IResponse = await response.json();
             return result;
         } catch (ex) {
-            return { message: `${ex}`, code: "Error" };
+            return { pt: { message: `${ex}`, code: "Error" }, en: { message: `${ex}`, code: "Error" } };
         }
     }
 
-    async CreateNote(data: INote, token: string) {
+    async CreateNote(data: INote, token: string): Promise<IResponse> {
         try {
             let response = await fetch(`${baseURL}/Note`,
                 {
@@ -104,30 +104,30 @@ class Api {
             let result: IResponse = await response.json();
             return result;
         } catch (ex) {
-            return { message: `${ex}`, code: "Error" };
+            return { pt: { message: `${ex}`, code: "Error" }, en: { message: `${ex}`, code: "Error" } };
         }
     }
 
-    async UpdateNote(data: INote, id: string, token: string) {
+    async UpdateNote(data: INote, id: string, token: string): Promise<IResponse> {
         try {
-            let response = await fetch(`${baseURL}/Note/${id}`,
+            let response = await fetch(`${baseURL}/Note?id=${id}`,
                 {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` },
-                    body: JSON.stringify(data)
+                    body: JSON.stringify({ newNote: data })
                 }
             );
 
             let result: IResponse = await response.json();
             return result;
         } catch (ex) {
-            return { message: `${ex}`, code: "Error" };
+            return { pt: { message: `${ex}`, code: "Error" }, en: { message: `${ex}`, code: "Error" } };
         }
     }
 
-    async DeleteNote(id: string, token: string) {
+    async DeleteNote(id: string, token: string): Promise<IResponse> {
         try {
-            let response = await fetch(`${baseURL}/Note/${id}`,
+            let response = await fetch(`${baseURL}/Note?id=${id}`,
                 {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` }
@@ -137,13 +137,13 @@ class Api {
             let result: IResponse = await response.json();
             return result;
         } catch (ex) {
-            return { message: `${ex}`, code: "Error" };
+            return { pt: { message: `${ex}`, code: "Error" }, en: { message: `${ex}`, code: "Error" } };
         }
     }
 
-    async PublishNote(id: string, token: string) {
+    async PublishNote(id: string, token: string): Promise<IResponse> {
         try {
-            let response = await fetch(`${baseURL}/PublishNote/${id}`,
+            let response = await fetch(`${baseURL}/PublishNote?id=${id}`,
                 {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` }
@@ -153,13 +153,13 @@ class Api {
             let result: IResponse = await response.json();
             return result;
         } catch (ex) {
-            return { message: `${ex}`, code: "Error" };
+            return { pt: { message: `${ex}`, code: "Error" }, en: { message: `${ex}`, code: "Error" } };
         }
     }
 
     async GetNote(id: string, token: string): Promise<INote> {
         try {
-            let response = await fetch(`${baseURL}/Note/${id}`,
+            let response = await fetch(`${baseURL}/Note?id=${id}`,
                 {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` }

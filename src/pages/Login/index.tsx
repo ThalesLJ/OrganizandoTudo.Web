@@ -31,13 +31,13 @@ export default function Login() {
     setIsLogging(true);
 
     const login: ILogin = {
-      name: username,
+      username: username,
       password: password
     };
 
     Api.Login(login)
       .then((result) => {
-        Auth.login({ name: result.name, email: result.email, token: result.token });
+        Auth.login({ username: result.username, email: result.email, token: result.token });
         setIsLogging(false);
         if (result.token != null) navigate("/Notes");
       })

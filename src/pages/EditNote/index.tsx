@@ -76,7 +76,7 @@ export default function EditNote() {
       isMounted = false;
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [id, title, content]);
+  }, [id]);
 
   const Save = () => {
     if (exit) {

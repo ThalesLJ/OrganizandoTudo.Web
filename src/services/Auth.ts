@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import IUser from "../types/IUser";
 
 class Auth {
-    user: IUser = { name: "", email: "", token: "" };
+    user: IUser = { username: "", email: "", token: "" };
 
     constructor() {
         makeAutoObservable(this);
@@ -22,13 +22,13 @@ class Auth {
         return true;
     }
 
-    login({ name, email, token }: IUser) {
-        this.user = { name, email, token };
+    login({ username, email, token }: IUser) {
+        this.user = { username, email, token };
         this.persistUser();
     }
 
     logout() {
-        this.user = { name: "", email: "", token: "" };
+        this.user = { username: "", email: "", token: "" };
         this.unpersistUser();
     }
 

@@ -39,7 +39,7 @@ export default function Notes() {
     let filtered = notes;
 
     if (filter !== 'all') {
-      filtered = notes.filter(note => note.visible === (filter === 'public'));
+      filtered = notes.filter(note => note.public === (filter === 'public'));
     }
 
     if (searchQuery) {
@@ -168,9 +168,9 @@ export default function Notes() {
                             </Card.Body>
                             <Card.Footer className="text-muted note-card-footer" style={{ textAlign: 'left' }}>
                               <div className="note-visibility">
-                                <input className="note-visible" type="checkbox" checked={note.visible} onChange={(e) => PublicNote(note.id, note.visible)} />
-                                <span onClick={() => PublicNote(note.id, note.visible)} style={{ cursor: 'pointer' }}>
-                                  {note.visible ? 'Public' : 'Private'}
+                                <input className="note-visible" type="checkbox" checked={note.public} onChange={(e) => PublicNote(note.id, note.public)} />
+                                <span onClick={() => PublicNote(note.id, note.public)} style={{ cursor: 'pointer' }}>
+                                  {note.public ? 'Public' : 'Private'}
                                 </span>
                               </div>
                             </Card.Footer>

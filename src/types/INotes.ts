@@ -3,5 +3,5 @@ export default interface INotes {
     title: string,
     content: string,
     date: Date,
-    visible: boolean
+    public: boolean
 }

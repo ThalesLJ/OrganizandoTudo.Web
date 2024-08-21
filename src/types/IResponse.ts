@@ -1,4 +1,10 @@
 export default interface IResponse {
-    message: string,
-    code: string
+    pt: {
+        message: string;
+        code: string;
+    };
+    en: {
+        message: string;
+        code: string;
+    };
 }
