@@ -219,7 +219,7 @@ export default function Notes() {
             </AnimatePresence>
 
             <AnimatePresence key='floatingButtons'>
-              <Link to="/AddNote" className="floating-btn">
+              <Link to="/CreateNote" className="floating-btn">
                 <AiOutlinePlus size={40} />
                 <span className="d-none d-md-block">ADD</span>
               </Link>
