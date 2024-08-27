@@ -9,9 +9,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { AiFillLinkedin } from 'react-icons/ai';
+import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 import ILogin from '../../types/ILogin';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Api from '../../services/Api';
 import Auth from '../../services/Auth';
 import TokenValidator from '../../services/TokenValidator';
@@ -66,7 +66,7 @@ export default function Login() {
             <motion.div className='login' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} >
 
               <br /><br />
-              <span className='login-txtTitulo' onClick={() => { }}>Login</span>
+              <span className='login-txtTitulo'>Login</span>
               <br /><br />
 
               <form onSubmit={Login}>
@@ -97,7 +97,7 @@ export default function Login() {
                   />
                 </FormControl>
 
-                <br /><br />
+                <br />
 
                 <ColorButton type='submit' className='login-btnAcessar' variant="contained">
                   {isLogging ? (<CircularProgress size={24} color="inherit" />) : ('Acessar')}
@@ -105,13 +105,20 @@ export default function Login() {
 
               </form>
 
-              <br /><br /><br /><br />
+              <div className="login-redirects">
+                <Link to="/AddAccount" className='login-txtCriar'>Criar Conta</Link>
+                <Link to="/RecoveryAccount" className='login-txtRecuperar'>Recuperar Senha</Link>
+              </div>
 
               <div className='login-rightsContainer'>
-                <a href='https://www.linkedin.com/in/thaleslj' className='no-decoration'>
-                  <span className='login-rights'>Thales Lima </span>
-                  <AiFillLinkedin className='login-rightsLinkedin' />
-                </a>
+                <span>
+                  <a href='https://www.linkedin.com/in/thaleslj' className='no-decoration'>
+                    <AiFillLinkedin className='login-rightsLinkedin' />
+                  </a>
+                  <a href='https://github.com/ThalesLJ' className='no-decoration'>
+                    <AiFillGithub className='login-rightsLinkedin' />
+                  </a>
+                </span>
               </div>
               <br /><br />
 

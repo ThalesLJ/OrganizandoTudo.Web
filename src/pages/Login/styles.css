@@ -5,7 +5,7 @@
     text-align: center;
     width: 100vw;
     margin: 0;
-    top: 10%;
+    top: 8%;
 }
 
 @media only screen and (min-width: 480px) {
@@ -15,7 +15,7 @@
         overflow: hidden;
         width: 80vw;
         margin: 0;
-        top: 15%;
+        top: 8%;
     }
 }
 
@@ -26,7 +26,7 @@
         overflow: hidden;
         width: 70vw;
         margin: 0;
-        top: 15%;
+        top: 8%;
     }
 }
 
@@ -37,7 +37,7 @@
         overflow: hidden;
         width: 60vw;
         margin: 0;
-        top: 15%;
+        top: 8%;
     }
 }
 
@@ -48,7 +48,7 @@
         overflow: hidden;
         width: 50vw;
         margin: 0;
-        top: 15%;
+        top: 8%;
     }
 }
 
@@ -59,7 +59,7 @@
         overflow: hidden;
         width: 40vw;
         margin: 0;
-        top: 15%;
+        top: 8%;
     }
 }
 
@@ -70,7 +70,7 @@
         overflow: hidden;
         width: 30vw;
         margin: 0;
-        top: 15%;
+        top: 8%;
     }
 }
 
@@ -81,7 +81,7 @@
         overflow: hidden;
         width: 25vw;
         margin: 0;
-        top: 15%;
+        top: 8%;
     }
 }
 
@@ -99,6 +99,38 @@
     width: 50%;
 }
 
+.login-redirects {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.login-txtRecuperar {
+    color: #946a56;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-txtRecuperar:hover {
+    color: #946a56;
+    text-decoration: underline;
+}
+
+.login-txtCriar {
+    color: #946a56;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-txtCriar:hover {
+    color: #a87861;
+    text-decoration: underline;
+}
+
 .login-divtxtUsuario {
     width: 50%;
 }
@@ -111,12 +143,16 @@
     width: 100%;
 }
 
-.login-divSenha {
+.login-divEmail {
     width: 80% !important;
 }
 
-.login-divSenha {
+.login-inputEmail {
     width: 100%;
+}
+
+.login-divSenha {
+    width: 80% !important;
 }
 
 .login-inputSenha {
@@ -129,10 +165,10 @@
 }
 
 .login-rightsContainer {
+    margin-top: 25px;
     text-align: center;
     text-decoration: none;
     user-select: none;
-    margin-top: 15px;
 }
 
 .login-rights {

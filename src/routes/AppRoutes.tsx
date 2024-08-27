@@ -8,6 +8,8 @@ import EditNote from "../pages/EditNote";
 import CreateNote from "../pages/CreateNote";
 import Settings from "../pages/Settings";
 import PageNotFound from "../pages/PageNotFound";
+import CreateAccount from "../pages/CreateAccount";
+import RecoveryAccount from "../pages/RecoveryAccount";
 
 export default function AppRoutes() {
     return (
@@ -16,6 +18,8 @@ export default function AppRoutes() {
                 {/* Rotas públicas */}
                 <Route path="/" element={<EntryApp />} >
                     <Route index element={<Login />} />
+                    <Route path="AddAccount" element={<CreateAccount />} />
+                    <Route path="RecoveryAccount" element={<RecoveryAccount />} />
                     <Route path="*" element={<PageNotFound />} />
                 </Route>
 

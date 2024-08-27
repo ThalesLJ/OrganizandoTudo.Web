@@ -8,7 +8,7 @@ import INotes from "../types/INotes";
 const baseURL = 'https://data.mongodb-api.com/app/application-0-mqvuy/endpoint';
 
 class Api {
-    async CreateAccount(data: IUser): Promise<IResponse> {
+    async CreateAccount(data: IUserData): Promise<IResponse> {
         try {
             let response = await fetch(`${baseURL}/CreateAccount`,
                 {
@@ -97,7 +97,7 @@ class Api {
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` },
-                    body: JSON.stringify(data)
+                    body: JSON.stringify({ note: data })
                 }
             );
 
