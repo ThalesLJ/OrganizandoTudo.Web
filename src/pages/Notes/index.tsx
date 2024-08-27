@@ -8,10 +8,11 @@ import Auth from '../../services/Auth';
 import INotes from '../../types/INotes';
 import { Container, Card, Row, Col, Button, Dropdown, InputGroup, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { CircularProgress } from "@mui/material";
 import { AiOutlinePlus } from 'react-icons/ai';
 import { IoLockOpen, IoLockClosed } from "react-icons/io5";
 import { FaTrash } from "react-icons/fa6";
-import { CircularProgress } from "@mui/material";
+import { RxExternalLink } from "react-icons/rx";
 
 export default function Notes() {
   TokenValidator();
@@ -174,21 +175,32 @@ export default function Notes() {
                         <Col xs={12} sm={6} md={6} lg={4} key={note.id} style={{ marginTop: '1rem' }}>
                           <Card onContextMenu={(e) => handleContextMenu(e, note.id)}>
                             <Card.Body className="note-card-body">
-                              <Link to={`/Note/${note.id}`} style={{ textDecoration: 'none' }}>
+                              <Link to={`/EditNote/${note.id}`} style={{ textDecoration: 'none' }}>
                                 <Card.Title className="note-title">{note.title}</Card.Title>
                               </Link>
                               <div className="note-text-container">
                                 <Card.Text className="note-content" dangerouslySetInnerHTML={{ __html: note.content }} />
                               </div>
                             </Card.Body>
-                            <Card.Footer className="text-muted note-card-footer" style={{ textAlign: 'left' }}>
+                            <Card.Footer className="text-muted note-card-footer">
                               <div className="note-footer">
-                                <span id="lock-icon" onClick={() => PublicNote(note.id, note.public)}>
-                                  {note.public ? <IoLockClosed /> : <IoLockOpen />}
-                                </span>
-                                <span id="trash-icon" onClick={() => { if (note.id) { DeleteNote(note.id, true) } }}>
-                                  <FaTrash />
-                                </span>
+                                <div className="note-leftFooter">
+                                  {note.public === true ? (
+                                    <span id="link-icon">
+                                      <Link to={`/Note/${note.id}`} style={{ textDecoration: 'none' }}>
+                                        <RxExternalLink />
+                                      </Link>
+                                    </span>
+                                  ) : null}
+                                </div>
+                                <div className="note-rightFooter">
+                                  <span id="lock-icon" onClick={() => PublicNote(note.id, note.public)}>
+                                    {note.public ? <IoLockOpen /> : <IoLockClosed />}
+                                  </span>
+                                  <span id="trash-icon" onClick={() => { if (note.id) { DeleteNote(note.id, true) } }}>
+                                    <FaTrash />
+                                  </span>
+                                </div>
                               </div>
                             </Card.Footer>
                           </Card>

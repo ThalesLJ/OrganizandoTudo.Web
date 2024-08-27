@@ -69,7 +69,7 @@ export default function CreateNote() {
           <Form onSubmit={FormSubmit}>
             <Form.Group controlId="formNoteTitle">
               <Form.Label className="custom-label">Título</Form.Label>
-              <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Digite o título da nota" className="bg-light" required />
+              <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Digite o título da nota" className="bg-light txtTitle" required />
             </Form.Group>
             <Form.Group controlId="formNoteContent" className="mt-3">
               <Form.Label className="custom-label">Conteúdo</Form.Label>

@@ -128,22 +128,29 @@
 
 .note-footer {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+}
+
+.note-rightFooter {
+    flex: 1;
+    display: flex;
     justify-content: flex-end;
+    align-items: center;
     height: 100%;
 }
 
-.note-footer span {
+.note-rightFooter span {
     color: #946a56 !important;
     cursor: pointer;
     line-height: 1;
 }
 
-.note-footer svg {
+.note-rightFooter svg {
     vertical-align: baseline;
 }
 
-.note-footer span+span {
+.note-rightFooter span+span {
     margin-left: 10px;
     /* Espaço entre os ícones */
 }
@@ -154,6 +161,32 @@
 
 #lock-icon {
     font-size: 22px;
+}
+
+.note-leftFooter {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+}
+
+.note-leftFooter span {
+    color: #946a56 !important;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.note-leftFooter svg {
+    vertical-align: baseline;
+}
+
+#link-icon {
+    font-size: 22px;
+}
+
+#link-icon a {
+    color: #946a56 !important;
 }
 
 /* CONTEXT MENU */

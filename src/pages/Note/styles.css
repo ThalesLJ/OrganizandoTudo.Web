@@ -1,0 +1,30 @@
+.custom-label {
+    user-select: none;
+    color: #000000 !important;
+    font-size: 18px !important;
+}
+
+.txtTitle {
+    font-size: 17px !important;
+}
+
+.txtContent {
+    user-select: text !important;
+    margin-top: 10px;
+    padding: 1rem 0.75rem;
+    border: 1px solid #ced4da;
+    background-color: #f8f9fa;
+    white-space: pre-wrap;
+    overflow-y: auto;
+    min-height: 200px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    resize: both;
+    overflow: auto;
+}
+
+.txtContent p {
+    font-size: 16px;
+    user-select: text !important;
+}

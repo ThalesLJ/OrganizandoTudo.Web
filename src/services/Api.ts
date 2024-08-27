@@ -173,6 +173,22 @@ class Api {
         }
     }
 
+    async GetPublicNote(id: string): Promise<INote> {
+        try {
+            let response = await fetch(`${baseURL}/Note?id=${id}`,
+                {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                }
+            );
+
+            let result: INote = await response.json();
+            return result;
+        } catch (ex) {
+            return { id: '', title: `${ex}`, content: "Error" };
+        }
+    }
+
     async GetNotes(token: string): Promise<INotes[]> {
         try {
             let response = await fetch(`${baseURL}/Notes`,
