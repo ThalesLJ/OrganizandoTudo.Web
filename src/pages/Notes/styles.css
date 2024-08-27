@@ -126,15 +126,34 @@
     transform: scale(1.2);
 }
 
-.note-visibility {
+.note-footer {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    height: 100%;
 }
 
-.note-visibility span {
+.note-footer span {
     color: #946a56 !important;
     cursor: pointer;
-    font-size: 18px;
+    line-height: 1;
+}
+
+.note-footer svg {
+    vertical-align: baseline;
+}
+
+.note-footer span+span {
+    margin-left: 10px;
+    /* Espaço entre os ícones */
+}
+
+#trash-icon {
+    font-size: 20px;
+}
+
+#lock-icon {
+    font-size: 22px;
 }
 
 /* CONTEXT MENU */

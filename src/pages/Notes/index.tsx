@@ -9,6 +9,8 @@ import INotes from '../../types/INotes';
 import { Container, Card, Row, Col, Button, Dropdown, InputGroup, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { IoLockOpen, IoLockClosed } from "react-icons/io5";
+import { FaTrash } from "react-icons/fa6";
 import { CircularProgress } from "@mui/material";
 
 export default function Notes() {
@@ -68,7 +70,14 @@ export default function Notes() {
     setFilteredNotes(filtered);
   }, [notes, filter, sortOrder, searchQuery]);
 
-  const DeleteNote = (noteId: string) => {
+  const DeleteNote = (noteId: string, confirm: boolean) => {
+    if (confirm) {
+      const userConfirmed = window.confirm('Tem certeza de que deseja excluir esta nota?');
+      if (!userConfirmed) {
+        return;
+      }
+    }
+
     if (noteId) {
       Api.DeleteNote(noteId, Auth.user.token)
         .then((result) => {
@@ -167,10 +176,12 @@ export default function Notes() {
                               </div>
                             </Card.Body>
                             <Card.Footer className="text-muted note-card-footer" style={{ textAlign: 'left' }}>
-                              <div className="note-visibility">
-                                <input className="note-visible" type="checkbox" checked={note.public} onChange={(e) => PublicNote(note.id, note.public)} />
-                                <span onClick={() => PublicNote(note.id, note.public)} style={{ cursor: 'pointer' }}>
-                                  {note.public ? 'Public' : 'Private'}
+                              <div className="note-footer">
+                                <span id="lock-icon" onClick={() => PublicNote(note.id, note.public)}>
+                                  {note.public ? <IoLockClosed /> : <IoLockOpen />}
+                                </span>
+                                <span id="trash-icon" onClick={() => { if (note.id) { DeleteNote(note.id, true) } }}>
+                                  <FaTrash />
                                 </span>
                               </div>
                             </Card.Footer>
@@ -182,7 +193,7 @@ export default function Notes() {
 
                   {contextMenu.show && (
                     <div className="context-menu" style={{ top: contextMenu.y, left: contextMenu.x }}>
-                      <button onClick={() => { if (contextMenu.noteId) { DeleteNote(contextMenu.noteId) } }}>Delete</button>
+                      <button onClick={() => { if (contextMenu.noteId) { DeleteNote(contextMenu.noteId, false) } }}>Delete</button>
                     </div>
                   )}
                 </Container>
