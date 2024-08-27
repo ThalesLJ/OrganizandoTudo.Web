@@ -14,3 +14,12 @@
 .resizable-editor .ql-toolbar {
     background-color: white !important;
 }
+
+.resizable-editor .ql-editor {
+    font-size: 18px; /* Editor HTML */
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.resizable-editor .ql-toolbar .ql-picker {
+    font-size: 16px; /* Toolbar do Editor HTML */
+}

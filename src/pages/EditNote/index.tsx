@@ -1,5 +1,5 @@
 import "./styles.css";
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Container, Card, Form, Row, Col } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import Api from '../../services/Api';
@@ -47,20 +47,17 @@ export default function EditNote() {
     }
 
     if (id) {
-      Api.UpdateNote({ id, title, content }, id, Auth.user.token)
+      Api.UpdateNote({ id, title: titleRef.current, content: contentRef.current }, id, Auth.user.token)
         .then((result) => {
-          setNote({ id, title, content });
-          setInitialTitle(`${title}`);
-          setInitialContent(`${content}`);
+          setNote({ id, title: titleRef.current, content: contentRef.current });
+          setInitialTitle(titleRef.current);
+          setInitialContent(contentRef.current);
 
           if (exit) {
             setIsSavingExit(false);
+            navigate("/Notes");
           } else {
             setIsSavingKeep(false);
-          }
-
-          if (exit) {
-            navigate("/Notes");
           }
         })
         .catch((error) => {
@@ -73,7 +70,23 @@ export default function EditNote() {
           alert('Promise rejected with error: ' + error);
         });
     }
-  }, [exit, id, title, content, navigate]);
+  }, [exit, id, navigate]);
+
+  const titleRef = useRef(title);
+  const contentRef = useRef(content);
+  const SaveRef = useRef(Save);
+
+  useEffect(() => {
+    titleRef.current = title;
+  }, [title]);
+
+  useEffect(() => {
+    contentRef.current = content;
+  }, [content]);
+
+  useEffect(() => {
+    SaveRef.current = Save;
+  }, [Save]);
 
   // Page load
   useEffect(() => {
@@ -102,7 +115,7 @@ export default function EditNote() {
     const handleKeyDown = (event: any) => {
       if (event.ctrlKey && event.key === 'Enter') {
         setExit(true);
-        Save();
+        SaveRef.current();
       }
     };
 
@@ -112,10 +125,10 @@ export default function EditNote() {
       isMounted = false;
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [id, Save]);
+  }, [id]);
 
   const FormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    Save();
+    SaveRef.current();
     event.preventDefault();
   }
 
