@@ -15,6 +15,7 @@ import { CircularProgress } from "@mui/material";
 
 export default function Notes() {
   TokenValidator();
+  const [isLoading, setIsLoading] = React.useState(true);
   const [notes, setNotes] = React.useState<INotes[]>([]);
   const [filteredNotes, setFilteredNotes] = React.useState<INotes[]>([]);
   const [filter, setFilter] = React.useState<'all' | 'public' | 'private'>('all');
@@ -26,6 +27,7 @@ export default function Notes() {
     Api.GetNotes(Auth.user.token)
       .then((result) => {
         setNotes(result);
+        setIsLoading(false);
       })
       .catch((error) => {
         alert('Promise rejected with error: ' + error);
@@ -157,12 +159,16 @@ export default function Notes() {
                   </div>
 
                   <Row>
-                    {notes.length === 0 ? (
-                      <Col>
-                        <div className="d-flex justify-content-center" style={{ marginTop: '1rem' }}>
+                    {isLoading ? (
+                      <Row>
+                        <Col className="d-flex justify-content-center" style={{ marginTop: '1rem' }}>
                           <CircularProgress size={24} color="inherit" />
-                        </div>
-                      </Col>
+                        </Col>
+                      </Row>
+                    ) : filteredNotes.length === 0 ? (
+                      <Row>
+                        <Col className="d-flex justify-content-center" style={{ marginTop: '1rem' }}></Col>
+                      </Row>
                     ) : (
                       filteredNotes.map(note => (
                         <Col xs={12} sm={6} md={6} lg={4} key={note.id} style={{ marginTop: '1rem' }}>
