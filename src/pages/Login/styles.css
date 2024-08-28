@@ -86,7 +86,7 @@
 }
 
 .login-txtTitulo {
-    color: #946a56;
+    color: var(--primary);
     font-size: 50px;
     font-weight: 800;
     font-family: Prata;
@@ -94,7 +94,7 @@
 
 .login-txtLabels {
     text-align: start;
-    color: #946a56;
+    color: var(--primary);
     font-size: 18px;
     width: 50%;
 }
@@ -108,19 +108,19 @@
 }
 
 .login-txtRecuperar {
-    color: #946a56;
+    color: var(--primary);
     font-size: 15px;
     font-weight: 600;
     text-decoration: none;
 }
 
 .login-txtRecuperar:hover {
-    color: #946a56;
+    color: var(--primary);
     text-decoration: underline;
 }
 
 .login-txtCriar {
-    color: #946a56;
+    color: var(--primary);
     font-size: 15px;
     font-weight: 600;
     text-decoration: none;
@@ -172,13 +172,13 @@
 }
 
 .login-rights {
-    color: #946a56;
+    color: var(--primary);
     font-size: 18px;
 }
 
 .login-rightsLinkedin {
     margin-bottom: -5px;
-    color: #946a56;
+    color: var(--primary);
     font-size: 25px;
 }
 
@@ -188,7 +188,7 @@
     font-size: 12px;
     border: none;
     /* Remover borda */
-    color: #946a56;
+    color: var(--primary);
     background-color: transparent;
     user-select: none;
     text-decoration: none;
@@ -198,14 +198,14 @@
 .custom-select .MuiSelect-select {
     border: none;
     /* Remover borda */
-    color: #946a56;
+    color: var(--primary);
     background-color: transparent;
     padding: 8px 12px;
 }
 
 /* Icone da direita */
 .custom-select .MuiSelect-icon {
-    color: #946a56;
+    color: var(--primary);
 }
 
 /* Itens do menu */
@@ -232,15 +232,15 @@
 
 /* Remove a borda azul quando o Select está focado */
 .custom-select .Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: #946a56 !important;
+    border-color: var(--primary) !important;
 }
 
 /* Remove o foco padrão do Select */
 .custom-select .Mui-focused .MuiSelect-icon {
-    color: #946a56;
+    color: var(--primary);
 }
 
 /* Remove o foco padrão do Select quando a opção está selecionada */
 .custom-select .MuiSelect-select.MuiSelect-select {
-    border-color: #946a56 !important;
+    border-color: var(--primary) !important;
 }

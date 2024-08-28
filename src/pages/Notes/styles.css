@@ -13,7 +13,7 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #946a56;
+    background-color: var(--primary);
     border-radius: 50%;
     padding: 10px;
     color: #fff;
@@ -50,7 +50,7 @@
         justify-content: center;
         display: block;
         text-align: center;
-        background-color: #946a56;
+        background-color: var(--primary);
         text-decoration: none;
     }
 
@@ -98,7 +98,7 @@
 }
 
 .note-title {
-    color: #946a56 !important;
+    color: var(--primary) !important;
     user-select: auto;
     cursor: pointer;
     padding: 0px 10px 10px 10px;
@@ -120,7 +120,7 @@
 }
 
 .note-visible {
-    accent-color: #946a56 !important;
+    accent-color: var(--primary) !important;
     cursor: pointer;
     margin-right: 5px;
     transform: scale(1.2);
@@ -141,7 +141,7 @@
 }
 
 .note-rightFooter span {
-    color: #946a56 !important;
+    color: var(--primary) !important;
     cursor: pointer;
     line-height: 1;
 }
@@ -172,7 +172,7 @@
 }
 
 .note-leftFooter span {
-    color: #946a56 !important;
+    color: var(--primary) !important;
     cursor: pointer;
     line-height: 1;
 }
@@ -186,14 +186,14 @@
 }
 
 #link-icon a {
-    color: #946a56 !important;
+    color: var(--primary) !important;
 }
 
 /* CONTEXT MENU */
 .context-menu {
     position: absolute;
-    background-color: #946a56 !important;
-    border: 1px solid #946a56 !important;
+    background-color: var(--primary) !important;
+    border: 1px solid var(--primary) !important;
     padding: 10px;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -202,7 +202,7 @@
 .context-menu button {
     background: none;
     border: none;
-    color: #ffe3d5 !important;
+    color: var(--secondary) !important;
     padding: 5px 10px;
     cursor: pointer;
     width: 100%;
@@ -211,32 +211,32 @@
 
 /* SORT e FILTER */
 .sort-dropdown {
-    background-color: #946a56 !important;
-    color: #ffe3d5 !important;
+    background-color: var(--primary) !important;
+    color: var(--secondary) !important;
     border: none;
     border-radius: 5px;
     margin-bottom: 0.5rem;
 }
 
 .sort-dropdown .dropdown-toggle {
-    background-color: #946a56 !important;
-    color: #ffe3d5 !important;
+    background-color: var(--primary) !important;
+    color: var(--secondary) !important;
     border: none;
 }
 
 .sort-dropdown .dropdown-menu {
-    background-color: #946a56 !important;
-    color: #ffe3d5 !important;
+    background-color: var(--primary) !important;
+    color: var(--secondary) !important;
 }
 
 .sort-dropdown .dropdown-item {
-    background-color: #946a56 !important;
-    color: #ffe3d5 !important;
+    background-color: var(--primary) !important;
+    color: var(--secondary) !important;
 }
 
 .sort-dropdown .dropdown-item:hover {
-    background-color: #ffe3d5 !important;
-    color: #946a56 !important;
+    background-color: var(--secondary) !important;
+    color: var(--primary) !important;
 }
 
 .filter-buttons {
@@ -251,22 +251,22 @@
 }
 
 .filter-buttons button {
-    color: #946a56 !important;
-    border-color: #946a56 !important;
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
     background-color: transparent !important;
     display: flex;
     gap: 10px;
 }
 
 .filter-buttons button:hover {
-    background-color: #946a56 !important;
-    color: #ffe3d5 !important;
+    background-color: var(--primary) !important;
+    color: var(--secondary) !important;
 }
 
 .filter-button.active {
-    background-color: #946a56 !important;
-    border-color: #946a56 !important;
-    color: #ffe3d5 !important;
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: var(--secondary) !important;
 }
 
 @media (max-width: 476px) {
