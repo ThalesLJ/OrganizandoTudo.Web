@@ -1,7 +1,7 @@
+import '../index.css';
 import React, { useEffect } from "react";
 import { LanguageProvider } from '../context/LanguageContext';
 import { ColorProvider, useColors } from "../context/ColorContext";
-import './App.css';
 import AppRoutes from './AppRoutes';
 
 const App: React.FC = () => {
@@ -20,9 +20,11 @@ const ApplyColors: React.FC = () => {
   const { colors } = useColors();
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--primary-color', colors.primary);
-    document.documentElement.style.setProperty('--secondary-color', colors.secondary);
+    const root = document.documentElement;
+    root.style.setProperty('--primary', colors.primary);
+    root.style.setProperty('--secondary', colors.secondary);
   }, [colors]);
+  
 
   return null;
 };

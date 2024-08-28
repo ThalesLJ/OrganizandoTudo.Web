@@ -1,4 +1,4 @@
-import "./styles.css";
+import "../../index.css";
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function PageNotFound() {

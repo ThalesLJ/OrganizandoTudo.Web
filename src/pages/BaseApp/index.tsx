@@ -1,4 +1,4 @@
-import "./styles.css";
+import "../../index.css";
 import { useLanguage } from '../../context/LanguageContext';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';

@@ -1,4 +1,4 @@
-import "./styles.css";
+import "../../index.css";
 import { useLanguage } from '../../context/LanguageContext';
 import { AnimatePresence, motion } from 'framer-motion';
 

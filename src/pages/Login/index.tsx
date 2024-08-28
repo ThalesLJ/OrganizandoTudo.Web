@@ -1,4 +1,4 @@
-import "./styles.css";
+import "../../index.css";
 import * as React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { Observer } from 'mobx-react-lite';

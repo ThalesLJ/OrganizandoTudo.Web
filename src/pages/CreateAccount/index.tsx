@@ -1,4 +1,4 @@
-import "./styles.css";
+import "../../index.css";
 import { useLanguage } from '../../context/LanguageContext';
 import * as React from 'react';
 import { motion } from 'framer-motion';

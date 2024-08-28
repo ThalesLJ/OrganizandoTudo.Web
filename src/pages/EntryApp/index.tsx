@@ -1,4 +1,4 @@
-import "./styles.css";
+import "../../index.css";
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { Observer } from "mobx-react-lite";
 import Auth from "../../context/Auth";

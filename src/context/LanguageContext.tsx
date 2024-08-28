@@ -12,16 +12,28 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+// Função para obter o valor de um cookie pelo nome
+const getCookie = (name: string): string | null => {
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? decodeURIComponent(match[2]) : null;
+};
+
+// Função para definir um cookie
+const setCookie = (name: string, value: string, days: number) => {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+};
+
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('en'); // Defina o idioma padrão
 
   const changeLanguage = (lang: Language) => {
     setLanguage(lang);
-    sessionStorage.setItem('language', lang); // Salve o idioma na sessão
+    setCookie('language', lang, 5000); // Salve o idioma nos cookies com validade de 365 dias
   };
 
   useEffect(() => {
-    const savedLanguage = sessionStorage.getItem('language') as Language;
+    const savedLanguage = getCookie('language') as Language;
     if (savedLanguage) {
       setLanguage(savedLanguage);
     }

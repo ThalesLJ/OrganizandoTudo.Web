@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Definição do tipo Color
+// Definição do tipo Colors
 type Colors = {
   primary: string;
   secondary: string;
@@ -12,30 +12,34 @@ const ColorContext = createContext<{
   setColors: React.Dispatch<React.SetStateAction<Colors>>;
 } | undefined>(undefined);
 
+// Função para obter o valor de um cookie pelo nome
+const getCookie = (name: string): string | null => {
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  return match ? decodeURIComponent(match[2]) : null;
+};
+
+// Função para definir um cookie
+const setCookie = (name: string, value: string, days: number) => {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+};
+
 export const ColorProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [colors, setColors] = useState<Colors>({
-    primary: '#3498db',
-    secondary: '#2ecc71'
+  // Cores padrão
+  const defaultColors: Colors = {
+    primary: '#3498db',  // Azul
+    secondary: '#2ecc71' // Verde
+  };
+
+  // Estado inicial que verifica a existência de cores nos cookies ou usa as cores padrão
+  const [colors, setColors] = useState<Colors>(() => {
+    const savedColors = getCookie('colors');
+    return savedColors ? JSON.parse(savedColors) : defaultColors;
   });
 
   useEffect(() => {
-    // Carregar cores do JSON
-    fetch('/path/to/colors.json')
-      .then(response => response.json())
-      .then((data: Colors) => {
-        // Verificar se já existem cores no localStorage
-        const savedColors = localStorage.getItem('colors');
-        if (savedColors) {
-          setColors(JSON.parse(savedColors));
-        } else {
-          setColors(data);
-        }
-      });
-  }, []);
-
-  useEffect(() => {
-    // Salvar cores no localStorage quando mudarem
-    localStorage.setItem('colors', JSON.stringify(colors));
+    // Atualiza as cores nos cookies sempre que elas mudarem
+    setCookie('colors', JSON.stringify(colors), 5000);  // Expira em 365 dias
   }, [colors]);
 
   return (
@@ -45,6 +49,7 @@ export const ColorProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   );
 };
 
+// Hook para usar as cores
 export const useColors = () => {
   const context = useContext(ColorContext);
   if (context === undefined) {

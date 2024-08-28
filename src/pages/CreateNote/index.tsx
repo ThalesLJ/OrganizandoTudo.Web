@@ -1,4 +1,4 @@
-import "./styles.css";
+import "../../index.css";
 import { useLanguage } from '../../context/LanguageContext';
 import React, { useCallback, useState } from 'react';
 import { Container, Card, Form } from 'react-bootstrap';

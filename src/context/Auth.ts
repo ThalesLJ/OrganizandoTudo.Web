@@ -33,7 +33,7 @@ class Auth {
     }
 
     persistUser() {
-        this.setCookie('user', JSON.stringify(this.user), 1);
+        this.setCookie('user', JSON.stringify(this.user), 5000);
     }
 
     unpersistUser() {
