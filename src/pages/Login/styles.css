@@ -181,3 +181,51 @@
     color: #946a56;
     font-size: 25px;
 }
+
+/* Container principal */
+.custom-select {
+    border-radius: 4px;
+    font-size: 12px;
+    border: none;
+    /* Remover borda */
+    color: #946a56;
+    background-color: transparent;
+    user-select: none;
+    text-decoration: none;
+}
+
+/* Idioma selecionado */
+.custom-select .MuiSelect-select {
+    border: none;
+    /* Remover borda */
+    color: #946a56;
+    background-color: transparent;
+    padding: 8px 12px;
+}
+
+/* Icone da direita */
+.custom-select .MuiSelect-icon {
+    color: #946a56;
+}
+
+/* Itens do menu */
+.custom-select-menu {
+    background-color: #333;
+    /* Fundo escuro para o menu */
+    color: #fff;
+    /* Texto branco para contraste */
+}
+
+/* Itens do menu */
+.custom-select-menu-item {
+    background-color: #333;
+    /* Fundo escuro para os itens do menu */
+    color: #fff;
+    /* Texto branco para contraste */
+}
+
+/* Alterar a cor de fundo do item selecionado */
+.custom-select-menu-item.Mui-selected {
+    background-color: #555;
+    /* Cor mais clara para o item selecionado */
+}

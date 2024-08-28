@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import TokenValidator from '../../services/TokenValidator';
 import { Observer } from 'mobx-react-lite';
 import Api from '../../services/Api';
-import Auth from '../../services/Auth';
+import Auth from '../../context/Auth';
 import INotes from '../../types/INotes';
 import { Container, Card, Row, Col, Button, Dropdown, InputGroup, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -172,7 +172,7 @@ export default function Notes() {
                       </Row>
                     ) : (
                       filteredNotes.map(note => (
-                        <Col xs={12} sm={6} md={6} lg={4} key={note.id} style={{ marginTop: '1rem' }}>
+                        <Col xs={12} sm={12} md={6} lg={6} xl={4} key={note.id} style={{ marginTop: '1rem' }}>
                           <Card onContextMenu={(e) => handleContextMenu(e, note.id)}>
                             <Card.Body className="note-card-body">
                               <Link to={`/EditNote/${note.id}`} style={{ textDecoration: 'none' }}>

@@ -3,7 +3,7 @@ import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import logo from '../../assets/O-positivo-simples.png';
 import { BiLogOut } from "react-icons/bi";
-import Auth from "../../services/Auth";
+import Auth from "../../context/Auth";
 
 export default function BaseApp() {
   const navigate = useNavigate();

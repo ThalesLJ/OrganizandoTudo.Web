@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import Auth from "../services/Auth";
+import Auth from "../context/Auth";
 import TokenValidator from "../services/TokenValidator";
 import { Observer } from "mobx-react-lite";
 

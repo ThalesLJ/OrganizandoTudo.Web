@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import { CircularProgress, styled } from '@mui/material';
 import Api from "../../services/Api";
 import { useNavigate } from "react-router-dom";
-import Auth from "../../services/Auth";
+import Auth from "../../context/Auth";
 import ReactQuill from "react-quill";
 
 const ColorButton = styled(Button)(({ theme }) => ({

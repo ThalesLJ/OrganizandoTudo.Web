@@ -7,7 +7,7 @@ import INote from '../../types/INote';
 import { CircularProgress } from '@mui/material';
 import 'react-quill/dist/quill.snow.css';
 import { AnimatePresence, motion } from "framer-motion";
-import { IoIosArrowBack } from "react-icons/io";
+import { GoHome } from "react-icons/go";
 
 export default function Note() {
   const { id } = useParams<Record<string, string | undefined>>();
@@ -82,7 +82,7 @@ export default function Note() {
 
       <AnimatePresence key='floatingButtons'>
         <Link to="/Notes" className="floating-btn">
-          <IoIosArrowBack size={40} />
+          <GoHome size={40} />
           <span className="d-none d-md-block">Voltar</span>
         </Link>
       </AnimatePresence>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import Auth from './Auth';
+import Auth from '../context/Auth';
 import { useNavigate } from "react-router-dom";
 
 // 5 * 60 * 1000 // Verifica a cada 5 minutos

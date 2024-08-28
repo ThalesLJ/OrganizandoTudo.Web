@@ -1,0 +1,16 @@
+{
+    "login_title": "Entrar",
+    "login_username": "Usuário",
+    "login_password": "Senha",
+    "login_create": "Criar Conta",
+    "login_recovery": "Recuperar Senha",
+    "login_btnLogin": "Entrar",
+    "createAccount_title": "Criar Conta",
+    "recoveryAccount_title": "Recuperar Conta",
+    "settings_title": "Configurações",
+    "notes_title": "Notas",
+    "note_title": "Nota",
+    "createNote_title": "Criar Nota",
+    "editNote_title": "Editar Nota",
+    "notFound_title": "Não Encontrado"
+}

@@ -1,0 +1,16 @@
+{
+    "login_title": "Login",
+    "login_username": "Username",
+    "login_password": "Password",
+    "login_create": "Create Account",
+    "login_recovery": "Recovery Password",
+    "login_btnLogin": "Sign in",
+    "createAccount_title": "Create Account",
+    "recoveryAccount_title": "Recovery Account",
+    "settings_title": "Settings",
+    "notes_title": "Notes",
+    "note_title": "Note",
+    "createNote_title": "Create Note",
+    "editNote_title": "Edit Note",
+    "notFound_title": "Not Found"
+}

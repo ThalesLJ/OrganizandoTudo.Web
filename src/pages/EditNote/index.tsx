@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Container, Card, Form, Row, Col } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import Api from '../../services/Api';
-import Auth from '../../services/Auth';
+import Auth from '../../context/Auth';
 import TokenValidator from '../../services/TokenValidator';
 import INote from '../../types/INote';
 import { Button, CircularProgress, styled } from '@mui/material';
