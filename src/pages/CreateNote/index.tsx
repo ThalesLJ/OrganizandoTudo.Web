@@ -1,4 +1,5 @@
 import "./styles.css";
+import { useLanguage } from '../../context/LanguageContext';
 import React, { useCallback, useState } from 'react';
 import { Container, Card, Form } from 'react-bootstrap';
 import { Button } from '@mui/material';
@@ -19,6 +20,8 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function CreateNote() {
+  const { strings } = useLanguage();
+  
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [isSaving, setIsSaving] = useState<boolean>(false);
@@ -68,16 +71,16 @@ export default function CreateNote() {
         <Card.Body>
           <Form onSubmit={FormSubmit}>
             <Form.Group controlId="formNoteTitle">
-              <Form.Label className="custom-label">Título</Form.Label>
-              <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Digite o título da nota" className="bg-light txtTitle" required />
+              <Form.Label className="custom-label">{strings.createNote_noteTitle}</Form.Label>
+              <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder={strings.createNote_noteTitlePlaceholder} className="bg-light txtTitle" required />
             </Form.Group>
             <Form.Group controlId="formNoteContent" className="mt-3">
-              <Form.Label className="custom-label">Conteúdo</Form.Label>
-              <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder="Digite o conteúdo da nota" />
+              <Form.Label className="custom-label">{strings.createNote_noteContent}</Form.Label>
+              <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder={strings.createNote_noteContentPlaceholder} />
             </Form.Group>
             <Form.Group controlId="formSave" className="mt-3">
               <ColorButton type='submit' variant="contained" disabled={isSaving} >
-                {isSaving ? (<CircularProgress size={24} color="inherit" />) : ('Save')}
+                {isSaving ? (<CircularProgress size={24} color="inherit" />) : (strings.createNote_btnSave)}
               </ColorButton>
             </Form.Group>
           </Form>

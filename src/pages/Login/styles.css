@@ -229,3 +229,18 @@
     background-color: #555;
     /* Cor mais clara para o item selecionado */
 }
+
+/* Remove a borda azul quando o Select está focado */
+.custom-select .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #946a56 !important;
+}
+
+/* Remove o foco padrão do Select */
+.custom-select .Mui-focused .MuiSelect-icon {
+    color: #946a56 !important;
+}
+
+/* Remove o foco padrão do Select quando a opção está selecionada */
+.custom-select .MuiSelect-select.MuiSelect-select {
+    border-color: #946a56 !important;
+}

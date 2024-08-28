@@ -1,5 +1,6 @@
 import "./styles.css";
 import * as React from 'react';
+import { useLanguage } from '../../context/LanguageContext';
 import { AnimatePresence, motion } from 'framer-motion';
 import TokenValidator from '../../services/TokenValidator';
 import { Observer } from 'mobx-react-lite';
@@ -16,6 +17,8 @@ import { RxExternalLink } from "react-icons/rx";
 
 export default function Notes() {
   TokenValidator();
+  const { strings } = useLanguage();
+  
   const [isLoading, setIsLoading] = React.useState(true);
   const [notes, setNotes] = React.useState<INotes[]>([]);
   const [filteredNotes, setFilteredNotes] = React.useState<INotes[]>([]);
@@ -139,22 +142,22 @@ export default function Notes() {
               <motion.div initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 0.2 }}>
                 <Container className="my-4 note-list">
                   <InputGroup className="mb-3">
-                    <FormControl className="txt-search" placeholder="Search notes..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+                    <FormControl className="txt-search" placeholder={strings.notes_searchNotes} value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
                   </InputGroup>
 
                   <div className="filter-sort-container mb-3">
                     <div className="filter-buttons">
-                      <Button className={`filter-button ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>All</Button>
-                      <Button className={`filter-button ${filter === 'public' ? 'active' : ''}`} onClick={() => setFilter('public')}>Public</Button>
-                      <Button className={`filter-button ${filter === 'private' ? 'active' : ''}`} onClick={() => setFilter('private')}>Private</Button>
+                      <Button className={`filter-button ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>{strings.notes_allNotes}</Button>
+                      <Button className={`filter-button ${filter === 'public' ? 'active' : ''}`} onClick={() => setFilter('public')}>{strings.notes_publicNotes}</Button>
+                      <Button className={`filter-button ${filter === 'private' ? 'active' : ''}`} onClick={() => setFilter('private')}>{strings.notes_privateNotes}</Button>
                     </div>
                     <Dropdown onSelect={(eventKey) => setSortOrder(eventKey as 'title' | 'date')} className="sort-dropdown">
                       <Dropdown.Toggle variant="primary">
-                        Sort by {sortOrder}
+                        {strings.notes_sortBy} {sortOrder === "title" ? (strings.notes_titleNote) : (strings.notes_dateNote)}
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item eventKey="title">Title</Dropdown.Item>
-                        <Dropdown.Item eventKey="date">Date</Dropdown.Item>
+                        <Dropdown.Item eventKey="title">{strings.notes_titleNote}</Dropdown.Item>
+                        <Dropdown.Item eventKey="date">{strings.notes_dateNote}</Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                   </div>
@@ -211,7 +214,7 @@ export default function Notes() {
 
                   {contextMenu.show && (
                     <div className="context-menu" style={{ top: contextMenu.y, left: contextMenu.x }}>
-                      <button onClick={() => { if (contextMenu.noteId) { DeleteNote(contextMenu.noteId, false) } }}>Delete</button>
+                      <button onClick={() => { if (contextMenu.noteId) { DeleteNote(contextMenu.noteId, false) } }}>{strings.notes_deleteNote}</button>
                     </div>
                   )}
                 </Container>
@@ -221,7 +224,7 @@ export default function Notes() {
             <AnimatePresence key='floatingButtons'>
               <Link to="/CreateNote" className="floating-btn">
                 <AiOutlinePlus size={40} />
-                <span className="d-none d-md-block">ADD</span>
+                <span className="d-none d-md-block">{strings.notes_addNote}</span>
               </Link>
             </AnimatePresence>
           </>

@@ -1,4 +1,5 @@
 import "./styles.css";
+import { useLanguage } from '../../context/LanguageContext';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Container, Card, Form, Row, Col } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -23,6 +24,8 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 export default function EditNote() {
   TokenValidator();
+  const { strings } = useLanguage();
+  
   const { id } = useParams<Record<string, string | undefined>>();
   const [note, setNote] = useState<INote>({ id: '', title: '', content: '' });
   const [loading, setLoading] = React.useState(true);
@@ -155,7 +158,7 @@ export default function EditNote() {
   }
 
   if (!loading && (!note || !content)) {
-    return <Container className="my-4">Nota não encontrada.</Container>;
+    return <Container className="my-4">{strings.editNote_noteNotFound}</Container>;
   }
 
   return (
@@ -164,23 +167,23 @@ export default function EditNote() {
         <Card.Body>
           <Form ref={form} onSubmit={FormSubmit}>
             <Form.Group controlId="formNoteTitle">
-              <Form.Label className="custom-label">Título</Form.Label>
-              <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Digite o título da nota" className="bg-light txtTitle" required />
+              <Form.Label className="custom-label">{strings.editNote_noteTitle}</Form.Label>
+              <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder={strings.editNote_noteTitlePlaceholder} className="bg-light txtTitle" required />
             </Form.Group>
             <Form.Group controlId="formNoteContent" className="mt-3">
-              <Form.Label className="custom-label">Conteúdo</Form.Label>
-              <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder="Digite o conteúdo da nota" />
+              <Form.Label className="custom-label">{strings.editNote_noteContent}</Form.Label>
+              <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder={strings.editNote_noteContentPlaceholder} />
             </Form.Group>
             <Form.Group controlId="formSave" className="mt-3">
               <Row>
                 <Col xs={12} sm={6} md={6} lg={6}>
                   <ColorButton type="submit" onClick={SaveAndKeep} className='login-btnAcessar' variant="contained" disabled={!hasChanges} >
-                    {isSavingKeep ? (<CircularProgress size={24} color="inherit" />) : ('Save')}
+                    {isSavingKeep ? (<CircularProgress size={24} color="inherit" />) : (strings.editNote_btnSave)}
                   </ColorButton>
                 </Col>
                 <Col xs={12} sm={6} md={6} lg={6}>
                   <ColorButton type="submit" onClick={SaveAndExit} className='login-btnAcessar' variant="contained" disabled={!hasChanges} >
-                    {isSavingExit ? (<CircularProgress size={24} color="inherit" />) : ('Save and Close')}
+                    {isSavingExit ? (<CircularProgress size={24} color="inherit" />) : (strings.editNote_btnSaveAndClose)}
                   </ColorButton>
                 </Col>
               </Row>

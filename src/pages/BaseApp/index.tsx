@@ -1,4 +1,5 @@
 import "./styles.css";
+import { useLanguage } from '../../context/LanguageContext';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import logo from '../../assets/O-positivo-simples.png';
@@ -6,6 +7,8 @@ import { BiLogOut } from "react-icons/bi";
 import Auth from "../../context/Auth";
 
 export default function BaseApp() {
+  const { strings } = useLanguage();
+
   const navigate = useNavigate();
 
   const Logout = () => {
@@ -22,8 +25,8 @@ export default function BaseApp() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link className='navbar-link' as={Link} to="/Notes">Notes</Nav.Link>
-            <Nav.Link className='navbar-link' as={Link} to="/Settings">Settings</Nav.Link>
+            <Nav.Link className='navbar-link' as={Link} to="/Notes">{strings.notes_title}</Nav.Link>
+            <Nav.Link className='navbar-link' as={Link} to="/Settings">{strings.settings_title}</Nav.Link>
           </Nav>
           <Nav className="logout-container">
             <Nav.Link onClick={Logout} className="logout-icon">

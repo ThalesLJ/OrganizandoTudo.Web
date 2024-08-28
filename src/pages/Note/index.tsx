@@ -1,4 +1,5 @@
 import "./styles.css";
+import { useLanguage } from '../../context/LanguageContext';
 import React, { useEffect, useState } from 'react';
 import { Container, Card, Form } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
@@ -10,6 +11,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { GoHome } from "react-icons/go";
 
 export default function Note() {
+  const { strings } = useLanguage();
+
   const { id } = useParams<Record<string, string | undefined>>();
   const [note, setNote] = useState<INote>({ id: '', title: '', content: '' });
   const [loading, setLoading] = React.useState(true);
@@ -54,7 +57,7 @@ export default function Note() {
   }
 
   if (!loading && (!note || !content)) {
-    return <Container className="my-4">Nota não encontrada.</Container>;
+    return <Container className="my-4">{strings.note_notFound}</Container>;
   }
 
   return (
@@ -66,11 +69,11 @@ export default function Note() {
               <Card.Body>
                 <Form>
                   <Form.Group controlId="formNoteTitle">
-                    <Form.Label className="custom-label">Título</Form.Label>
+                    <Form.Label className="custom-label">{strings.note_noteTitle}</Form.Label>
                     <Form.Control type="text" value={title} placeholder="Título da nota" className="bg-light txtTitle" readOnly />
                   </Form.Group>
                   <Form.Group controlId="formNoteContent" className="mt-3">
-                    <Form.Label className="custom-label">Conteúdo</Form.Label>
+                    <Form.Label className="custom-label">{strings.note_noteContent}</Form.Label>
                     <div className="txtContent" dangerouslySetInnerHTML={{ __html: content }} />
                   </Form.Group>
                 </Form>
@@ -83,7 +86,7 @@ export default function Note() {
       <AnimatePresence key='floatingButtons'>
         <Link to="/Notes" className="floating-btn">
           <GoHome size={40} />
-          <span className="d-none d-md-block">Voltar</span>
+          <span className="d-none d-md-block">{strings.note_back}</span>
         </Link>
       </AnimatePresence>
     </>

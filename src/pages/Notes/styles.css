@@ -269,7 +269,7 @@
     color: #ffe3d5 !important;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 476px) {
 
     .filter-buttons,
     .sort-dropdown,
@@ -286,7 +286,7 @@
     }
 }
 
-@media (min-width: 401px) {
+@media (min-width: 475px) {
     .filter-sort-container {
         display: flex;
         justify-content: space-between;

@@ -1,4 +1,5 @@
 import "./styles.css";
+import { useLanguage } from '../../context/LanguageContext';
 import * as React from 'react';
 import { motion } from 'framer-motion';
 import { Button, CircularProgress, FormControl, styled } from '@mui/material';
@@ -12,6 +13,8 @@ import Api from '../../services/Api';
 import IUserData from "../../types/IUserData";
 
 export default function CreateAccount() {
+  const { strings } = useLanguage();
+  
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -56,26 +59,26 @@ export default function CreateAccount() {
     <div className='app-container'>
       <motion.div className='login' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} >
         <br /><br />
-        <span className='login-txtTitulo'>Criar Conta</span>
+        <span className='login-txtTitulo'>{strings.createAccount_title}</span>
         <br /><br />
 
         <form onSubmit={SignUp}>
           <FormControl className='login-divUsuario' sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <span className='login-txtLabels'>Usuário</span>
+            <span className='login-txtLabels'>{strings.createAccount_username}</span>
             <OutlinedInput className='login-inputUsuario' id="usuario" type='text' required
               onChange={(e) => { setUsername(e.target.value) }}
             />
           </FormControl>
           <br />
           <FormControl className='login-divEmail' sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <span className='login-txtLabels'>Email</span>
+            <span className='login-txtLabels'>{strings.createAccount_email}</span>
             <OutlinedInput className='login-inputEmail' id="email" type='text' required
               onChange={(e) => { setEmail(e.target.value) }}
             />
           </FormControl>
           <br />
           <FormControl className='login-divSenha' sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <span className='login-txtLabels'>Senha</span>
+            <span className='login-txtLabels'>{strings.createAccount_password}</span>
             <OutlinedInput className='login-inputSenha' id="senha" required
               onChange={(e) => { setPassword(e.target.value) }}
               type={showPassword ? 'text' : 'password'}
@@ -90,11 +93,11 @@ export default function CreateAccount() {
           </FormControl>
           <br />
           <ColorButton type='submit' className='login-btnAcessar' variant="contained">
-            {isSigningUp ? (<CircularProgress size={24} color="inherit" />) : ('Criar Conta')}
+            {isSigningUp ? (<CircularProgress size={24} color="inherit" />) : (strings.createAccount_title)}
           </ColorButton>
         </form>
         <div className="login-divCriar">
-          <Link to="/" className='login-txtCriar'>Fazer Login</Link>
+          <Link to="/" className='login-txtCriar'>{strings.createAccount_accessAccount}</Link>
         </div>
         <br /><br />
       </motion.div>
