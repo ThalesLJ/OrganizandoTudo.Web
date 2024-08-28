@@ -141,13 +141,7 @@ export default function Login() {
           <AnimatePresence>
             <motion.div key='language-dropdown' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
               <FloatingButton variant="outlined" className="custom-select">
-                <Select
-                  value={language}
-                  onChange={handleLanguageChange}
-                  displayEmpty
-                  inputProps={{ 'aria-label': 'Select Language' }}
-                  className="MuiSelect-select"
-                >
+                <Select value={language} onChange={handleLanguageChange} displayEmpty inputProps={{ 'aria-label': 'Select Language' }} className="MuiSelect-select">
                   <MenuItem value={'en'} className="custom-select-menu-item">EN</MenuItem>
                   <MenuItem value={'pt'} className="custom-select-menu-item">PT</MenuItem>
                 </Select>

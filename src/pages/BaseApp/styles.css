@@ -44,8 +44,29 @@
 .logout-icon {
     color: #ffe3d5 !important;
     cursor: pointer;
+    margin-top: -2px;
 }
 
 .logout-icon:hover {
     color: #ffffff !important;
+}
+
+/* Ajusta a altura e o padding do Select */
+.custom-select {
+    height: 36px;
+    padding: 0 8px;
+    margin-top: 2px;
+    margin-right: 20px;
+    background-color: #ffe3d5 !important;
+}
+
+/* Remove o outline azul quando o Select está focado */
+.custom-select:focus {
+    outline: none;
+    border-color: #946a56 !important;
+}
+
+/* Ajusta o estilo dos itens do menu */
+.custom-select-menu-item {
+    padding: 8px 16px;
 }

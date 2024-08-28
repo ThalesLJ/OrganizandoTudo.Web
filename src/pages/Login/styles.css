@@ -237,7 +237,7 @@
 
 /* Remove o foco padrão do Select */
 .custom-select .Mui-focused .MuiSelect-icon {
-    color: #946a56 !important;
+    color: #946a56;
 }
 
 /* Remove o foco padrão do Select quando a opção está selecionada */
