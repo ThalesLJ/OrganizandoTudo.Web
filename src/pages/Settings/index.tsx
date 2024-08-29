@@ -8,7 +8,6 @@ import { FormControl, MenuItem, Select, SelectChangeEvent, styled, Button, Circu
 import Auth from '../../context/Auth';
 import Api from '../../services/Api';
 import TokenValidator from '../../services/TokenValidator';
-import { useNavigate } from 'react-router-dom';
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: '#ffe3d5',
@@ -25,7 +24,6 @@ export default function Settings() {
   TokenValidator();
   const { strings, changeLanguage, language } = useLanguage();
   const { setColors } = useColors();
-  const navigate = useNavigate();
 
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
