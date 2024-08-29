@@ -27,8 +27,8 @@ const setCookie = (name: string, value: string, days: number) => {
 export const ColorProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Cores padrão
   const defaultColors: Colors = {
-    primary: '#3498db',  // Azul
-    secondary: '#2ecc71' // Verde
+    primary: '#946a56',
+    secondary: '#ffe3d5',
   };
 
   // Estado inicial que verifica a existência de cores nos cookies ou usa as cores padrão

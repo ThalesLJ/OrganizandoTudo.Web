@@ -58,7 +58,7 @@ class Api {
         }
     }
 
-    async GetUser(data: IUser): Promise<IResponse> {
+    async GetUser(data: IUser): Promise<IUserData> {
         try {
             let response = await fetch(`${baseURL}/User`,
                 {
@@ -67,10 +67,10 @@ class Api {
                 }
             );
 
-            let result: IResponse = await response.json();
+            let result: IUserData = await response.json();
             return result;
         } catch (ex) {
-            return { pt: { message: `${ex}`, code: "Error" }, en: { message: `${ex}`, code: "Error" } };
+            return { username: '', email: '', password: '' };
         }
     }
 
@@ -80,7 +80,7 @@ class Api {
                 {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `${token}` },
-                    body: JSON.stringify(data)
+                    body: JSON.stringify({ data: data })
                 }
             );
 
