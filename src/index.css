@@ -23,10 +23,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.select-none {
+  user-select: none !important;
+}
+
 /*INDEX*/
 
 /*APP*/
-.app-container {
+.app-unique-containers {
   display: flex;
   flex-direction: row;
   text-align: center;
@@ -34,6 +39,93 @@ code {
   align-self: center;
   justify-content: center;
   flex: 1;
+}
+
+.app-unique-container {
+  position: absolute;
+  background-color: transparent;
+  overflow: hidden;
+  text-align: center;
+  width: 80vw;
+  margin: 0;
+  top: 8%;
+}
+
+@media only screen and (min-width: 480px) {
+  .app-unique-container {
+    position: absolute;
+    background-color: transparent;
+    overflow: hidden;
+    width: 80vw;
+    margin: 0;
+    top: 8%;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .app-unique-container {
+    position: absolute;
+    background-color: transparent;
+    overflow: hidden;
+    width: 70vw;
+    margin: 0;
+    top: 8%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .app-unique-container {
+    position: absolute;
+    background-color: transparent;
+    overflow: hidden;
+    width: 60vw;
+    margin: 0;
+    top: 8%;
+  }
+}
+
+@media only screen and (min-width: 936px) {
+  .app-unique-container {
+    position: absolute;
+    background-color: transparent;
+    overflow: hidden;
+    width: 50vw;
+    margin: 0;
+    top: 8%;
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .app-unique-container {
+    position: absolute;
+    background-color: transparent;
+    overflow: hidden;
+    width: 40vw;
+    margin: 0;
+    top: 8%;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  .app-unique-container {
+    position: absolute;
+    background-color: transparent;
+    overflow: hidden;
+    width: 30vw;
+    margin: 0;
+    top: 8%;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  .app-unique-container {
+    position: absolute;
+    background-color: transparent;
+    overflow: hidden;
+    width: 25vw;
+    margin: 0;
+    top: 8%;
+  }
 }
 
 .force-txtCenter {
@@ -109,6 +201,7 @@ h6 {
 .no-decoration {
   text-decoration: none;
 }
+
 /*APP*/
 
 /*BASE APP*/
@@ -174,38 +267,38 @@ h6 {
 
 @media (max-width: 991px) {
   .custom-select {
-      width: 20%;
-      height: 36px;
-      padding: 0 8px;
-      margin-top: 5px;
-      margin-left: 10px;
-      margin-bottom: 10px;
-      background-color: var(--secondary) !important;
+    width: 20%;
+    height: 36px;
+    padding: 0 8px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: var(--secondary) !important;
   }
 }
 
 @media (max-width: 700px) {
   .custom-select {
-      width: 30%;
-      height: 36px;
-      padding: 0 8px;
-      margin-top: 5px;
-      margin-left: 10px;
-      margin-bottom: 10px;
-      background-color: var(--secondary) !important;
+    width: 30%;
+    height: 36px;
+    padding: 0 8px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: var(--secondary) !important;
   }
 }
 
 @media (max-width: 476px) {
   .custom-select {
-      width: 100%;
-      height: 36px;
-      padding: 0 8px;
-      margin-top: 5px;
-      margin-left: 10px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      background-color: var(--secondary) !important;
+    width: 100%;
+    height: 36px;
+    padding: 0 8px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: var(--secondary) !important;
   }
 }
 
@@ -217,12 +310,14 @@ h6 {
 .custom-select-menu-item {
   padding: 8px 16px;
 }
+
 /*BASE APP*/
 
 /*CREATE ACCOUNT*/
 .login-divCriar {
   margin-top: 10px;
 }
+
 /*CREATE ACCOUNT*/
 
 /*CREATE NOTE*/
@@ -257,6 +352,7 @@ h6 {
   font-size: 16px;
   /* Toolbar do Editor HTML */
 }
+
 /*CREATE NOTE*/
 
 /*EDIT NOTE*/
@@ -291,96 +387,10 @@ h6 {
   font-size: 16px;
   /* Toolbar do Editor HTML */
 }
+
 /*EDIT NOTE*/
 
 /*LOGIN*/
-.login {
-  position: absolute;
-  background-color: transparent;
-  overflow: hidden;
-  text-align: center;
-  width: 100vw;
-  margin: 0;
-  top: 8%;
-}
-
-@media only screen and (min-width: 480px) {
-  .login {
-      position: absolute;
-      background-color: transparent;
-      overflow: hidden;
-      width: 80vw;
-      margin: 0;
-      top: 8%;
-  }
-}
-
-@media only screen and (min-width: 600px) {
-  .login {
-      position: absolute;
-      background-color: transparent;
-      overflow: hidden;
-      width: 70vw;
-      margin: 0;
-      top: 8%;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .login {
-      position: absolute;
-      background-color: transparent;
-      overflow: hidden;
-      width: 60vw;
-      margin: 0;
-      top: 8%;
-  }
-}
-
-@media only screen and (min-width: 936px) {
-  .login {
-      position: absolute;
-      background-color: transparent;
-      overflow: hidden;
-      width: 50vw;
-      margin: 0;
-      top: 8%;
-  }
-}
-
-@media only screen and (min-width: 1100px) {
-  .login {
-      position: absolute;
-      background-color: transparent;
-      overflow: hidden;
-      width: 40vw;
-      margin: 0;
-      top: 8%;
-  }
-}
-
-@media only screen and (min-width: 1300px) {
-  .login {
-      position: absolute;
-      background-color: transparent;
-      overflow: hidden;
-      width: 30vw;
-      margin: 0;
-      top: 8%;
-  }
-}
-
-@media only screen and (min-width: 1500px) {
-  .login {
-      position: absolute;
-      background-color: transparent;
-      overflow: hidden;
-      width: 25vw;
-      margin: 0;
-      top: 8%;
-  }
-}
-
 .login-txtTitulo {
   color: var(--primary);
   font-size: 50px;
@@ -531,39 +541,36 @@ h6 {
 .custom-select .MuiSelect-select.MuiSelect-select {
   border-color: var(--primary) !important;
 }
+
 /*LOGIN*/
 
 /*NOTE*/
-.custom-label {
+.publicNoteNotFound {
+  font-size: xx-large;
+  margin: 30px 0px 0px 40px;
+  color: darkred;
+  font-weight: 800;
   user-select: none;
-  color: #000000 !important;
-  font-size: 18px !important;
 }
 
-.txtTitle {
-  font-size: 17px !important;
+.publicNoteContainer {
+  padding: 10px 0px 0px 40px;
 }
 
-.txtContent {
-  user-select: text !important;
-  margin-top: 10px;
-  padding: 1rem 0.75rem;
-  border: 1px solid #ced4da;
-  background-color: #f8f9fa;
-  white-space: pre-wrap;
-  overflow-y: auto;
-  min-height: 200px;
-  width: 100%;
-  max-width: 100%;
-  min-width: 100%;
-  resize: both;
-  overflow: auto;
+.publicNoteTitle {
+  font-size: xx-large;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
-.txtContent p {
-  font-size: 16px;
-  user-select: text !important;
+.publicNoteContent {
+  font-size: x-large;
 }
+
+.publicNoteContent p {
+  user-select: auto;
+}
+
 /*NOTE*/
 
 /*NOTES*/
@@ -605,34 +612,34 @@ h6 {
 
 @media (max-width: 930px) {
   .floating-btn {
-      bottom: 0;
-      width: 100%;
-      height: auto;
-      right: 0;
-      border-radius: 0;
-      padding: 10px;
-      box-shadow: none;
-      font-size: 18px;
-      margin-top: 10px;
-      margin-bottom: 0;
-      justify-content: center;
-      display: block;
-      text-align: center;
-      background-color: var(--primary);
-      text-decoration: none;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    right: 0;
+    border-radius: 0;
+    padding: 10px;
+    box-shadow: none;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    justify-content: center;
+    display: block;
+    text-align: center;
+    background-color: var(--primary);
+    text-decoration: none;
   }
 
   .floating-btn span {
-      display: inline !important;
-      margin-left: 0;
+    display: inline !important;
+    margin-left: 0;
   }
 
   .floating-btn svg {
-      display: none !important;
+    display: none !important;
   }
 
   .note-list {
-      padding-bottom: 50px;
+    padding-bottom: 50px;
   }
 }
 
@@ -839,26 +846,70 @@ h6 {
   .filter-buttons,
   .sort-dropdown,
   .search-input {
-      width: 100%;
-      display: block;
-      margin-bottom: 0.5rem;
+    width: 100%;
+    display: block;
+    margin-bottom: 0.5rem;
   }
 
   .filter-button {
-      width: 100%;
-      margin-right: 0;
-      margin-bottom: 0.5rem;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
   }
 }
 
 @media (min-width: 475px) {
   .filter-sort-container {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 }
+
 /*NOTES*/
+
+/*SETTINGS*/
+.app-container-settings {
+  margin-top: 55px;
+  padding: 0px 30px 0px 30px;
+}
+
+@media only screen and (min-width: 480px) {
+  .app-container-settings {
+    margin-top: 55px;
+    padding: 0px 30px 0px 30px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .app-container-settings {
+    margin-top: 55px;
+    padding: 0px 150px 0px 150px;
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .app-container-settings {
+    margin-top: 55px;
+    padding: 0px 20% 0px 20%;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .app-container-settings {
+    margin-top: 55px;
+    padding: 0px 25% 0px 25%;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .app-container-settings {
+    margin-top: 55px;
+    padding: 0px 33% 0px 33%;
+  }
+}
+
+/*SETTINGS*/
 
 /*PAGE NOT FOUND*/
 .error-page {
@@ -866,4 +917,5 @@ h6 {
   margin-top: 50px;
   font-size: 25px;
 }
+
 /*PAGE NOT FOUND*/

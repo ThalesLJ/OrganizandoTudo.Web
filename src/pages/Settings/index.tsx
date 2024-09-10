@@ -3,22 +3,14 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useLanguage } from '../../context/LanguageContext';
 import { useColors } from "../../context/ColorContext";
 import { AnimatePresence, motion } from 'framer-motion';
-import { Container, Card, Form, Row, Col } from 'react-bootstrap';
-import { FormControl, MenuItem, Select, SelectChangeEvent, styled, Button, CircularProgress } from "@mui/material";
+import { Form } from 'react-bootstrap';
+import { FormControl, MenuItem, Select, SelectChangeEvent, styled, CircularProgress } from "@mui/material";
 import Auth from '../../context/Auth';
 import Api from '../../services/Api';
 import TokenValidator from '../../services/TokenValidator';
-
-const ColorButton = styled(Button)(({ theme }) => ({
-  color: '#ffe3d5',
-  backgroundColor: '#946a56',
-  '&:hover': {
-    backgroundColor: '#a87861',
-    color: '#e2c8bc'
-  },
-  width: '100%',
-  marginBottom: '10px'
-}));
+import FormInput from "../../components/FormInput";
+import FormButton from "../../components/FormButton";
+import ColorButton from "../../components/ColorButton";
 
 export default function Settings() {
   TokenValidator();
@@ -113,84 +105,41 @@ export default function Settings() {
   }));
 
   return (
-    <Container className="my-4" style={{ paddingTop: '70px' }}>
-      <Card className="bg-transparent border-0">
-        <Card.Body>
-          <Form ref={formRef} onSubmit={handleFormSubmit}>
-            <Form.Group controlId="formUsername">
-              <Form.Label className="custom-label">{strings.settings_username}</Form.Label>
-              <Form.Control
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder={strings.settings_usernamePlaceholder}
-                className="bg-light txtTitle"
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="formEmail" className="mt-3">
-              <Form.Label className="custom-label">{strings.settings_email}</Form.Label>
-              <Form.Control
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={strings.settings_emailPlaceholder}
-                className="bg-light txtTitle"
-                required
-              />
-            </Form.Group>
-            {hasChanges && (
-              <Form.Group controlId="formCurrentPassword" className="mt-3">
-                <Form.Label className="custom-label">{strings.settings_currentPassword}</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  placeholder={strings.settings_currentPasswordPlaceholder}
-                  className="bg-light txtTitle"
-                  required
-                />
-              </Form.Group>
-            )}
-            <Form.Group controlId="formSave" className="mt-4">
-              <Row>
-                <Col xs={12} sm={12} md={12} lg={12}>
-                  <ColorButton
-                    type="submit"
-                    className='login-btnAcessar'
-                    variant="contained"
-                    disabled={!hasChanges || isSaving}
-                  >
-                    {isSaving ? (<CircularProgress size={24} color="inherit" />) : (strings.settings_btnSaveChanges)}
-                  </ColorButton>
-                </Col>
-              </Row>
-            </Form.Group>
-          </Form>
-        </Card.Body>
-      </Card>
+    <div style={{ paddingTop: '70px' }}>
+      <AnimatePresence key='divSettings'>
+        <motion.div initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 0.2 }}>
+          <div className="app-container-settings">
+            <Form ref={formRef} onSubmit={handleFormSubmit}>
+              <FormInput value={username} placeholder={strings.settings_usernamePlaceholder} required
+                onChange={(e) => setUsername(e.target.value)} label={strings.settings_username} />
 
-      <AnimatePresence>
-        <motion.div className='app-container' initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 0.2 }} exit={{ y: window.innerHeight + 1000 }}>
-          <Container>
-            <Row>
-              <Col xs={12} sm={12} md={12} lg={12}>
-                <hr />
+              <FormInput value={email} placeholder={strings.settings_emailPlaceholder} required
+                onChange={(e) => setEmail(e.target.value)} label={strings.settings_email} type="email" />
 
-                <ColorButton type="submit" className='login-btnAcessar' variant="contained" onClick={changeColor}>
-                  {strings.settings_btnGenerateRandomColors}
-                </ColorButton>
+              {hasChanges && (
+                <FormInput value={currentPassword} placeholder={strings.settings_currentPasswordPlaceholder} required
+                  onChange={(e) => setCurrentPassword(e.target.value)} label={strings.settings_currentPassword} type="password" />
+              )}
 
-                <ColorButton type="submit" className='login-btnAcessar' variant="contained" onClick={resetColors}>
-                  {strings.settings_btnResetColors}
-                </ColorButton>
-              </Col>
-            </Row>
-          </Container>
+              <FormButton>
+                {isSaving ? (<CircularProgress size={24} color="inherit" />) : (strings.settings_btnSaveChanges)}
+              </FormButton>
+            </Form>
+
+            <hr />
+
+            <ColorButton style={{marginBottom: '10px'}} onClick={changeColor}>
+              {strings.settings_btnGenerateRandomColors}
+            </ColorButton>
+
+            <ColorButton onClick={resetColors}>
+              {strings.settings_btnResetColors}
+            </ColorButton>
+          </div>
         </motion.div>
       </AnimatePresence>
 
-      <AnimatePresence>
+      <AnimatePresence key='divSettingsFloatingButton'>
         <motion.div key='language-dropdown' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
           <FloatingButton variant="outlined" className="custom-select">
             <Select value={language} onChange={handleLanguageChange} displayEmpty inputProps={{ 'aria-label': 'Select Language' }} className="MuiSelect-select">
@@ -200,6 +149,6 @@ export default function Settings() {
           </FloatingButton>
         </motion.div>
       </AnimatePresence>
-    </Container>
+    </div >
   );
 }

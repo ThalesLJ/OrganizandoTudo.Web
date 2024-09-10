@@ -1,7 +1,7 @@
 import "../../index.css";
 import { useLanguage } from '../../context/LanguageContext';
 import React, { useEffect, useState } from 'react';
-import { Container, Card, Form } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import Api from '../../services/Api';
 import INote from '../../types/INote';
@@ -57,29 +57,17 @@ export default function Note() {
   }
 
   if (!loading && (!note || !content)) {
-    return <Container className="my-4">{strings.note_notFound}</Container>;
+    return <div className="publicNoteNotFound" dangerouslySetInnerHTML={{ __html: strings.note_noteNotFound }} />;
   }
 
   return (
     <>
       <AnimatePresence key='divNotes'>
         <motion.div initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 0.2 }}>
-          <Container className="my-4" style={{ paddingTop: '50px' }}>
-            <Card className="bg-transparent border-0">
-              <Card.Body>
-                <Form>
-                  <Form.Group controlId="formNoteTitle">
-                    <Form.Label className="custom-label">{strings.note_noteTitle}</Form.Label>
-                    <Form.Control type="text" value={title} placeholder="Título da nota" className="bg-light txtTitle" readOnly />
-                  </Form.Group>
-                  <Form.Group controlId="formNoteContent" className="mt-3">
-                    <Form.Label className="custom-label">{strings.note_noteContent}</Form.Label>
-                    <div className="txtContent" dangerouslySetInnerHTML={{ __html: content }} />
-                  </Form.Group>
-                </Form>
-              </Card.Body>
-            </Card>
-          </Container>
+          <div className="publicNoteContainer">
+            <div className="publicNoteTitle" dangerouslySetInnerHTML={{ __html: title }} />
+            <div className="publicNoteContent" dangerouslySetInnerHTML={{ __html: content }} />
+          </div>
         </motion.div>
       </AnimatePresence >
 
