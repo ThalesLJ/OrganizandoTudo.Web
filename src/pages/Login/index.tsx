@@ -16,6 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Api from '../../services/Api';
 import Auth from '../../context/Auth';
 import TokenValidator from '../../services/TokenValidator';
+import CustomAlert from "../../components/CustomAlert";
 
 export default function Login() {
   TokenValidator();
@@ -25,12 +26,15 @@ export default function Login() {
   const [password, setPassword] = React.useState('');
   const [showPassword, setShowPassword] = React.useState(false);
   const [isLogging, setIsLogging] = React.useState(false);
+  const [showAlert, setShowAlert] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState('');
 
   const navigate = useNavigate();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const Login = async (event: React.FormEvent<HTMLFormElement>) => {
     setIsLogging(true);
+    setShowAlert(false);
 
     const login: ILogin = {
       username: username,
@@ -39,13 +43,19 @@ export default function Login() {
 
     Api.Login(login)
       .then((result) => {
-        Auth.login({ username: result.username, email: result.email, token: result.token });
-        setIsLogging(false);
-        if (result.token != null) navigate("/Notes");
+        if (result.token) {
+          Auth.login({ username: result.username, email: result.email, token: result.token });
+          if (result.token != null) navigate("/Notes");
+        } else {
+          setAlertMessage(strings.login_AccountNotFound);
+          setShowAlert(true);
+          setIsLogging(false);
+        }
       })
       .catch((error) => {
+        setAlertMessage(strings.login_AccountNotFound);
+        setShowAlert(true);
         setIsLogging(false);
-        alert('Promise rejected with error: ' + error);
       });
 
     event.preventDefault();
@@ -75,6 +85,8 @@ export default function Login() {
     <Observer>
       {() => (
         <div className='app-container'>
+          {showAlert && <CustomAlert message={alertMessage} severity="error" />}
+
           <AnimatePresence key='divLogin'>
             <motion.div className='login' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} >
 

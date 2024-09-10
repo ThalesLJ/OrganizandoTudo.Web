@@ -5,6 +5,7 @@
     "login_create": "Create Account",
     "login_recovery": "Recovery Password",
     "login_btnLogin": "Sign in",
+    "login_AccountNotFound": "Account not found",
     "createAccount_title": "Create Account",
     "createAccount_username": "Username",
     "createAccount_email": "E-mail",
