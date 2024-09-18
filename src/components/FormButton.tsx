@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { ButtonProps } from '@mui/material';
 import { Col, Form, Row } from 'react-bootstrap';
-import ColorButton from './ColorButton';
+import CustomButton from './CustomButton';
 import { useColors } from '../context/ColorContext';
 
 interface FormButtonProps extends ButtonProps {
@@ -16,7 +16,7 @@ const FormButton: React.FC<FormButtonProps> = ({ children, type = 'submit', vari
         <Form.Group controlId="formSave" className="mt-4">
             <Row>
                 <Col xs={12} sm={12} md={12} lg={12}>
-                    <ColorButton
+                    <CustomButton
                         type='submit'
                         variant={variant}
                         sx={{
@@ -31,7 +31,7 @@ const FormButton: React.FC<FormButtonProps> = ({ children, type = 'submit', vari
                         {...rest}
                     >
                         {children}
-                    </ColorButton>
+                    </CustomButton>
                 </Col>
             </Row>
         </Form.Group>

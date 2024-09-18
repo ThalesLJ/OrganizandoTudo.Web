@@ -4,27 +4,15 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useColors } from "../../context/ColorContext";
 import { AnimatePresence, motion } from 'framer-motion';
 import { Form } from 'react-bootstrap';
-import {
-  FormControl,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  styled,
-  CircularProgress,
-  Grid,
-  Typography,
-  Paper,
-  List,
-  ListItem,
-  ListItemText
-} from "@mui/material";
+import { MenuItem, Select, SelectChangeEvent, CircularProgress, Grid, Typography, Paper, List, ListItem, ListItemText } from "@mui/material";
 import Auth from '../../context/Auth';
 import Api from '../../services/Api';
 import TokenValidator from '../../services/TokenValidator';
 import FormInput from "../../components/FormInput";
 import FormButton from "../../components/FormButton";
-import ColorButton from "../../components/ColorButton";
+import CustomButton from "../../components/CustomButton";
 import { ChromePicker } from 'react-color';
+import CustomFloatingBtn from "../../components/CustomFloatingBtn";
 
 export default function Settings() {
   TokenValidator();
@@ -102,13 +90,6 @@ export default function Settings() {
       handleSave();
     }
   };
-
-  const FloatingButton = styled(FormControl)(({ theme }) => ({
-    position: 'fixed',
-    top: 76,
-    right: 16,
-    width: 100,
-  }));
 
   const handleColorChange = (color: any, type: 'primary' | 'secondary' | 'primaryText' | 'secondaryText' | 'background' | 'titleText' | 'titleSecondaryText' | 'appBackground') => {
     const newColors = {
@@ -198,9 +179,9 @@ export default function Settings() {
                 />
               </div>
             </div>
-            <ColorButton onClick={resetColors} style={{ marginTop: '10px' }}>
+            <CustomButton onClick={resetColors} style={{ marginTop: '10px' }}>
               {strings.settings_btnResetColors}
-            </ColorButton>
+            </CustomButton>
           </>
         );
       default:
@@ -235,12 +216,12 @@ export default function Settings() {
 
       <AnimatePresence key='divSettingsFloatingButton'>
         <motion.div key='language-dropdown' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-          <FloatingButton variant="outlined" className="custom-select">
+          <CustomFloatingBtn className="custom-select-logged">
             <Select value={language} onChange={handleLanguageChange} displayEmpty inputProps={{ 'aria-label': 'Select Language' }} className="MuiSelect-select">
               <MenuItem value={'en'} className="custom-select-menu-item">EN</MenuItem>
               <MenuItem value={'pt'} className="custom-select-menu-item">PT</MenuItem>
             </Select>
-          </FloatingButton>
+          </CustomFloatingBtn>
         </motion.div>
       </AnimatePresence>
     </div>

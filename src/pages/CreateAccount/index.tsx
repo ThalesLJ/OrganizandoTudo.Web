@@ -8,10 +8,11 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Api from '../../services/Api';
 import IUserData from "../../types/IUserData";
-import ColorButton from "../../components/ColorButton";
+import CustomButton from "../../components/CustomButton";
+import CustomLink from "../../components/CustomLink";
 
 export default function CreateAccount() {
   const { strings } = useLanguage();
@@ -85,12 +86,12 @@ export default function CreateAccount() {
               />
             </FormControl>
             <br />
-            <ColorButton type='submit' variant="contained" width="80%">
+            <CustomButton type='submit' variant="contained" width="80%">
               {isSigningUp ? (<CircularProgress size={24} color="inherit" />) : (strings.createAccount_title)}
-            </ColorButton>
+            </CustomButton>
           </form>
           <div className="login-divCriar">
-            <Link to="/" className='login-txtCriar'>{strings.createAccount_accessAccount}</Link>
+            <CustomLink to="/" className='login-txtCriar'>{strings.createAccount_accessAccount}</CustomLink>
           </div>
           <br /><br />
         </motion.div>

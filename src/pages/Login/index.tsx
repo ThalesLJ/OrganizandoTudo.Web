@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { Observer } from 'mobx-react-lite';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CircularProgress, MenuItem, Select, SelectChangeEvent, styled } from '@mui/material';
+import { CircularProgress, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -12,12 +12,14 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 import ILogin from '../../types/ILogin';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Api from '../../services/Api';
 import Auth from '../../context/Auth';
 import TokenValidator from '../../services/TokenValidator';
 import CustomAlert from "../../components/CustomAlert";
-import ColorButton from "../../components/ColorButton";
+import CustomButton from "../../components/CustomButton";
+import CustomLink from "../../components/CustomLink";
+import CustomFloatingBtn from "../../components/CustomFloatingBtn";
 
 export default function Login() {
   TokenValidator();
@@ -66,13 +68,6 @@ export default function Login() {
     changeLanguage(event.target.value as 'en' | 'pt');
   };
 
-  const FloatingButton = styled(FormControl)(({ theme }) => ({
-    position: 'fixed',
-    top: 16,
-    right: 16,
-    width: 100,
-  }));
-
   return (
     <Observer>
       {() => (
@@ -116,15 +111,15 @@ export default function Login() {
 
                 <br />
 
-                <ColorButton type='submit' className='login-btnAcessar' variant="contained" width="80%">
+                <CustomButton type='submit' className='login-btnAcessar' variant="contained" width="80%">
                   {isLogging ? (<CircularProgress size={24} color="inherit" />) : (strings.login_btnLogin)}
-                </ColorButton>
+                </CustomButton>
 
               </form>
 
               <div className="login-redirects">
-                <Link to="/AddAccount" className='login-txtCriar'>{strings.login_create}</Link>
-                <Link to="/RecoveryAccount" className='login-txtRecuperar'>{strings.login_recovery}</Link>
+                <CustomLink to="/AddAccount" className='login-txtCriar'>{strings.login_create}</CustomLink>
+                <CustomLink to="/RecoveryAccount" className='login-txtRecuperar'>{strings.login_recovery}</CustomLink>
               </div>
 
               <div className='login-rightsContainer'>
@@ -144,12 +139,12 @@ export default function Login() {
 
           <AnimatePresence key='divLoginFloatingButton'>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-              <FloatingButton variant="outlined" className="custom-select">
+              <CustomFloatingBtn className="custom-select">
                 <Select value={language} onChange={handleLanguageChange} displayEmpty inputProps={{ 'aria-label': 'Select Language' }} className="MuiSelect-select">
                   <MenuItem value={'en'} className="custom-select-menu-item">EN</MenuItem>
                   <MenuItem value={'pt'} className="custom-select-menu-item">PT</MenuItem>
                 </Select>
-              </FloatingButton>
+              </CustomFloatingBtn>
             </motion.div>
           </AnimatePresence>
         </div>

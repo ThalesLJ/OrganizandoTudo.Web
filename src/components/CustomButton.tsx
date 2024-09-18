@@ -2,12 +2,12 @@ import React, { ReactNode } from 'react';
 import { Button, ButtonProps } from '@mui/material';
 import { useColors } from '../context/ColorContext';
 
-interface ColorButtonProps extends ButtonProps {
+interface CustomButtonProps extends ButtonProps {
     children: ReactNode;
     width?: string;
 }
 
-const ColorButton: React.FC<ColorButtonProps> = ({ children, type = 'button', variant = 'contained', width = '100%', onClick, ...rest }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ children, type = 'button', variant = 'contained', width = '100%', onClick, ...rest }) => {
     const { colors } = useColors();
 
     return (
@@ -31,4 +31,4 @@ const ColorButton: React.FC<ColorButtonProps> = ({ children, type = 'button', va
     );
 };
 
-export default ColorButton;
+export default CustomButton;

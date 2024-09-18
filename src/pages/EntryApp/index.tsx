@@ -1,10 +1,12 @@
 import "../../index.css";
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { Observer } from "mobx-react-lite";
 import Auth from "../../context/Auth";
 
 export default function EntryApp() {
-  const shouldRedirect = Auth.isTokenValid();
+  const location = useLocation();
+  const { pathname } = location;
+  const shouldRedirect = Auth.isTokenValid() && (!pathname.includes('/Note') && !pathname.includes('/Notes'));
 
   return (
     shouldRedirect
