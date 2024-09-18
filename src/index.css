@@ -241,12 +241,12 @@ code {
 }
 
 .txtTitle {
-  color: var(--primary) !important;
+  color: var(--secondaryText) !important;
   font-size: 18px !important;
 }
 
 .resizable-editor .ql-container {
-  color: var(--primary) !important;
+  color: var(--secondaryText) !important;
   resize: vertical;
   overflow: auto;
   min-height: 200px;
@@ -255,29 +255,29 @@ code {
 }
 
 .resizable-editor .ql-toolbar {
-  color: var(--primary) !important;
+  color: var(--secondaryText) !important;
   background-color: white !important;
 }
 
 .resizable-editor .ql-editor {
-  color: var(--primary) !important;
+  color: var(--secondaryText) !important;
   font-size: 18px;
   /* Editor HTML */
   font-family: Arial, Helvetica, sans-serif !important;
 }
 
 .resizable-editor .ql-toolbar .ql-picker {
-  color: var(--primary) !important;
+  color: var(--secondaryText) !important;
   font-size: 16px;
   /* Toolbar do Editor HTML */
 }
 
 span.ql-picker-label {
-  color: var(--primary) !important;
+  color: var(--secondaryText) !important;
 }
 
 .ql-editor p {
-  color: var(--primary) !important;
+  color: var(--secondaryText) !important;
 }
 
 /* ========== EDIT NOTE ========== */
@@ -489,10 +489,11 @@ span.ql-picker-label {
 }
 
 .publicNoteTitle {
-  color: var(--titleText) !important;
+  color: var(--primary) !important;
   font-size: xx-large;
   margin-bottom: 20px;
   margin-top: 20px;
+  font-weight: 650;
 }
 
 .publicNoteContent {
