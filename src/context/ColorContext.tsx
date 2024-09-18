@@ -1,10 +1,16 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Definição do tipo Colors
-type Colors = {
+// Updated Colors interface
+interface Colors {
   primary: string;
   secondary: string;
-};
+  primaryText: string;
+  primaryTextTint: string;
+  secondaryText: string;
+  secondaryTextTint: string;
+  background: string;
+  appBackground: string; // New color added
+}
 
 // Definindo o contexto
 const ColorContext = createContext<{
@@ -25,10 +31,16 @@ const setCookie = (name: string, value: string, days: number) => {
 };
 
 export const ColorProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Cores padrão
+  // Updated default colors
   const defaultColors: Colors = {
     primary: '#946a56',
     secondary: '#ffe3d5',
+    primaryText: '#000000',
+    primaryTextTint: '#946a56',
+    secondaryText: '#ffffff',
+    secondaryTextTint: '#946a56',
+    background: '#ffffff',
+    appBackground: '#ffffff', // Default app background color
   };
 
   // Estado inicial que verifica a existência de cores nos cookies ou usa as cores padrão

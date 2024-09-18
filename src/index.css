@@ -2,13 +2,27 @@
 :root {
   --primary: #946a56;
   --secondary: #ffe3d5;
-  --accent: #ffffff;
-  --success: #28a745;
-  --danger: #dc3545;
-  --warning: #ffc107;
-  --info: #17a2b8;
-  --light: #f8f9fa;
-  --dark: #343a40;
+  --primaryText: #ffffff;
+  --primaryTextTint: #e2c8bc;
+  --secondaryText: #000000;
+  --secondaryTextTint: #946a56;
+  --background: #ffffff;
+  --appBackground: #ffffff;
+}
+
+span,
+p,
+button,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  user-select: none;
+  /*font-family: Prata !important;*/
+  --bs-body-font-family: var(--bs-font-sans-serif);
+  color: var(--secondaryText);
 }
 
 body {
@@ -16,7 +30,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--secondary) !important;
+  background-color: var(--appBackground) !important;
 }
 
 code {
@@ -28,9 +42,7 @@ code {
   user-select: none !important;
 }
 
-/*INDEX*/
-
-/*APP*/
+/* ========== APP ========== */
 .app-unique-containers {
   display: flex;
   flex-direction: row;
@@ -135,44 +147,6 @@ code {
   justify-content: center !important;
 }
 
-span,
-p,
-button,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  user-select: none;
-  /*font-family: Prata !important;*/
-  --bs-body-font-family: var(--bs-font-sans-serif);
-}
-
-.color1 {
-  color: #946a56;
-}
-
-.color2 {
-  color: #ffe3d5;
-}
-
-.color3 {
-  color: #a87861;
-}
-
-.color4 {
-  color: #e2c8bc;
-}
-
-.bg1 {
-  background-color: white;
-}
-
-.bg2 {
-  background-color: black;
-}
-
 .center {
   align-items: center;
   text-align: center;
@@ -202,16 +176,14 @@ h6 {
   text-decoration: none;
 }
 
-/*APP*/
-
-/*BASE APP*/
+/* ========== BASE APP (NAVBAR) ========== */
 .navbar-link {
-  color: var(--secondary) !important;
+  color: var(--primaryText) !important;
   font-size: 18px !important;
 }
 
 .navbar-link:hover {
-  color: #ffffff !important;
+  color: var(--primaryTextTint) !important;
 }
 
 .navbar-logo {
@@ -248,13 +220,13 @@ h6 {
 }
 
 .logout-icon {
-  color: var(--secondary) !important;
+  color: var(--primaryText) !important;
   cursor: pointer;
   margin-top: -2px;
 }
 
 .logout-icon:hover {
-  color: #ffffff !important;
+  color: var(--primaryTextTint) !important;
 }
 
 .custom-select {
@@ -311,16 +283,58 @@ h6 {
   padding: 8px 16px;
 }
 
-/*BASE APP*/
-
-/*CREATE ACCOUNT*/
+/* ========== CREATE ACCOUNT ========== */
 .login-divCriar {
   margin-top: 10px;
 }
 
-/*CREATE ACCOUNT*/
+/* ========== CREATE NOTE ========== */
+.custom-label {
+  color: var(--primary) !important;
+  font-size: 18px !important;
+}
 
-/*CREATE NOTE*/
+.txtTitle {
+  color: var(--primary) !important;
+  font-size: 18px !important;
+}
+
+.resizable-editor .ql-container {
+  color: var(--primary) !important;
+  resize: vertical;
+  overflow: auto;
+  min-height: 200px;
+  max-height: 1000px;
+  background-color: white !important;
+}
+
+.resizable-editor .ql-toolbar {
+  color: var(--primary) !important;
+  background-color: white !important;
+}
+
+.resizable-editor .ql-editor {
+  color: var(--primary) !important;
+  font-size: 18px;
+  /* Editor HTML */
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.resizable-editor .ql-toolbar .ql-picker {
+  color: var(--primary) !important;
+  font-size: 16px;
+  /* Toolbar do Editor HTML */
+}
+
+span.ql-picker-label {
+  color: var(--primary) !important;
+}
+
+.ql-editor p {
+  color: var(--primary) !important;
+}
+
+/* ========== EDIT NOTE ========== */
 .custom-label {
   color: #000000 !important;
   font-size: 18px !important;
@@ -353,44 +367,7 @@ h6 {
   /* Toolbar do Editor HTML */
 }
 
-/*CREATE NOTE*/
-
-/*EDIT NOTE*/
-.custom-label {
-  color: #000000 !important;
-  font-size: 18px !important;
-}
-
-.txtTitle {
-  font-size: 18px !important;
-}
-
-.resizable-editor .ql-container {
-  resize: vertical;
-  overflow: auto;
-  min-height: 200px;
-  max-height: 1000px;
-  background-color: white !important;
-}
-
-.resizable-editor .ql-toolbar {
-  background-color: white !important;
-}
-
-.resizable-editor .ql-editor {
-  font-size: 18px;
-  /* Editor HTML */
-  font-family: Arial, Helvetica, sans-serif !important;
-}
-
-.resizable-editor .ql-toolbar .ql-picker {
-  font-size: 16px;
-  /* Toolbar do Editor HTML */
-}
-
-/*EDIT NOTE*/
-
-/*LOGIN*/
+/* ========== LOGIN ========== */
 .login-txtTitulo {
   color: var(--primary);
   font-size: 50px;
@@ -501,33 +478,25 @@ h6 {
 
 .custom-select .MuiSelect-select {
   border: none;
-  /* Remover borda */
-  color: var(--primary);
+  color: var(--primary) !important;
   background-color: transparent;
   padding: 8px 12px;
 }
 
 .custom-select .MuiSelect-icon {
-  color: var(--primary);
+  color: var(--primary) !important;
 }
 
 .custom-select-menu {
-  background-color: #333;
-  /* Fundo escuro para o menu */
-  color: #fff;
-  /* Texto branco para contraste */
+  color: var(--primary) !important;
 }
 
 .custom-select-menu-item {
-  background-color: #333;
-  /* Fundo escuro para os itens do menu */
-  color: #fff;
-  /* Texto branco para contraste */
+  color: var(--primary) !important;
 }
 
 .custom-select-menu-item.Mui-selected {
-  background-color: #555;
-  /* Cor mais clara para o item selecionado */
+  color: var(--primary) !important;
 }
 
 .custom-select .Mui-focused .MuiOutlinedInput-notchedOutline {
@@ -535,16 +504,14 @@ h6 {
 }
 
 .custom-select .Mui-focused .MuiSelect-icon {
-  color: var(--primary);
+  color: var(--primary) !important;
 }
 
 .custom-select .MuiSelect-select.MuiSelect-select {
   border-color: var(--primary) !important;
 }
 
-/*LOGIN*/
-
-/*NOTE*/
+/* ========== NOTE ========== */
 .publicNoteNotFound {
   font-size: xx-large;
   margin: 30px 0px 0px 40px;
@@ -558,22 +525,23 @@ h6 {
 }
 
 .publicNoteTitle {
+  color: var(--titleText) !important;
   font-size: xx-large;
   margin-bottom: 20px;
   margin-top: 20px;
 }
 
 .publicNoteContent {
+  color: var(--titleSecondaryText) !important;
   font-size: x-large;
 }
 
 .publicNoteContent p {
+  color: var(--titleSecondaryText) !important;
   user-select: auto;
 }
 
-/*NOTE*/
-
-/*NOTES*/
+/* ========== NOTES ========== */
 .logout {
   position: absolute;
   bottom: 30px;
@@ -581,14 +549,17 @@ h6 {
 }
 
 .txt-search {
+  color: var(--secondaryText) !important;
+  border-color: var(--primary) !important;
+  background-color: transparent !important;
   height: 50px;
 }
 
 .floating-btn {
+  background-color: var(--primary) !important;
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: var(--primary);
   border-radius: 50%;
   padding: 10px;
   color: #fff;
@@ -602,16 +573,21 @@ h6 {
   justify-content: center;
 }
 
-.floating-btn:hover {
-  background-color: #a87861;
-}
+/*.floating-btn:hover {
+  background-color: var(--secondary) !important;
+}*/
 
 .floating-btn span {
   display: none !important;
 }
 
+.floating-btn svg {
+  color: var(--primaryText) !important;
+}
+
 @media (max-width: 930px) {
   .floating-btn {
+    background-color: var(--primary) !important;
     bottom: 0;
     width: 100%;
     height: auto;
@@ -625,11 +601,11 @@ h6 {
     justify-content: center;
     display: block;
     text-align: center;
-    background-color: var(--primary);
     text-decoration: none;
   }
 
   .floating-btn span {
+    color: var(--primaryText) !important;
     display: inline !important;
     margin-left: 0;
   }
@@ -644,6 +620,7 @@ h6 {
 }
 
 .card {
+  background-color: var(--background) !important;
   display: flex;
   flex-direction: column;
   min-height: 300px;
@@ -653,6 +630,7 @@ h6 {
 }
 
 .note-card-body {
+  background-color: var(--background) !important;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -668,7 +646,7 @@ h6 {
 }
 
 .note-card-footer {
-  background-color: #f8f9fa !important;
+  background-color: var(--background) !important;
 }
 
 .note-title {
@@ -681,6 +659,7 @@ h6 {
 }
 
 .note-content {
+  color: var(--secondaryText) !important;
   margin-top: 5px;
   resize: vertical;
   overflow: auto;
@@ -691,6 +670,14 @@ h6 {
   min-height: 200px;
   max-height: 500px;
   user-select: auto !important;
+}
+
+.note-content p {
+  color: var(--secondaryText) !important;
+}
+
+.note-content span {
+  color: var(--secondaryText) !important;
 }
 
 .note-visible {
@@ -784,7 +771,7 @@ h6 {
 
 .sort-dropdown {
   background-color: var(--primary) !important;
-  color: var(--secondary) !important;
+  color: var(--primaryText) !important;
   border: none;
   border-radius: 5px;
   margin-bottom: 0.5rem;
@@ -792,23 +779,23 @@ h6 {
 
 .sort-dropdown .dropdown-toggle {
   background-color: var(--primary) !important;
-  color: var(--secondary) !important;
+  color: var(--primaryText) !important;
   border: none;
 }
 
 .sort-dropdown .dropdown-menu {
   background-color: var(--primary) !important;
-  color: var(--secondary) !important;
+  color: var(--primaryText) !important;
 }
 
 .sort-dropdown .dropdown-item {
   background-color: var(--primary) !important;
-  color: var(--secondary) !important;
+  color: var(--primaryText) !important;
 }
 
 .sort-dropdown .dropdown-item:hover {
-  background-color: var(--secondary) !important;
-  color: var(--primary) !important;
+  /*background-color: var(--secondary) !important;*/
+  color: var(--primaryTextTint) !important;
 }
 
 .filter-buttons {
@@ -818,6 +805,7 @@ h6 {
 }
 
 .filter-button {
+  color: var(--primaryText) !important;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
 }
@@ -832,13 +820,19 @@ h6 {
 
 .filter-buttons button:hover {
   background-color: var(--primary) !important;
-  color: var(--secondary) !important;
+  color: var(--primaryText) !important;
 }
 
 .filter-button.active {
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
-  color: var(--secondary) !important;
+  color: var(--primaryText) !important;
+}
+
+.filter-button.active:hover {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: var(--primaryText) !important;
 }
 
 @media (max-width: 476px) {
@@ -866,12 +860,14 @@ h6 {
   }
 }
 
-/*NOTES*/
-
-/*SETTINGS*/
+/* ========== SETTINGS ========== */
 .app-container-settings {
   margin-top: 55px;
   padding: 0px 30px 0px 30px;
+}
+
+span.MuiTypography-root.MuiTypography-body1.MuiListItemText-primary.css-10hburv-MuiTypography-root {
+  color: var(--secondaryText) !important;
 }
 
 @media only screen and (min-width: 480px) {
@@ -909,13 +905,9 @@ h6 {
   }
 }
 
-/*SETTINGS*/
-
-/*PAGE NOT FOUND*/
+/* ========== PAGE NOT FOUND ========== */
 .error-page {
   text-align: center;
   margin-top: 50px;
   font-size: 25px;
 }
-
-/*PAGE NOT FOUND*/

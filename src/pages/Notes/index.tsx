@@ -18,7 +18,7 @@ import { RxExternalLink } from "react-icons/rx";
 export default function Notes() {
   TokenValidator();
   const { strings } = useLanguage();
-  
+
   const [isLoading, setIsLoading] = React.useState(true);
   const [notes, setNotes] = React.useState<INotes[]>([]);
   const [filteredNotes, setFilteredNotes] = React.useState<INotes[]>([]);
@@ -66,13 +66,10 @@ export default function Notes() {
         return titleA.localeCompare(titleB, 'en', { sensitivity: 'base' });
       });
     } else if (sortOrder === 'date') {
-      // Ordena do mais recente para o mais antigo
-      filtered = filtered.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-      // Ordena do mais antigo para o mais recente
-      // filtered = filtered.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      if (filtered.length > 0)
+        filtered = filtered.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     }
-
+    if (filtered.length > 0)
     setFilteredNotes(filtered);
   }, [notes, filter, sortOrder, searchQuery]);
 

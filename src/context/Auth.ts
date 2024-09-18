@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import IUser from "../types/IUser";
+import Api from "../services/Api";
 
 class Auth {
     user: IUser = { username: "", email: "", token: "" };
@@ -15,11 +16,24 @@ class Auth {
         if (this.user === null) {
             return false;
         }
+
         if (this.user.token === null || this.user.token === '') {
             return false;
         }
 
-        return true;
+        return new Promise((resolve) => {
+            Api.VerifyToken(this.user)
+                .then((response) => {
+                    if (response.pt.code === "Success") {
+                        resolve(true);
+                    } else {
+                        resolve(false);
+                    }
+                })
+                .catch(() => {
+                    resolve(false);
+                });
+        });
     }
 
     login({ username, email, token }: IUser) {

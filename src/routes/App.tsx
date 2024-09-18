@@ -23,6 +23,12 @@ const ApplyColors: React.FC = () => {
     const root = document.documentElement;
     root.style.setProperty('--primary', colors.primary);
     root.style.setProperty('--secondary', colors.secondary);
+    root.style.setProperty('--primaryText', colors.primaryText);
+    root.style.setProperty('--titleText', colors.primaryTextTint);
+    root.style.setProperty('--secondaryText', colors.secondaryText);
+    root.style.setProperty('--titleSecondaryText', colors.secondaryTextTint);
+    root.style.setProperty('--appBackground', colors.appBackground);
+    root.style.setProperty('--background', colors.background);
   }, [colors]);
   
 

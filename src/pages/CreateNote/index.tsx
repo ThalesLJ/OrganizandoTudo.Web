@@ -8,16 +8,7 @@ import Api from "../../services/Api";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../context/Auth";
 import ReactQuill from "react-quill";
-
-const ColorButton = styled(Button)(({ theme }) => ({
-  color: '#ffe3d5',
-  backgroundColor: '#946a56',
-  '&:hover': {
-    backgroundColor: '#a87861',
-    color: '#e2c8bc'
-  },
-  width: '100%'
-}));
+import FormButton from '../../components/FormButton';
 
 export default function CreateNote() {
   const { strings } = useLanguage();
@@ -79,9 +70,9 @@ export default function CreateNote() {
               <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder={strings.createNote_noteContentPlaceholder} />
             </Form.Group>
             <Form.Group controlId="formSave" className="mt-3">
-              <ColorButton type='submit' variant="contained" disabled={isSaving} >
+              <FormButton variant="contained" disabled={isSaving} >
                 {isSaving ? (<CircularProgress size={24} color="inherit" />) : (strings.createNote_btnSave)}
-              </ColorButton>
+              </FormButton>
             </Form.Group>
           </Form>
         </Card.Body>

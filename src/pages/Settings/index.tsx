@@ -4,13 +4,27 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useColors } from "../../context/ColorContext";
 import { AnimatePresence, motion } from 'framer-motion';
 import { Form } from 'react-bootstrap';
-import { FormControl, MenuItem, Select, SelectChangeEvent, styled, CircularProgress } from "@mui/material";
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  styled,
+  CircularProgress,
+  Grid,
+  Typography,
+  Paper,
+  List,
+  ListItem,
+  ListItemText
+} from "@mui/material";
 import Auth from '../../context/Auth';
 import Api from '../../services/Api';
 import TokenValidator from '../../services/TokenValidator';
 import FormInput from "../../components/FormInput";
 import FormButton from "../../components/FormButton";
 import ColorButton from "../../components/ColorButton";
+import { ChromePicker } from 'react-color';
 
 export default function Settings() {
   TokenValidator();
@@ -23,42 +37,36 @@ export default function Settings() {
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [initialUsername, setInitialUsername] = useState<string>('');
   const [initialEmail, setInitialEmail] = useState<string>('');
+  const [activeSection, setActiveSection] = useState<'profile' | 'account' | 'appearance' | 'notifications'>('profile');
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Função para gerar uma cor aleatória em formato HEX
-  const randomColor = () => `#${Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, '0')}`;
-
-  // Função para mudar as cores e salvá-las na sessão
-  const changeColor = () => {
-    const newColors = {
-      primary: randomColor(),
-      secondary: randomColor(),
-    };
-    setColors(newColors);
-  };
-
-  // Função para voltar às cores originais
   const resetColors = () => {
     const defaultColors = {
-      primary: "#946a56", // Cor original
-      secondary: "#ffe3d5", // Cor original
+      primary: "#946a56",
+      secondary: "#ffe3d5",
+      primaryText: "#ffffff",
+      primaryTextTint: "#e2c8bc",
+      secondaryText: "#000000",
+      secondaryTextTint: "#946a56",
+      background: "#ffffff",
+      appBackground: "#ffe3d5",
     };
     setColors(defaultColors);
+    sessionStorage.setItem('colors', JSON.stringify(defaultColors));
   };
 
   const handleLanguageChange = (event: SelectChangeEvent<'en' | 'pt'>) => {
     changeLanguage(event.target.value as 'en' | 'pt');
   };
 
-  // Aplicando as cores salvas na sessão (se existirem) no carregamento
   useEffect(() => {
     const savedColors = sessionStorage.getItem('colors');
     if (savedColors) {
-      setColors(JSON.parse(savedColors));
+      const parsedColors = JSON.parse(savedColors);
+      setColors(parsedColors);
     }
 
-    // Carregar os dados iniciais do usuário
     Api.GetUser(Auth.user)
       .then((user) => {
         setUsername(user.username);
@@ -81,12 +89,10 @@ export default function Settings() {
         setInitialUsername(username);
         setInitialEmail(email);
         setIsSaving(false);
-        //alert(strings.settings_updateSuccess);
       })
       .catch((error) => {
         console.error('Error updating user: ', error);
         setIsSaving(false);
-        //alert(strings.settings_updateError);
       });
   }, [username, email, currentPassword]);
 
@@ -104,40 +110,128 @@ export default function Settings() {
     width: 100,
   }));
 
-  return (
-    <div style={{ paddingTop: '70px' }}>
-      <AnimatePresence key='divSettings'>
-        <motion.div initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 0.2 }}>
-          <div className="app-container-settings">
-            <Form ref={formRef} onSubmit={handleFormSubmit}>
-              <FormInput value={username} placeholder={strings.settings_usernamePlaceholder} required
-                onChange={(e) => setUsername(e.target.value)} label={strings.settings_username} />
+  const handleColorChange = (color: any, type: 'primary' | 'secondary' | 'primaryText' | 'secondaryText' | 'background' | 'titleText' | 'titleSecondaryText' | 'appBackground') => {
+    const newColors = {
+      ...JSON.parse(sessionStorage.getItem('colors') || '{}'),
+      [type]: color.hex,
+    };
+    sessionStorage.setItem('colors', JSON.stringify(newColors));
+    setColors(newColors);
+  };
 
-              <FormInput value={email} placeholder={strings.settings_emailPlaceholder} required
-                onChange={(e) => setEmail(e.target.value)} label={strings.settings_email} type="email" />
-
-              {hasChanges && (
-                <FormInput value={currentPassword} placeholder={strings.settings_currentPasswordPlaceholder} required
-                  onChange={(e) => setCurrentPassword(e.target.value)} label={strings.settings_currentPassword} type="password" />
-              )}
-
-              <FormButton>
-                {isSaving ? (<CircularProgress size={24} color="inherit" />) : (strings.settings_btnSaveChanges)}
-              </FormButton>
-            </Form>
-
-            <hr />
-
-            <ColorButton style={{marginBottom: '10px'}} onClick={changeColor}>
-              {strings.settings_btnGenerateRandomColors}
-            </ColorButton>
-
-            <ColorButton onClick={resetColors}>
+  const renderContent = () => {
+    switch (activeSection) {
+      case 'profile':
+        return (
+          <Form ref={formRef} onSubmit={handleFormSubmit}>
+            <FormInput value={username} placeholder={strings.settings_usernamePlaceholder} required
+              onChange={(e) => setUsername(e.target.value)} label={strings.settings_username} />
+            <FormInput value={email} placeholder={strings.settings_emailPlaceholder} required
+              onChange={(e) => setEmail(e.target.value)} label={strings.settings_email} type="email" />
+            {hasChanges && (
+              <FormInput value={currentPassword} placeholder={strings.settings_currentPasswordPlaceholder} required
+                onChange={(e) => setCurrentPassword(e.target.value)} label={strings.settings_currentPassword} type="password" />
+            )}
+            <FormButton>
+              {isSaving ? (<CircularProgress size={24} color="inherit" />) : (strings.settings_btnSaveChanges)}
+            </FormButton>
+          </Form>
+        );
+      case 'appearance':
+        return (
+          <>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: '20px' }}>
+              <div style={{ marginBottom: '20px', width: '48%' }}>
+                <p>{strings.settings_primaryColor}</p>
+                <ChromePicker
+                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').primary || '#946a56'}
+                  onChange={(color) => handleColorChange(color, 'primary')}
+                />
+              </div>
+              <div style={{ marginBottom: '20px', width: '48%' }}>
+                <p>{strings.settings_secondaryColor}</p>
+                <ChromePicker
+                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').secondary || '#ffe3d5'}
+                  onChange={(color) => handleColorChange(color, 'secondary')}
+                />
+              </div>
+              <div style={{ marginBottom: '20px', width: '48%' }}>
+                <p>{strings.settings_primaryTextColor}</p>
+                <ChromePicker
+                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').primaryText || '#000000'}
+                  onChange={(color) => handleColorChange(color, 'primaryText')}
+                />
+              </div>
+              <div style={{ marginBottom: '20px', width: '48%' }}>
+                <p>{strings.settings_secondaryTextColor}</p>
+                <ChromePicker
+                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').secondaryText || '#ffffff'}
+                  onChange={(color) => handleColorChange(color, 'secondaryText')}
+                />
+              </div>
+              <div style={{ marginBottom: '20px', width: '48%' }}>
+                <p>{strings.settings_backgroundColor}</p>
+                <ChromePicker
+                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').background || '#ffffff'}
+                  onChange={(color) => handleColorChange(color, 'background')}
+                />
+              </div>
+              <div style={{ marginBottom: '20px', width: '48%' }}>
+                <p>{strings.settings_titleTextColor}</p>
+                <ChromePicker
+                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').titleText || '#946a56'}
+                  onChange={(color) => handleColorChange(color, 'titleText')}
+                />
+              </div>
+              <div style={{ marginBottom: '20px', width: '48%' }}>
+                <p>{strings.settings_titleSecondaryTextColor}</p>
+                <ChromePicker
+                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').titleSecondaryText || '#ffe3d5'}
+                  onChange={(color) => handleColorChange(color, 'titleSecondaryText')}
+                />
+              </div>
+              <div style={{ marginBottom: '20px', width: '48%' }}>
+                <p>{strings.settings_appBackgroundColor}</p>
+                <ChromePicker
+                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').appBackground || '#f0f0f0'}
+                  onChange={(color) => handleColorChange(color, 'appBackground')}
+                />
+              </div>
+            </div>
+            <ColorButton onClick={resetColors} style={{ marginTop: '10px' }}>
               {strings.settings_btnResetColors}
             </ColorButton>
-          </div>
-        </motion.div>
-      </AnimatePresence>
+          </>
+        );
+      default:
+        return <Typography>Select an option from the sidebar</Typography>;
+    }
+  };
+
+  return (
+    <div style={{ paddingTop: '70px' }}>
+      <Grid className="settings-container" container spacing={3}>
+        <Grid item xs={12} md={3}>
+          <Paper elevation={3} style={{ height: '100%' }}>
+            <List component="nav">
+              <ListItem button selected={activeSection === 'profile'} onClick={() => setActiveSection('profile')}>
+                <ListItemText primary={strings.settings_profile} />
+              </ListItem>
+              <ListItem button selected={activeSection === 'appearance'} onClick={() => setActiveSection('appearance')}>
+                <ListItemText primary={strings.settings_appearance} />
+              </ListItem>
+            </List>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={9}>
+          <Paper elevation={3} style={{ padding: '20px' }}>
+            <Typography variant="h4" gutterBottom>
+              {strings[`settings_${activeSection}Title`]}
+            </Typography>
+            {renderContent()}
+          </Paper>
+        </Grid>
+      </Grid>
 
       <AnimatePresence key='divSettingsFloatingButton'>
         <motion.div key='language-dropdown' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
@@ -149,6 +243,6 @@ export default function Settings() {
           </FloatingButton>
         </motion.div>
       </AnimatePresence>
-    </div >
+    </div>
   );
 }

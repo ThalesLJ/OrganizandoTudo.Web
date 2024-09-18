@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { ButtonProps } from '@mui/material';
 import { Col, Form, Row } from 'react-bootstrap';
 import ColorButton from './ColorButton';
+import { useColors } from '../context/ColorContext';
 
 interface FormButtonProps extends ButtonProps {
     children: ReactNode;
@@ -9,11 +10,26 @@ interface FormButtonProps extends ButtonProps {
 }
 
 const FormButton: React.FC<FormButtonProps> = ({ children, type = 'submit', variant = 'contained', width = '100%', onClick, ...rest }) => {
+    const { colors } = useColors();
+
     return (
         <Form.Group controlId="formSave" className="mt-4">
             <Row>
                 <Col xs={12} sm={12} md={12} lg={12}>
-                    <ColorButton type='submit' variant={variant} width={width}>
+                    <ColorButton
+                        type='submit'
+                        variant={variant}
+                        sx={{
+                            width: {width},
+                            backgroundColor: colors.primary,
+                            color: colors.primaryText,
+                            '&:hover': {
+                                backgroundColor: colors.primary,
+                                color: colors.primaryTextTint,
+                            },
+                        }}
+                        {...rest}
+                    >
                         {children}
                     </ColorButton>
                 </Col>

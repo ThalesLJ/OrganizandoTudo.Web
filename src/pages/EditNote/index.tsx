@@ -10,17 +10,7 @@ import INote from '../../types/INote';
 import { Button, CircularProgress, styled } from '@mui/material';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
-
-const ColorButton = styled(Button)(({ theme }) => ({
-  color: '#ffe3d5',
-  backgroundColor: '#946a56',
-  '&:hover': {
-    backgroundColor: '#a87861',
-    color: '#e2c8bc'
-  },
-  width: '100%',
-  marginBottom: '10px'
-}));
+import FormButton from '../../components/FormButton';
 
 export default function EditNote() {
   TokenValidator();
@@ -177,14 +167,14 @@ export default function EditNote() {
             <Form.Group controlId="formSave" className="mt-3">
               <Row>
                 <Col xs={12} sm={6} md={6} lg={6}>
-                  <ColorButton type="submit" onClick={SaveAndKeep} className='login-btnAcessar' variant="contained" disabled={!hasChanges} >
+                  <FormButton onClick={SaveAndKeep} className='login-btnAcessar' variant="contained" disabled={!hasChanges} >
                     {isSavingKeep ? (<CircularProgress size={24} color="inherit" />) : (strings.editNote_btnSave)}
-                  </ColorButton>
+                  </FormButton>
                 </Col>
                 <Col xs={12} sm={6} md={6} lg={6}>
-                  <ColorButton type="submit" onClick={SaveAndExit} className='login-btnAcessar' variant="contained" disabled={!hasChanges} >
+                  <FormButton onClick={SaveAndExit} className='login-btnAcessar' variant="contained" disabled={!hasChanges} >
                     {isSavingExit ? (<CircularProgress size={24} color="inherit" />) : (strings.editNote_btnSaveAndClose)}
-                  </ColorButton>
+                  </FormButton>
                 </Col>
               </Row>
             </Form.Group>
