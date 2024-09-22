@@ -24,9 +24,9 @@ const ApplyColors: React.FC = () => {
     root.style.setProperty('--primary', colors.primary);
     root.style.setProperty('--secondary', colors.secondary);
     root.style.setProperty('--primaryText', colors.primaryText);
-    root.style.setProperty('--titleText', colors.primaryTextTint);
+    root.style.setProperty('--primaryTextTint', colors.primaryTextTint);
     root.style.setProperty('--secondaryText', colors.secondaryText);
-    root.style.setProperty('--titleSecondaryText', colors.secondaryTextTint);
+    root.style.setProperty('--secondaryTextTint', colors.secondaryTextTint);
     root.style.setProperty('--appBackground', colors.appBackground);
     root.style.setProperty('--background', colors.background);
   }, [colors]);

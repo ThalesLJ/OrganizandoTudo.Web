@@ -15,7 +15,7 @@ import CustomColorPicker from "../../components/CustomColorPicker";
 
 export default function Settings() {
   const { strings } = useLanguage();
-  const { setColors } = useColors();
+  const { colors, setColors } = useColors();
 
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -24,24 +24,50 @@ export default function Settings() {
   const [initialUsername, setInitialUsername] = useState<string>('');
   const [initialEmail, setInitialEmail] = useState<string>('');
   const [activeSection, setActiveSection] = useState<'profile' | 'account' | 'appearance' | 'notifications'>('profile');
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   const formRef = useRef<HTMLFormElement>(null);
   const hasChanges = username !== initialUsername || email !== initialEmail;
 
+  // Default colors for light mode
+  const defaultLightColors = {
+    primary: "#946a56",
+    secondary: "#ffe3d5",
+    primaryText: "#ffffff",
+    primaryTextTint: "#e2c8bc",
+    secondaryText: "#000000",
+    secondaryTextTint: "#946a56",
+    background: "#ffffff",
+    appBackground: "#ffe3d5",
+  };
+
+  // Default colors for dark mode
+  const defaultDarkColors = {
+    primary: "#1a1a1a",
+    secondary: "#2c2420",
+    primaryText: "#ffffff",
+    primaryTextTint: "#e2c8bc",
+    secondaryText: "#000000",
+    secondaryTextTint: "#1a1a1a",
+    background: "#ffffff",
+    appBackground: "#2c2420",
+  };
+
   // Function to reset global colors to default
   const resetColors = () => {
-    const defaultColors = {
-      primary: "#946a56",
-      secondary: "#ffe3d5",
-      primaryText: "#ffffff",
-      primaryTextTint: "#e2c8bc",
-      secondaryText: "#000000",
-      secondaryTextTint: "#946a56",
-      background: "#ffffff",
-      appBackground: "#ffe3d5",
-    };
+    const defaultColors = isDarkMode ? defaultDarkColors : defaultLightColors;
     setColors(defaultColors);
     sessionStorage.setItem('colors', JSON.stringify(defaultColors));
+  };
+
+  // Function to toggle dark mode
+  const toggleDarkMode = () => {
+    const newIsDarkMode = !isDarkMode;
+    setIsDarkMode(newIsDarkMode);
+    const newColors = newIsDarkMode ? defaultDarkColors : defaultLightColors;
+    setColors(newColors);
+    sessionStorage.setItem('colors', JSON.stringify(newColors));
+    sessionStorage.setItem('isDarkMode', JSON.stringify(newIsDarkMode));
   };
 
   // On page load: Get colors and user data from current session
@@ -51,6 +77,12 @@ export default function Settings() {
     if (savedColors) {
       const parsedColors = JSON.parse(savedColors);
       setColors(parsedColors);
+    }
+
+    // Get dark mode setting
+    const savedDarkMode = sessionStorage.getItem('isDarkMode');
+    if (savedDarkMode) {
+      setIsDarkMode(JSON.parse(savedDarkMode));
     }
 
     // Get user data to be shown in the form (username and email)
@@ -93,7 +125,7 @@ export default function Settings() {
   // Change some global color
   const handleColorChange = (color: any, type: 'primary' | 'secondary' | 'primaryText' | 'primaryTextTint' | 'secondaryText' | 'secondaryTextTint' | 'background' | 'appBackground') => {
     const newColors = {
-      ...JSON.parse(sessionStorage.getItem('colors') || '{}'),
+      ...colors,
       [type]: color.hex,
     };
     sessionStorage.setItem('colors', JSON.stringify(newColors));
@@ -122,30 +154,35 @@ export default function Settings() {
       case 'appearance':
         return (
           <>
+            <Form.Group className="mb-3">
+              <Form.Check type="switch" id="dark-mode-switch" label={strings.settings_darkMode}
+                checked={isDarkMode} onChange={toggleDarkMode}
+              />
+            </Form.Group>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: '20px' }}>
               <CustomColorPicker label={strings.settings_primaryColor}
-                color={JSON.parse(sessionStorage.getItem('colors') || '{}').primary || '#ffe3d5'}
+                color={colors.primary}
                 onChange={(color) => handleColorChange(color, 'primary')} />
-              <CustomColorPicker label={strings.settings_psecondaryColor}
-                color={JSON.parse(sessionStorage.getItem('colors') || '{}').secondary || '#ffe3d5'}
+              <CustomColorPicker label={strings.settings_secondaryColor}
+                color={colors.secondary}
                 onChange={(color) => handleColorChange(color, 'secondary')} />
               <CustomColorPicker label={strings.settings_primaryTextColor}
-                color={JSON.parse(sessionStorage.getItem('colors') || '{}').primaryText || '#ffe3d5'}
+                color={colors.primaryText}
                 onChange={(color) => handleColorChange(color, 'primaryText')} />
               <CustomColorPicker label={strings.settings_primaryTextTintColor}
-                color={JSON.parse(sessionStorage.getItem('colors') || '{}').primaryTextTint || '#ffe3d5'}
+                color={colors.primaryTextTint}
                 onChange={(color) => handleColorChange(color, 'primaryTextTint')} />
               <CustomColorPicker label={strings.settings_secondaryTextColor}
-                color={JSON.parse(sessionStorage.getItem('colors') || '{}').secondaryText || '#ffe3d5'}
+                color={colors.secondaryText}
                 onChange={(color) => handleColorChange(color, 'secondaryText')} />
               <CustomColorPicker label={strings.settings_secondaryTextTintColor}
-                color={JSON.parse(sessionStorage.getItem('colors') || '{}').secondaryTextTint || '#ffe3d5'}
+                color={colors.secondaryTextTint}
                 onChange={(color) => handleColorChange(color, 'secondaryTextTint')} />
               <CustomColorPicker label={strings.settings_appBackgroundColor}
-                color={JSON.parse(sessionStorage.getItem('colors') || '{}').appBackground || '#ffe3d5'}
+                color={colors.appBackground}
                 onChange={(color) => handleColorChange(color, 'appBackground')} />
               <CustomColorPicker label={strings.settings_backgroundColor}
-                color={JSON.parse(sessionStorage.getItem('colors') || '{}').background || '#ffe3d5'}
+                color={colors.background}
                 onChange={(color) => handleColorChange(color, 'background')} />
             </div>
             <CustomButton onClick={resetColors} style={{ marginTop: '10px' }}>
