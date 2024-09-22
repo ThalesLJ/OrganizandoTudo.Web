@@ -195,9 +195,11 @@ export default function Notes() {
               </motion.div>
             </AnimatePresence>
 
-            <AnimatePresence key='floatingButtons'>
-              <ResponsiveFloatingBtn route="/CreateNote" icon={<AiOutlinePlus size={40} />} iconSize={40}
-                spanText={strings.notes_addNote} />
+            <AnimatePresence key='divNotesFloatingButton'>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+                <ResponsiveFloatingBtn route="/CreateNote" icon={<AiOutlinePlus size={40} />} iconSize={40}
+                  spanText={strings.notes_addNote} />
+              </motion.div>
             </AnimatePresence>
           </>
         )

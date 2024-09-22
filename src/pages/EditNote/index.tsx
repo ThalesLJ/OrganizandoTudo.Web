@@ -11,6 +11,7 @@ import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import FormInput from "../../components/FormInput";
 import CustomButton from "../../components/CustomButton";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function EditNote() {
   const { strings } = useLanguage();
@@ -152,38 +153,42 @@ export default function EditNote() {
   }
 
   return (
-    <Container className="my-4" style={{ paddingTop: '50px' }}>
-      <Card className="bg-transparent border-0">
-        <Card.Body>
-          <Form ref={form} onSubmit={FormSubmit}>
+    <AnimatePresence key='divNotes'>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+        <Container className="my-4" style={{ paddingTop: '50px' }}>
+          <Card className="bg-transparent border-0">
+            <Card.Body>
+              <Form ref={form} onSubmit={FormSubmit}>
 
-            <FormInput type="text" value={title} labelFontSize={19} required
-              label={strings.editNote_noteTitle} placeholder={strings.editNote_noteTitlePlaceholder}
-              onChange={(e) => setTitle(e.target.value)} />
+                <FormInput type="text" value={title} labelFontSize={19} required
+                  label={strings.editNote_noteTitle} placeholder={strings.editNote_noteTitlePlaceholder}
+                  onChange={(e) => setTitle(e.target.value)} />
 
-            <Form.Group controlId="formNoteContent" className="mt-3">
-              <Form.Label className="custom-label">{strings.editNote_noteContent}</Form.Label>
-              <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder={strings.editNote_noteContentPlaceholder} />
-            </Form.Group>
+                <Form.Group controlId="formNoteContent" className="mt-3">
+                  <Form.Label className="custom-label">{strings.editNote_noteContent}</Form.Label>
+                  <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder={strings.editNote_noteContentPlaceholder} />
+                </Form.Group>
 
-            <Form.Group controlId="formSave" className="mt-3">
-              <Row>
-                <Col xs={12} sm={6} md={6} lg={6}>
-                  <CustomButton onClick={SaveAndKeep} className='login-btnAcessar' variant="contained" disabled={!hasChanges} type="button" >
-                    {isSavingKeep ? (<CircularProgress size={24} color="inherit" />) : (strings.editNote_btnSave)}
-                  </CustomButton>
-                </Col>
-                <Col xs={12} sm={6} md={6} lg={6}>
-                  <CustomButton onClick={SaveAndExit} className='login-btnAcessar' variant="contained" disabled={!hasChanges} type="button" >
-                    {isSavingExit ? (<CircularProgress size={24} color="inherit" />) : (strings.editNote_btnSaveAndClose)}
-                  </CustomButton>
-                </Col>
-              </Row>
-            </Form.Group>
+                <Form.Group controlId="formSave" className="mt-3">
+                  <Row>
+                    <Col xs={12} sm={6} md={6} lg={6}>
+                      <CustomButton onClick={SaveAndKeep} className='login-btnAcessar' variant="contained" disabled={!hasChanges} type="button" >
+                        {isSavingKeep ? (<CircularProgress size={24} color="inherit" />) : (strings.editNote_btnSave)}
+                      </CustomButton>
+                    </Col>
+                    <Col xs={12} sm={6} md={6} lg={6}>
+                      <CustomButton onClick={SaveAndExit} className='login-btnAcessar' variant="contained" disabled={!hasChanges} type="button" >
+                        {isSavingExit ? (<CircularProgress size={24} color="inherit" />) : (strings.editNote_btnSaveAndClose)}
+                      </CustomButton>
+                    </Col>
+                  </Row>
+                </Form.Group>
 
-          </Form>
-        </Card.Body>
-      </Card>
-    </Container>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Container>
+      </motion.div>
+    </AnimatePresence>
   );
 }

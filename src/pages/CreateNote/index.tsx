@@ -9,6 +9,7 @@ import Auth from "../../context/Auth";
 import ReactQuill from "react-quill";
 import FormButton from '../../components/FormButton';
 import FormInput from "../../components/FormInput";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function CreateNote() {
   const { strings } = useLanguage();
@@ -60,25 +61,29 @@ export default function CreateNote() {
   };
 
   return (
-    <Container className="my-4" style={{ paddingTop: '50px' }}>
-      <Card className="bg-transparent border-0">
-        <Card.Body>
-          <Form onSubmit={FormSubmit}>
-            <FormInput type="text" value={title} labelFontSize={19} required
-              label={strings.createNote_noteTitle} placeholder={strings.createNote_noteTitlePlaceholder}
-              onChange={(e) => setTitle(e.target.value)} />
+    <AnimatePresence key='divNotes'>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+        <Container className="my-4" style={{ paddingTop: '50px' }}>
+          <Card className="bg-transparent border-0">
+            <Card.Body>
+              <Form onSubmit={FormSubmit}>
+                <FormInput type="text" value={title} labelFontSize={19} required
+                  label={strings.createNote_noteTitle} placeholder={strings.createNote_noteTitlePlaceholder}
+                  onChange={(e) => setTitle(e.target.value)} />
 
-            <Form.Group controlId="formNoteContent" className="mt-3">
-              <Form.Label className="custom-label">{strings.createNote_noteContent}</Form.Label>
-              <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder={strings.createNote_noteContentPlaceholder} />
-            </Form.Group>
+                <Form.Group controlId="formNoteContent" className="mt-3">
+                  <Form.Label className="custom-label">{strings.createNote_noteContent}</Form.Label>
+                  <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder={strings.createNote_noteContentPlaceholder} />
+                </Form.Group>
 
-            <FormButton type="submit" disabled={isSaving}>
-              {isSaving ? (<CircularProgress size={24} color="inherit" />) : (strings.createNote_btnSave)}
-            </FormButton>
-          </Form>
-        </Card.Body>
-      </Card>
-    </Container>
+                <FormButton type="submit" disabled={isSaving}>
+                  {isSaving ? (<CircularProgress size={24} color="inherit" />) : (strings.createNote_btnSave)}
+                </FormButton>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Container>
+      </motion.div>
+    </AnimatePresence>
   );
 }

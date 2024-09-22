@@ -64,17 +64,19 @@ export default function Note() {
   return (
     <>
       <AnimatePresence key='divNotes'>
-        <motion.div initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 0.2 }}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
           <div className="publicNoteContainer">
             <div className="publicNoteTitle" dangerouslySetInnerHTML={{ __html: title }} />
             <div className="publicNoteContent" dangerouslySetInnerHTML={{ __html: content }} />
           </div>
         </motion.div>
-      </AnimatePresence >
+      </AnimatePresence>
 
-      <AnimatePresence key='floatingButtons'>
-        <ResponsiveFloatingBtn route="/Notes" icon={<GoHome size={40} />} iconSize={40}
-          spanText={strings.note_back} />
+      <AnimatePresence key='divNotesFloatingButton'>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+          <ResponsiveFloatingBtn route="/Notes" icon={<GoHome size={40} />} iconSize={40}
+            spanText={strings.note_back} />
+        </motion.div>
       </AnimatePresence>
     </>
   );

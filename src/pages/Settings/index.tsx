@@ -160,36 +160,38 @@ export default function Settings() {
 
   return (
     <div style={{ paddingTop: '70px' }}>
-      <Grid className="settings-container" container spacing={3}>
-        <Grid item xs={12} md={3}>
-          <Paper elevation={3} style={{ height: '100%' }}>
-            <List component="nav">
-              <ListItem button selected={activeSection === 'profile'} onClick={() => setActiveSection('profile')}>
-                <ListItemText primary={strings.settings_profile} />
-              </ListItem>
-              <ListItem button selected={activeSection === 'appearance'} onClick={() => setActiveSection('appearance')}>
-                <ListItemText primary={strings.settings_appearance} />
-              </ListItem>
-            </List>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={9}>
-          <Paper elevation={3} style={{ padding: '20px' }}>
-            <Typography variant="h4" gutterBottom>
-              {strings[`settings_${activeSection}Title`]}
-            </Typography>
-            {renderContent()}
-          </Paper>
-        </Grid>
-      </Grid>
+      <AnimatePresence key='divSettings'>
+        <motion.div initial={{ y: -1000 }} animate={{ y: 0 }} transition={{ duration: 0.2 }}>
+          <Grid className="settings-container" container spacing={3}>
+            <Grid item xs={12} md={3}>
+              <Paper elevation={3} style={{ height: '100%' }}>
+                <List component="nav">
+                  <ListItem button selected={activeSection === 'profile'} onClick={() => setActiveSection('profile')}>
+                    <ListItemText primary={strings.settings_profile} />
+                  </ListItem>
+                  <ListItem button selected={activeSection === 'appearance'} onClick={() => setActiveSection('appearance')}>
+                    <ListItemText primary={strings.settings_appearance} />
+                  </ListItem>
+                </List>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={9}>
+              <Paper elevation={3} style={{ padding: '20px' }}>
+                <Typography variant="h4" gutterBottom>
+                  {strings[`settings_${activeSection}Title`]}
+                </Typography>
+                {renderContent()}
+              </Paper>
+            </Grid>
+          </Grid>
+        </motion.div>
+      </AnimatePresence>
 
       <AnimatePresence key='divSettingsFloatingButton'>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
           <LanguageFloatingButton className="custom-select-logged" />
         </motion.div>
       </AnimatePresence>
-
-
     </div>
   );
 }
