@@ -2,7 +2,6 @@ import "../../index.css";
 import * as React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { AnimatePresence, motion } from 'framer-motion';
-import TokenValidator from '../../services/TokenValidator';
 import { Observer } from 'mobx-react-lite';
 import Api from '../../services/Api';
 import Auth from '../../context/Auth';
@@ -16,7 +15,6 @@ import { FaTrash } from "react-icons/fa6";
 import { RxExternalLink } from "react-icons/rx";
 
 export default function Notes() {
-  TokenValidator();
   const { strings } = useLanguage();
 
   const [isLoading, setIsLoading] = React.useState(true);

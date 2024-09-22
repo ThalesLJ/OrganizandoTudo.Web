@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import EntryApp from "../pages/EntryApp";
+import PublicApp from "../utils/PublicApp";
 import Login from "../pages/Login";
-import Authorized from "../utils/Authorized";
-import BaseApp from "../pages/BaseApp";
+import PrivateApp from "../utils/PrivateApp";
+import NavbarApp from "../pages/NavbarApp";
 import Notes from "../pages/Notes";
 import EditNote from "../pages/EditNote";
 import CreateNote from "../pages/CreateNote";
@@ -17,7 +17,7 @@ export default function AppRoutes() {
         <BrowserRouter>
             <Routes>
                 {/* Rotas públicas */}
-                <Route path="/" element={<EntryApp />} >
+                <Route path="/" element={<PublicApp />} >
                     <Route index element={<Login />} />
                     <Route path="AddAccount" element={<CreateAccount />} />
                     <Route path="RecoveryAccount" element={<RecoveryAccount />} />
@@ -26,8 +26,8 @@ export default function AppRoutes() {
                 </Route>
 
                 {/* Rotas protegidas */}
-                <Route element={<Authorized />}>
-                    <Route path="/" element={<BaseApp />}>
+                <Route element={<PrivateApp />}>
+                    <Route path="/" element={<NavbarApp />}>
                         <Route path="Notes" element={<Notes />} />
                         <Route path="EditNote/:id" element={<EditNote />} />
                         <Route path="CreateNote" element={<CreateNote />} />

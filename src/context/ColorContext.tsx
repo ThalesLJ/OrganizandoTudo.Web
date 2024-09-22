@@ -33,14 +33,14 @@ const setCookie = (name: string, value: string, days: number) => {
 export const ColorProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Updated default colors
   const defaultColors: Colors = {
-    primary: '#946a56',
-    secondary: '#ffe3d5',
-    primaryText: '#000000',
-    primaryTextTint: '#946a56',
-    secondaryText: '#ffffff',
-    secondaryTextTint: '#946a56',
-    background: '#ffffff',
-    appBackground: '#ffffff', // Default app background color
+    primary: "#946a56",
+    secondary: "#ffe3d5",
+    primaryText: "#ffffff",
+    primaryTextTint: "#e2c8bc",
+    secondaryText: "#000000",
+    secondaryTextTint: "#946a56",
+    background: "#ffffff",
+    appBackground: "#ffe3d5",
   };
 
   // Estado inicial que verifica a existência de cores nos cookies ou usa as cores padrão

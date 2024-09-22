@@ -7,7 +7,6 @@ import { Form } from 'react-bootstrap';
 import { MenuItem, Select, SelectChangeEvent, CircularProgress, Grid, Typography, Paper, List, ListItem, ListItemText } from "@mui/material";
 import Auth from '../../context/Auth';
 import Api from '../../services/Api';
-import TokenValidator from '../../services/TokenValidator';
 import FormInput from "../../components/FormInput";
 import FormButton from "../../components/FormButton";
 import CustomButton from "../../components/CustomButton";
@@ -15,7 +14,6 @@ import { ChromePicker } from 'react-color';
 import CustomFloatingBtn from "../../components/CustomFloatingBtn";
 
 export default function Settings() {
-  TokenValidator();
   const { strings, changeLanguage, language } = useLanguage();
   const { setColors } = useColors();
 

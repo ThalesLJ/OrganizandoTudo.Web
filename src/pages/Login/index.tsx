@@ -15,14 +15,12 @@ import ILogin from '../../types/ILogin';
 import { useNavigate } from "react-router-dom";
 import Api from '../../services/Api';
 import Auth from '../../context/Auth';
-import TokenValidator from '../../services/TokenValidator';
 import CustomAlert from "../../components/CustomAlert";
 import CustomButton from "../../components/CustomButton";
 import CustomLink from "../../components/CustomLink";
 import CustomFloatingBtn from "../../components/CustomFloatingBtn";
 
 export default function Login() {
-  TokenValidator();
   const { strings, changeLanguage, language } = useLanguage();
 
   const [username, setUsername] = React.useState('');

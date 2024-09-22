@@ -5,7 +5,6 @@ import { Container, Card, Form, Row, Col } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import Api from '../../services/Api';
 import Auth from '../../context/Auth';
-import TokenValidator from '../../services/TokenValidator';
 import INote from '../../types/INote';
 import { CircularProgress } from '@mui/material';
 import ReactQuill from "react-quill";
@@ -13,7 +12,6 @@ import 'react-quill/dist/quill.snow.css';
 import FormButton from '../../components/FormButton';
 
 export default function EditNote() {
-  TokenValidator();
   const { strings } = useLanguage();
   
   const { id } = useParams<Record<string, string | undefined>>();

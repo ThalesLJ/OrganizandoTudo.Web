@@ -42,20 +42,26 @@ class Api {
         }
     }
 
-    async VerifyToken(data: IUser): Promise<IResponse> {
-        try {
-            let response = await fetch(`${baseURL}/VerifyToken`,
-                {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `${data.token}` }
-                }
-            );
+    VerifyToken(data: IUser): IResponse {
+        let result: IResponse;
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', `${baseURL}/VerifyToken`, false);  // false = the request is synchronous
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('Authorization', `${data.token}`);
+        
+        result = { 
+            pt: { message: 'Falha ao verificar o token', code: "Falha" }, 
+            en: { message: 'Error verifying token', code: "Error" } 
+        };
 
-            let result: IResponse = await response.json();
-            return result;
-        } catch (ex) {
-            return { pt: { message: `${ex}`, code: "Error" }, en: { message: `${ex}`, code: "Error" } };
-        }
+        try {
+            xhr.send(JSON.stringify(data));
+            if (xhr.status === 200) {
+                result = JSON.parse(xhr.responseText);
+            }
+        } catch (ex) { }
+        
+        return result;
     }
 
     async GetUser(data: IUser): Promise<IUserData> {

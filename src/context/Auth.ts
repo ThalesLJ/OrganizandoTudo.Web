@@ -4,36 +4,23 @@ import Api from "../services/Api";
 
 class Auth {
     user: IUser = { username: "", email: "", token: "" };
+    isTokenValid: boolean = false;
 
     constructor() {
         makeAutoObservable(this);
         this.hydrate();
     }
 
-    isTokenValid() {
+    checkTokenValidity() {
         this.hydrate();
+        this.isTokenValid = false;
 
-        if (this.user === null) {
-            return false;
+        if (this.user !== null && this.user.token !== null && this.user.token !== '') {
+            const response = Api.VerifyToken(this.user);
+            if (response.en.code === "Success") {
+                this.isTokenValid = true;
+            }
         }
-
-        if (this.user.token === null || this.user.token === '') {
-            return false;
-        }
-
-        return new Promise((resolve) => {
-            Api.VerifyToken(this.user)
-                .then((response) => {
-                    if (response.pt.code === "Success") {
-                        resolve(true);
-                    } else {
-                        resolve(false);
-                    }
-                })
-                .catch(() => {
-                    resolve(false);
-                });
-        });
     }
 
     login({ username, email, token }: IUser) {
@@ -46,15 +33,17 @@ class Auth {
         this.unpersistUser();
     }
 
-    persistUser() {
+    private persistUser() {
         this.setCookie('user', JSON.stringify(this.user), 5000);
+        this.isTokenValid = true;
     }
 
-    unpersistUser() {
+    private unpersistUser() {
         this.removeCookie('user');
+        this.isTokenValid = false;
     }
 
-    hydrate() {
+    private hydrate() {
         this.user = JSON.parse(this.getCookie('user') || 'null');
     }
 
@@ -76,10 +65,11 @@ class Auth {
         return null;
     }
 
-    removeCookie(name: string) {
-        this.setCookie(name, '', -1); // Define o tempo de expiração como -1 para remover o cookie
+    private removeCookie(name: string) {
+        this.setCookie(name, '', -1);
     }
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default new Auth();
+const authInstance = new Auth();
+authInstance.checkTokenValidity();
+export default authInstance;

@@ -177,6 +177,26 @@ code {
 }
 
 /* ========== BASE APP (NAVBAR) ========== */
+.navbar-brand {
+  padding-top: 2px !important;
+  padding-bottom: var(--bs-navbar-brand-padding-y);
+  margin-right: var(--bs-navbar-brand-margin-end);
+  font-size: var(--bs-navbar-brand-font-size);
+  color: var(--bs-navbar-brand-color);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navbar-logo {
+  color: var(--primaryText) !important;
+  font-size: 18px !important;
+  margin-left: 20px;
+}
+
+.navbar-logo:hover {
+  color: var(--primaryTextTint) !important;
+}
+
 .navbar-link {
   color: var(--primaryText) !important;
   font-size: 18px !important;
@@ -186,22 +206,9 @@ code {
   color: var(--primaryTextTint) !important;
 }
 
-.navbar-logo {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-left: 20px;
-  margin-top: -5px;
-}
-
 .custom-navbar {
   background-color: var(--primary);
   padding: 0.5rem 1rem;
-}
-
-.custom-navbar .navbar-brand {
-  height: 40px;
 }
 
 .custom-navbar .navbar-nav .nav-link {
@@ -225,6 +232,25 @@ code {
   margin-top: -2px;
 }
 
+@media (max-width: 991px) {
+  .logout-container {
+    position: absolute;
+    right: 0.1px;
+    bottom: 10px;
+  }
+  
+  .logout-icon {
+    color: var(--primaryText) !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  .custom-navbar {
+    position: relative;
+  }
+}
+
 .logout-icon:hover {
   color: var(--primaryTextTint) !important;
 }
@@ -242,7 +268,7 @@ code {
 
 .txtTitle {
   color: var(--secondaryText) !important;
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 
 .resizable-editor .ql-container {
@@ -287,7 +313,7 @@ span.ql-picker-label {
 }
 
 .txtTitle {
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 
 .resizable-editor .ql-container {
@@ -303,7 +329,7 @@ span.ql-picker-label {
 }
 
 .resizable-editor .ql-editor {
-  font-size: 18px;
+  font-size: 17px;
   /* Editor HTML */
   font-family: Arial, Helvetica, sans-serif !important;
 }
@@ -485,7 +511,7 @@ span.ql-picker-label {
 }
 
 .publicNoteContainer {
-  padding: 10px 0px 0px 40px;
+  padding: 10px 40px 60px 40px;
 }
 
 .publicNoteTitle {
