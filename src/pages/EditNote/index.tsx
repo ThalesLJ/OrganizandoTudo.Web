@@ -9,8 +9,8 @@ import INote from '../../types/INote';
 import { CircularProgress } from '@mui/material';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
-import FormButton from '../../components/FormButton';
 import FormInput from "../../components/FormInput";
+import CustomButton from "../../components/CustomButton";
 
 export default function EditNote() {
   const { strings } = useLanguage();
@@ -21,11 +21,10 @@ export default function EditNote() {
   const [loading, setLoading] = React.useState(true);
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [isSavingKeep, setIsSavingKeep] = React.useState(false);
-  const [isSavingExit, setIsSavingExit] = React.useState(false);
   const [initialTitle, setInitialTitle] = useState<string>('');
   const [initialContent, setInitialContent] = useState<string>('');
-  const [exit, setExit] = useState(true);
+  const [isSavingKeep, setIsSavingKeep] = React.useState(false);
+  const [isSavingExit, setIsSavingExit] = React.useState(false);
 
   const form = React.useRef<HTMLFormElement>(null);
   const titleRef = useRef(title);
@@ -33,11 +32,13 @@ export default function EditNote() {
 
   const hasChanges = title !== initialTitle || content !== initialContent;
 
-  const Save = useCallback(() => {
-    if (exit) {
-      setIsSavingExit(true);
-    } else {
+  const Save = useCallback((keepAfterSave: boolean = true) => {
+    if (keepAfterSave) {
       setIsSavingKeep(true);
+      setIsSavingExit(false);
+    } else {
+      setIsSavingKeep(false);
+      setIsSavingExit(true);
     }
 
     if (id) {
@@ -46,25 +47,17 @@ export default function EditNote() {
           setNote({ id, title: titleRef.current, content: contentRef.current });
           setInitialTitle(titleRef.current);
           setInitialContent(contentRef.current);
-
-          if (exit) {
-            setIsSavingExit(false);
-            navigate("/Notes");
-          } else {
-            setIsSavingKeep(false);
-          }
+          if (!keepAfterSave) navigate("/Notes");
+          setIsSavingKeep(false);
+          setIsSavingExit(false);
         })
         .catch((error) => {
-          if (exit) {
-            setIsSavingExit(false);
-          } else {
-            setIsSavingKeep(false);
-          }
-
+          setIsSavingKeep(false);
+          setIsSavingExit(false);
           alert('Promise rejected with error: ' + error);
         });
     }
-  }, [exit, id, navigate]);
+  }, [id, navigate]);
 
   const SaveRef = useRef(Save);
 
@@ -109,8 +102,7 @@ export default function EditNote() {
 
     const handleKeyDown = (event: any) => {
       if (event.ctrlKey && event.key === 'Enter') {
-        setExit(true);
-        SaveRef.current();
+        Save();
       }
     };
 
@@ -120,7 +112,7 @@ export default function EditNote() {
       isMounted = false;
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [id]);
+  }, [Save, id]);
 
   // Call the API to save the note when the form is submitted
   const FormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -130,12 +122,12 @@ export default function EditNote() {
 
   // Set the state to false, to stay in the page after saving
   const SaveAndKeep = () => {
-    setExit(false);
+    Save();
   }
 
   // Set the state to true, to exit the page after saving
   const SaveAndExit = () => {
-    setExit(true);
+    Save(false);
   }
 
   // Sync the note content with the state
@@ -177,14 +169,14 @@ export default function EditNote() {
             <Form.Group controlId="formSave" className="mt-3">
               <Row>
                 <Col xs={12} sm={6} md={6} lg={6}>
-                  <FormButton onClick={SaveAndKeep} className='login-btnAcessar' variant="contained" disabled={!hasChanges} >
+                  <CustomButton onClick={SaveAndKeep} className='login-btnAcessar' variant="contained" disabled={!hasChanges} type="button" >
                     {isSavingKeep ? (<CircularProgress size={24} color="inherit" />) : (strings.editNote_btnSave)}
-                  </FormButton>
+                  </CustomButton>
                 </Col>
                 <Col xs={12} sm={6} md={6} lg={6}>
-                  <FormButton onClick={SaveAndExit} className='login-btnAcessar' variant="contained" disabled={!hasChanges} >
+                  <CustomButton onClick={SaveAndExit} className='login-btnAcessar' variant="contained" disabled={!hasChanges} type="button" >
                     {isSavingExit ? (<CircularProgress size={24} color="inherit" />) : (strings.editNote_btnSaveAndClose)}
-                  </FormButton>
+                  </CustomButton>
                 </Col>
               </Row>
             </Form.Group>
