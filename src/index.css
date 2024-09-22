@@ -42,6 +42,21 @@ code {
   user-select: none !important;
 }
 
+/* ========== COMPONENTS ========== */
+.form-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.form-input-label {
+  align-self: flex-start;
+  color: var(--primary) !important;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
 /* ========== APP ========== */
 .app-unique-containers {
   display: flex;
@@ -238,7 +253,7 @@ code {
     right: 0.1px;
     bottom: 10px;
   }
-  
+
   .logout-icon {
     color: var(--primaryText) !important;
     cursor: pointer;
@@ -256,6 +271,11 @@ code {
 }
 
 /* ========== CREATE ACCOUNT ========== */
+.create-user-container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
 .login-divCriar {
   margin-top: 10px;
 }
@@ -340,6 +360,11 @@ span.ql-picker-label {
 }
 
 /* ========== LOGIN ========== */
+.login-container {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
 .login-txtTitulo {
   color: var(--primary);
   font-size: 50px;
@@ -530,6 +555,8 @@ span.ql-picker-label {
 .publicNoteContent p {
   color: var(--titleSecondaryText) !important;
   user-select: auto;
+  margin-top: 0;
+  margin-bottom: 0.5em;
 }
 
 /* ========== NOTES ========== */
@@ -665,6 +692,8 @@ span.ql-picker-label {
 
 .note-content p {
   color: var(--secondaryText) !important;
+  margin-top: 0;
+  margin-bottom: 0.3em;
 }
 
 .note-content span {

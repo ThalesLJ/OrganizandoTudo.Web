@@ -13,6 +13,8 @@ import Api from '../../services/Api';
 import IUserData from "../../types/IUserData";
 import CustomButton from "../../components/CustomButton";
 import CustomLink from "../../components/CustomLink";
+import LanguageFloatingButton from "../../components/LanguageFloatingBtn";
+import FormInput from "../../components/FormInput";
 
 export default function CreateAccount() {
   const { strings } = useLanguage();
@@ -51,49 +53,45 @@ export default function CreateAccount() {
   return (
     <div className='app-unique-containers'>
       <AnimatePresence key='divCreateAccount'>
-        <motion.div className='app-unique-container' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} >
-          <br /><br />
+        <motion.div className='app-unique-container create-user-container' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} >
           <span className='login-txtTitulo'>{strings.createAccount_title}</span>
-          <br /><br />
 
           <form onSubmit={SignUp}>
-            <FormControl className='login-divUsuario' sx={{ m: 1, width: '25ch' }} variant="outlined">
-              <span className='login-txtLabels'>{strings.createAccount_username}</span>
-              <OutlinedInput className='login-inputUsuario' id="usuario" type='text' required
-                onChange={(e) => { setUsername(e.target.value) }}
-              />
-            </FormControl>
-            <br />
-            <FormControl className='login-divEmail' sx={{ m: 1, width: '25ch' }} variant="outlined">
-              <span className='login-txtLabels'>{strings.createAccount_email}</span>
-              <OutlinedInput className='login-inputEmail' id="email" type='text' required
-                onChange={(e) => { setEmail(e.target.value) }}
-              />
-            </FormControl>
-            <br />
-            <FormControl className='login-divSenha' sx={{ m: 1, width: '25ch' }} variant="outlined">
-              <span className='login-txtLabels'>{strings.createAccount_password}</span>
-              <OutlinedInput className='login-inputSenha' id="senha" required
-                onChange={(e) => { setPassword(e.target.value) }}
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} edge="end">
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
+            <FormInput label={strings.login_username} type='text' required width="80%"
+              onChange={(e) => { setUsername(e.target.value) }}
+            />
+
+            <FormInput label={strings.createAccount_email} type='text' required width="80%"
+              onChange={(e) => { setEmail(e.target.value) }}
+            />
+
+            <FormInput label={strings.login_password} required width="80%"
+              onChange={(e) => { setPassword(e.target.value) }}
+              type={showPassword ? 'text' : 'password'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+
             <br />
             <CustomButton type='submit' variant="contained" width="80%">
               {isSigningUp ? (<CircularProgress size={24} color="inherit" />) : (strings.createAccount_title)}
             </CustomButton>
           </form>
-          <div className="login-divCriar">
+
+          <div className="login-redirects">
             <CustomLink to="/" className='login-txtCriar'>{strings.createAccount_accessAccount}</CustomLink>
           </div>
-          <br /><br />
+        </motion.div>
+      </AnimatePresence>
+
+      <AnimatePresence key='divLoginFloatingButton'>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+          <LanguageFloatingButton className="custom-select" />
         </motion.div>
       </AnimatePresence>
     </div>

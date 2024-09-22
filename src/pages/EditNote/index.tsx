@@ -10,10 +10,12 @@ import { CircularProgress } from '@mui/material';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import FormButton from '../../components/FormButton';
+import FormInput from "../../components/FormInput";
 
 export default function EditNote() {
   const { strings } = useLanguage();
-  
+  const navigate = useNavigate();
+
   const { id } = useParams<Record<string, string | undefined>>();
   const [note, setNote] = useState<INote>({ id: '', title: '', content: '' });
   const [loading, setLoading] = React.useState(true);
@@ -26,9 +28,10 @@ export default function EditNote() {
   const [exit, setExit] = useState(true);
 
   const form = React.useRef<HTMLFormElement>(null);
+  const titleRef = useRef(title);
+  const contentRef = useRef(content);
 
   const hasChanges = title !== initialTitle || content !== initialContent;
-  const navigate = useNavigate();
 
   const Save = useCallback(() => {
     if (exit) {
@@ -63,23 +66,24 @@ export default function EditNote() {
     }
   }, [exit, id, navigate]);
 
-  const titleRef = useRef(title);
-  const contentRef = useRef(content);
   const SaveRef = useRef(Save);
 
+  // Sync the original title, to enable the save button with theres any changes
   useEffect(() => {
     titleRef.current = title;
   }, [title]);
 
+  // Sync the original content, to enable the save button with theres any changes
   useEffect(() => {
     contentRef.current = content;
   }, [content]);
 
+  // Sync the save function, to enable the save button with theres any changes
   useEffect(() => {
     SaveRef.current = Save;
   }, [Save]);
 
-  // Page load
+  // On page load: Get the note from the API and add a key listener to save the note with Ctrl+Enter
   useEffect(() => {
     let isMounted = true;
 
@@ -118,23 +122,28 @@ export default function EditNote() {
     };
   }, [id]);
 
+  // Call the API to save the note when the form is submitted
   const FormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     SaveRef.current();
     event.preventDefault();
   }
 
+  // Set the state to false, to stay in the page after saving
   const SaveAndKeep = () => {
     setExit(false);
   }
 
+  // Set the state to true, to exit the page after saving
   const SaveAndExit = () => {
     setExit(true);
   }
 
+  // Sync the note content with the state
   const OnContentChange = (value: string) => {
     setContent(value);
   };
 
+  // If the note is loading, show the loading spinner
   if (loading) {
     return (
       <Container className="my-4" style={{ paddingTop: '50px' }}>
@@ -145,6 +154,7 @@ export default function EditNote() {
     );
   }
 
+  // If the note is not found, show the not found message
   if (!loading && (!note || !content)) {
     return <Container className="my-4">{strings.editNote_noteNotFound}</Container>;
   }
@@ -154,14 +164,16 @@ export default function EditNote() {
       <Card className="bg-transparent border-0">
         <Card.Body>
           <Form ref={form} onSubmit={FormSubmit}>
-            <Form.Group controlId="formNoteTitle">
-              <Form.Label className="custom-label">{strings.editNote_noteTitle}</Form.Label>
-              <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder={strings.editNote_noteTitlePlaceholder} className="bg-light txtTitle" required />
-            </Form.Group>
+
+            <FormInput type="text" value={title} labelFontSize={19} required
+              label={strings.editNote_noteTitle} placeholder={strings.editNote_noteTitlePlaceholder}
+              onChange={(e) => setTitle(e.target.value)} />
+
             <Form.Group controlId="formNoteContent" className="mt-3">
               <Form.Label className="custom-label">{strings.editNote_noteContent}</Form.Label>
               <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder={strings.editNote_noteContentPlaceholder} />
             </Form.Group>
+
             <Form.Group controlId="formSave" className="mt-3">
               <Row>
                 <Col xs={12} sm={6} md={6} lg={6}>
@@ -176,6 +188,7 @@ export default function EditNote() {
                 </Col>
               </Row>
             </Form.Group>
+
           </Form>
         </Card.Body>
       </Card>

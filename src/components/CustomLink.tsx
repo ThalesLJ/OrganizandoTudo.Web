@@ -18,7 +18,7 @@ const CustomLink: React.FC<CustomLinkProps> = ({ to, className, children, ...res
         color: colors.primary,
         textDecoration: 'none',
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.color = colors.secondary)}
+      onMouseEnter={(e) => (e.currentTarget.style.color = colors.primaryTextTint)}
       onMouseLeave={(e) => (e.currentTarget.style.color = colors.primary)}
       {...rest}
     >

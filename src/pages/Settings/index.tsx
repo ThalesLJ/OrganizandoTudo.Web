@@ -4,17 +4,17 @@ import { useLanguage } from '../../context/LanguageContext';
 import { useColors } from "../../context/ColorContext";
 import { AnimatePresence, motion } from 'framer-motion';
 import { Form } from 'react-bootstrap';
-import { MenuItem, Select, SelectChangeEvent, CircularProgress, Grid, Typography, Paper, List, ListItem, ListItemText } from "@mui/material";
+import { CircularProgress, Grid, Typography, Paper, List, ListItem, ListItemText } from "@mui/material";
 import Auth from '../../context/Auth';
 import Api from '../../services/Api';
 import FormInput from "../../components/FormInput";
 import FormButton from "../../components/FormButton";
 import CustomButton from "../../components/CustomButton";
-import { ChromePicker } from 'react-color';
-import CustomFloatingBtn from "../../components/CustomFloatingBtn";
+import LanguageFloatingButton from "../../components/LanguageFloatingBtn";
+import CustomColorPicker from "../../components/CustomColorPicker";
 
 export default function Settings() {
-  const { strings, changeLanguage, language } = useLanguage();
+  const { strings } = useLanguage();
   const { setColors } = useColors();
 
   const [username, setUsername] = useState<string>('');
@@ -26,7 +26,9 @@ export default function Settings() {
   const [activeSection, setActiveSection] = useState<'profile' | 'account' | 'appearance' | 'notifications'>('profile');
 
   const formRef = useRef<HTMLFormElement>(null);
+  const hasChanges = username !== initialUsername || email !== initialEmail;
 
+  // Function to reset global colors to default
   const resetColors = () => {
     const defaultColors = {
       primary: "#946a56",
@@ -42,17 +44,16 @@ export default function Settings() {
     sessionStorage.setItem('colors', JSON.stringify(defaultColors));
   };
 
-  const handleLanguageChange = (event: SelectChangeEvent<'en' | 'pt'>) => {
-    changeLanguage(event.target.value as 'en' | 'pt');
-  };
-
+  // On page load: Get colors and user data from current session
   useEffect(() => {
+    // Get colors to be shown in each color picker
     const savedColors = sessionStorage.getItem('colors');
     if (savedColors) {
       const parsedColors = JSON.parse(savedColors);
       setColors(parsedColors);
     }
 
+    // Get user data to be shown in the form (username and email)
     Api.GetUser(Auth.user)
       .then((user) => {
         setUsername(user.username);
@@ -65,8 +66,7 @@ export default function Settings() {
       });
   }, [setColors]);
 
-  const hasChanges = username !== initialUsername || email !== initialEmail;
-
+  // Send new user data to the API (username and email only)
   const handleSave = useCallback(() => {
     setIsSaving(true);
 
@@ -82,6 +82,7 @@ export default function Settings() {
       });
   }, [username, email, currentPassword]);
 
+  // Prevent default form submission and call handleSave only if there are changes
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (hasChanges) {
@@ -89,7 +90,8 @@ export default function Settings() {
     }
   };
 
-  const handleColorChange = (color: any, type: 'primary' | 'secondary' | 'primaryText' | 'secondaryText' | 'background' | 'titleText' | 'titleSecondaryText' | 'appBackground') => {
+  // Change some global color
+  const handleColorChange = (color: any, type: 'primary' | 'secondary' | 'primaryText' | 'primaryTextTint' | 'secondaryText' | 'secondaryTextTint' | 'background' | 'appBackground') => {
     const newColors = {
       ...JSON.parse(sessionStorage.getItem('colors') || '{}'),
       [type]: color.hex,
@@ -98,6 +100,7 @@ export default function Settings() {
     setColors(newColors);
   };
 
+  // Render the content of the active section
   const renderContent = () => {
     switch (activeSection) {
       case 'profile':
@@ -120,62 +123,30 @@ export default function Settings() {
         return (
           <>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: '20px' }}>
-              <div style={{ marginBottom: '20px', width: '48%' }}>
-                <p>{strings.settings_primaryColor}</p>
-                <ChromePicker
-                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').primary || '#946a56'}
-                  onChange={(color) => handleColorChange(color, 'primary')}
-                />
-              </div>
-              <div style={{ marginBottom: '20px', width: '48%' }}>
-                <p>{strings.settings_secondaryColor}</p>
-                <ChromePicker
-                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').secondary || '#ffe3d5'}
-                  onChange={(color) => handleColorChange(color, 'secondary')}
-                />
-              </div>
-              <div style={{ marginBottom: '20px', width: '48%' }}>
-                <p>{strings.settings_primaryTextColor}</p>
-                <ChromePicker
-                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').primaryText || '#000000'}
-                  onChange={(color) => handleColorChange(color, 'primaryText')}
-                />
-              </div>
-              <div style={{ marginBottom: '20px', width: '48%' }}>
-                <p>{strings.settings_secondaryTextColor}</p>
-                <ChromePicker
-                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').secondaryText || '#ffffff'}
-                  onChange={(color) => handleColorChange(color, 'secondaryText')}
-                />
-              </div>
-              <div style={{ marginBottom: '20px', width: '48%' }}>
-                <p>{strings.settings_backgroundColor}</p>
-                <ChromePicker
-                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').background || '#ffffff'}
-                  onChange={(color) => handleColorChange(color, 'background')}
-                />
-              </div>
-              <div style={{ marginBottom: '20px', width: '48%' }}>
-                <p>{strings.settings_titleTextColor}</p>
-                <ChromePicker
-                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').titleText || '#946a56'}
-                  onChange={(color) => handleColorChange(color, 'titleText')}
-                />
-              </div>
-              <div style={{ marginBottom: '20px', width: '48%' }}>
-                <p>{strings.settings_titleSecondaryTextColor}</p>
-                <ChromePicker
-                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').titleSecondaryText || '#ffe3d5'}
-                  onChange={(color) => handleColorChange(color, 'titleSecondaryText')}
-                />
-              </div>
-              <div style={{ marginBottom: '20px', width: '48%' }}>
-                <p>{strings.settings_appBackgroundColor}</p>
-                <ChromePicker
-                  color={JSON.parse(sessionStorage.getItem('colors') || '{}').appBackground || '#f0f0f0'}
-                  onChange={(color) => handleColorChange(color, 'appBackground')}
-                />
-              </div>
+              <CustomColorPicker label={strings.settings_primaryColor}
+                color={JSON.parse(sessionStorage.getItem('colors') || '{}').primary || '#ffe3d5'}
+                onChange={(color) => handleColorChange(color, 'primary')} />
+              <CustomColorPicker label={strings.settings_psecondaryColor}
+                color={JSON.parse(sessionStorage.getItem('colors') || '{}').secondary || '#ffe3d5'}
+                onChange={(color) => handleColorChange(color, 'secondary')} />
+              <CustomColorPicker label={strings.settings_primaryTextColor}
+                color={JSON.parse(sessionStorage.getItem('colors') || '{}').primaryText || '#ffe3d5'}
+                onChange={(color) => handleColorChange(color, 'primaryText')} />
+              <CustomColorPicker label={strings.settings_primaryTextTintColor}
+                color={JSON.parse(sessionStorage.getItem('colors') || '{}').primaryTextTint || '#ffe3d5'}
+                onChange={(color) => handleColorChange(color, 'primaryTextTint')} />
+              <CustomColorPicker label={strings.settings_secondaryTextColor}
+                color={JSON.parse(sessionStorage.getItem('colors') || '{}').secondaryText || '#ffe3d5'}
+                onChange={(color) => handleColorChange(color, 'secondaryText')} />
+              <CustomColorPicker label={strings.settings_secondaryTextTintColor}
+                color={JSON.parse(sessionStorage.getItem('colors') || '{}').secondaryTextTint || '#ffe3d5'}
+                onChange={(color) => handleColorChange(color, 'secondaryTextTint')} />
+              <CustomColorPicker label={strings.settings_appBackgroundColor}
+                color={JSON.parse(sessionStorage.getItem('colors') || '{}').appBackground || '#ffe3d5'}
+                onChange={(color) => handleColorChange(color, 'appBackground')} />
+              <CustomColorPicker label={strings.settings_backgroundColor}
+                color={JSON.parse(sessionStorage.getItem('colors') || '{}').background || '#ffe3d5'}
+                onChange={(color) => handleColorChange(color, 'background')} />
             </div>
             <CustomButton onClick={resetColors} style={{ marginTop: '10px' }}>
               {strings.settings_btnResetColors}
@@ -213,15 +184,12 @@ export default function Settings() {
       </Grid>
 
       <AnimatePresence key='divSettingsFloatingButton'>
-        <motion.div key='language-dropdown' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-          <CustomFloatingBtn className="custom-select-logged">
-            <Select value={language} onChange={handleLanguageChange} displayEmpty inputProps={{ 'aria-label': 'Select Language' }} className="MuiSelect-select">
-              <MenuItem value={'en'} className="custom-select-menu-item">EN</MenuItem>
-              <MenuItem value={'pt'} className="custom-select-menu-item">PT</MenuItem>
-            </Select>
-          </CustomFloatingBtn>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+          <LanguageFloatingButton className="custom-select-logged" />
         </motion.div>
       </AnimatePresence>
+
+
     </div>
   );
 }

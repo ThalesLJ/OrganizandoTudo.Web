@@ -6,13 +6,11 @@ import { Observer } from 'mobx-react-lite';
 import Api from '../../services/Api';
 import Auth from '../../context/Auth';
 import INotes from '../../types/INotes';
-import { Container, Card, Row, Col, Button, Dropdown, InputGroup, FormControl } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Container, Row, Col, Button, Dropdown, InputGroup, FormControl } from 'react-bootstrap';
 import { CircularProgress } from "@mui/material";
 import { AiOutlinePlus } from 'react-icons/ai';
-import { IoLockOpen, IoLockClosed } from "react-icons/io5";
-import { FaTrash } from "react-icons/fa6";
-import { RxExternalLink } from "react-icons/rx";
+import ResponsiveFloatingBtn from "../../components/ResponsiveFloatingBtn";
+import NoteCard from "../../components/CustomNoteCard";
 
 export default function Notes() {
   const { strings } = useLanguage();
@@ -25,6 +23,7 @@ export default function Notes() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [contextMenu, setContextMenu] = React.useState<{ show: boolean, x: number, y: number, noteId: string | null }>({ show: false, x: 0, y: 0, noteId: null });
 
+  // On page load: Get notes from the API
   React.useEffect(() => {
     Api.GetNotes(Auth.user.token)
       .then((result) => {
@@ -35,12 +34,13 @@ export default function Notes() {
         alert('Promise rejected with error: ' + error);
       });
 
-    // Add event listener to close the context menu when clicking outside
+    // Event listener: Closes the context menu when clicking outside
     const handleClickOutside = () => setContextMenu({ show: false, x: 0, y: 0, noteId: null });
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
+  // On search, filter or sort field change
   React.useEffect(() => {
     let filtered = notes;
 
@@ -59,8 +59,6 @@ export default function Notes() {
       filtered = filtered.sort((a, b) => {
         const titleA = a.title.toLowerCase();
         const titleB = b.title.toLowerCase();
-
-        // Usando localeCompare para uma ordenação alfabética correta
         return titleA.localeCompare(titleB, 'en', { sensitivity: 'base' });
       });
     } else if (sortOrder === 'date') {
@@ -68,44 +66,19 @@ export default function Notes() {
         filtered = filtered.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     }
     if (filtered.length > 0)
-    setFilteredNotes(filtered);
+      setFilteredNotes(filtered);
   }, [notes, filter, sortOrder, searchQuery]);
 
-  const DeleteNote = (noteId: string, confirm: boolean) => {
-    if (confirm) {
-      const userConfirmed = window.confirm('Tem certeza de que deseja excluir esta nota?');
-      if (!userConfirmed) {
-        return;
-      }
-    }
-
-    if (noteId) {
-      Api.DeleteNote(noteId, Auth.user.token)
-        .then((result) => {
-          Api.GetNotes(Auth.user.token)
-            .then((result) => {
-              setNotes(result);
-            })
-            .catch((error) => {
-              alert('Promise rejected with error: ' + error);
-            });
-        })
-        .catch((error) => {
-          alert('Promise rejected with error: ' + error);
-        });
-    }
-
-    setContextMenu({ show: false, x: 0, y: 0, noteId: null });
-  };
-
+  // Toggle note visibility
   const PublicNote = (noteId: string, visible: boolean) => {
-    // Atualiza a visibilidade localmente
+    // Toggle note visibility in state
     setNotes(prevNotes =>
       prevNotes.map(note =>
         note.id === noteId ? { ...note, visible: !visible } : note
       )
     );
 
+    // Toggle note visibility in API
     if (noteId) {
       Api.PublishNote(noteId, Auth.user.token)
         .then((result) => {
@@ -123,6 +96,38 @@ export default function Notes() {
     }
   };
 
+  // Delete note function
+  const DeleteNote = (noteId: string, confirm: boolean) => {
+    // Confirmation prompt
+    if (confirm) {
+      const userConfirmed = window.confirm('Tem certeza de que deseja excluir esta nota?');
+      if (!userConfirmed) {
+        return;
+      }
+    }
+
+    // Delete note from API
+    if (noteId) {
+      Api.DeleteNote(noteId, Auth.user.token)
+        .then((result) => {
+          Api.GetNotes(Auth.user.token)
+            .then((result) => {
+              setNotes(result);
+            })
+            .catch((error) => {
+              alert('Promise rejected with error: ' + error);
+            });
+        })
+        .catch((error) => {
+          alert('Promise rejected with error: ' + error);
+        });
+    }
+
+    // Close context menu
+    setContextMenu({ show: false, x: 0, y: 0, noteId: null });
+  };
+
+  // Context menu event (delete note) handler
   const handleContextMenu = (event: React.MouseEvent, noteId: string) => {
     event.preventDefault();
     setContextMenu({ show: true, x: event.clientX, y: event.clientY, noteId });
@@ -170,39 +175,13 @@ export default function Notes() {
                       </Row>
                     ) : (
                       filteredNotes.map(note => (
-                        <Col xs={12} sm={12} md={6} lg={6} xl={4} key={note.id} style={{ marginTop: '1rem' }}>
-                          <Card onContextMenu={(e) => handleContextMenu(e, note.id)}>
-                            <Card.Body className="note-card-body">
-                              <Link to={`/EditNote/${note.id}`} style={{ textDecoration: 'none' }}>
-                                <Card.Title className="note-title">{note.title}</Card.Title>
-                              </Link>
-                              <div className="note-text-container">
-                                <Card.Text className="note-content" dangerouslySetInnerHTML={{ __html: note.content }} />
-                              </div>
-                            </Card.Body>
-                            <Card.Footer className="text-muted note-card-footer">
-                              <div className="note-footer">
-                                <div className="note-leftFooter">
-                                  {note.public === true ? (
-                                    <span id="link-icon">
-                                      <Link to={`/Note/${note.id}`} style={{ textDecoration: 'none' }}>
-                                        <RxExternalLink />
-                                      </Link>
-                                    </span>
-                                  ) : null}
-                                </div>
-                                <div className="note-rightFooter">
-                                  <span id="lock-icon" onClick={() => PublicNote(note.id, note.public)}>
-                                    {note.public ? <IoLockOpen /> : <IoLockClosed />}
-                                  </span>
-                                  <span id="trash-icon" onClick={() => { if (note.id) { DeleteNote(note.id, true) } }}>
-                                    <FaTrash />
-                                  </span>
-                                </div>
-                              </div>
-                            </Card.Footer>
-                          </Card>
-                        </Col>
+                        <NoteCard
+                          key={note.id}
+                          note={note}
+                          onContextMenu={(e, id) => handleContextMenu(e, id)}
+                          onPublicToggle={(id, isPublic) => PublicNote(id, isPublic)}
+                          onDelete={(id) => DeleteNote(id, true)}
+                        />
                       ))
                     )}
                   </Row>
@@ -217,10 +196,8 @@ export default function Notes() {
             </AnimatePresence>
 
             <AnimatePresence key='floatingButtons'>
-              <Link to="/CreateNote" className="floating-btn">
-                <AiOutlinePlus size={40} />
-                <span className="d-none d-md-block">{strings.notes_addNote}</span>
-              </Link>
+              <ResponsiveFloatingBtn route="/CreateNote" icon={<AiOutlinePlus size={40} />} iconSize={40}
+                spanText={strings.notes_addNote} />
             </AnimatePresence>
           </>
         )

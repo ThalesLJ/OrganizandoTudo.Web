@@ -2,13 +2,14 @@ import "../../index.css";
 import { useLanguage } from '../../context/LanguageContext';
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Api from '../../services/Api';
 import INote from '../../types/INote';
 import { CircularProgress } from '@mui/material';
 import 'react-quill/dist/quill.snow.css';
 import { AnimatePresence, motion } from "framer-motion";
 import { GoHome } from "react-icons/go";
+import ResponsiveFloatingBtn from "../../components/ResponsiveFloatingBtn";
 
 export default function Note() {
   const { strings } = useLanguage();
@@ -72,10 +73,8 @@ export default function Note() {
       </AnimatePresence >
 
       <AnimatePresence key='floatingButtons'>
-        <Link to="/Notes" className="floating-btn">
-          <GoHome size={40} />
-          <span className="d-none d-md-block">{strings.note_back}</span>
-        </Link>
+        <ResponsiveFloatingBtn route="/Notes" icon={<GoHome size={40} />} iconSize={40}
+          spanText={strings.note_back} />
       </AnimatePresence>
     </>
   );

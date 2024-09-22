@@ -8,16 +8,17 @@ import { useNavigate } from "react-router-dom";
 import Auth from "../../context/Auth";
 import ReactQuill from "react-quill";
 import FormButton from '../../components/FormButton';
+import FormInput from "../../components/FormInput";
 
 export default function CreateNote() {
   const { strings } = useLanguage();
-  
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
-  const navigate = useNavigate();
-  
+  // Send the new note to API
   const Save = useCallback(() => {
     setIsSaving(true);
 
@@ -32,6 +33,7 @@ export default function CreateNote() {
       });
   }, [title, content, navigate]);
 
+  // On page load: Add a key listener to save the note with Ctrl+Enter
   React.useEffect(() => {
     const handleKeyDown = (event: any) => {
       if (event.ctrlKey && event.key === 'Enter') {
@@ -46,11 +48,13 @@ export default function CreateNote() {
     };
   }, [Save]);
 
+  // Call the API to save the note when the form is submitted
   const FormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     Save();
     event.preventDefault();
   }
 
+  // Sync the note content with the state
   const OnContentChange = (value: string) => {
     setContent(value);
   };
@@ -60,19 +64,18 @@ export default function CreateNote() {
       <Card className="bg-transparent border-0">
         <Card.Body>
           <Form onSubmit={FormSubmit}>
-            <Form.Group controlId="formNoteTitle">
-              <Form.Label className="custom-label">{strings.createNote_noteTitle}</Form.Label>
-              <Form.Control type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder={strings.createNote_noteTitlePlaceholder} className="bg-light txtTitle" required />
-            </Form.Group>
+            <FormInput type="text" value={title} labelFontSize={19} required
+              label={strings.createNote_noteTitle} placeholder={strings.createNote_noteTitlePlaceholder}
+              onChange={(e) => setTitle(e.target.value)} />
+
             <Form.Group controlId="formNoteContent" className="mt-3">
               <Form.Label className="custom-label">{strings.createNote_noteContent}</Form.Label>
               <ReactQuill className="resizable-editor" value={content} onChange={OnContentChange} placeholder={strings.createNote_noteContentPlaceholder} />
             </Form.Group>
-            <Form.Group controlId="formSave" className="mt-3">
-              <FormButton variant="contained" disabled={isSaving} >
-                {isSaving ? (<CircularProgress size={24} color="inherit" />) : (strings.createNote_btnSave)}
-              </FormButton>
-            </Form.Group>
+
+            <FormButton type="submit" disabled={isSaving}>
+              {isSaving ? (<CircularProgress size={24} color="inherit" />) : (strings.createNote_btnSave)}
+            </FormButton>
           </Form>
         </Card.Body>
       </Card>

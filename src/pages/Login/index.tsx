@@ -1,13 +1,10 @@
 import "../../index.css";
 import * as React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { Observer } from 'mobx-react-lite';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CircularProgress, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
@@ -18,10 +15,11 @@ import Auth from '../../context/Auth';
 import CustomAlert from "../../components/CustomAlert";
 import CustomButton from "../../components/CustomButton";
 import CustomLink from "../../components/CustomLink";
-import CustomFloatingBtn from "../../components/CustomFloatingBtn";
+import FormInput from "../../components/FormInput";
+import LanguageFloatingButton from "../../components/LanguageFloatingBtn";
 
 export default function Login() {
-  const { strings, changeLanguage, language } = useLanguage();
+  const { strings } = useLanguage();
 
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -53,7 +51,7 @@ export default function Login() {
           setIsLogging(false);
         }
       })
-      .catch((error) => {
+      .catch((e) => {
         setAlertMessage(strings.login_AccountNotFound);
         setShowAlert(true);
         setIsLogging(false);
@@ -62,91 +60,63 @@ export default function Login() {
     event.preventDefault();
   }
 
-  const handleLanguageChange = (event: SelectChangeEvent<'en' | 'pt'>) => {
-    changeLanguage(event.target.value as 'en' | 'pt');
-  };
-
   return (
-    <Observer>
-      {() => (
-        <div className='app-unique-containers'>
-          {showAlert && <CustomAlert message={alertMessage} severity="error" />}
 
-          <AnimatePresence key='divLogin'>
-            <motion.div className='app-unique-container' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} >
+    <div className='app-unique-containers'>
+      {showAlert && <CustomAlert message={alertMessage} severity="error" />}
 
-              <br /><br />
-              <span className='login-txtTitulo'>{strings.login_title}</span>
-              <br /><br />
+      <AnimatePresence key='divLogin'>
+        <motion.div className='app-unique-container login-container' initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} >
+          <span className='login-txtTitulo'>{strings.login_title}</span>
 
-              <form onSubmit={Login}>
+          <form onSubmit={Login}>
+            <FormInput label={strings.login_username} type='text' required width="80%"
+              onChange={(e) => { setUsername(e.target.value) }}
+            />
 
-                <FormControl className='login-divUsuario' sx={{ m: 1, width: '25ch' }} variant="outlined">
-                  <span className='login-txtLabels'>{strings.login_username}</span>
-                  <OutlinedInput className='login-inputUsuario' id="usuario" type='text' required
-                    onChange={(e) => { setUsername(e.target.value) }}
-                  />
-                </FormControl>
+            <FormInput label={strings.login_password} required width="80%"
+              onChange={(e) => { setPassword(e.target.value) }}
+              type={
+                showPassword ? 'text' : 'password'
+              }
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} edge="end" >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
 
-                <br />
+            <br />
+            <CustomButton type='submit' className='login-btnAcessar' variant="contained" width="80%">
+              {isLogging ? (<CircularProgress size={24} color="inherit" />) : (strings.login_btnLogin)}
+            </CustomButton>
+          </form>
 
-                <FormControl className='login-divSenha' sx={{ m: 1, width: '25ch' }} variant="outlined">
-                  <span className='login-txtLabels'>{strings.login_password}</span>
-                  <OutlinedInput className='login-inputSenha' id="senha" required
-                    onChange={(e) => { setPassword(e.target.value) }}
-                    type={
-                      showPassword ? 'text' : 'password'
-                    }
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} edge="end" >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                  />
-                </FormControl>
+          <div className="login-redirects">
+            <CustomLink to="/AddAccount" className='login-txtCriar'>{strings.login_create}</CustomLink>
+            {/*<CustomLink to="/RecoveryAccount" className='login-txtRecuperar'>{strings.login_recovery}</CustomLink>*/}
+          </div>
 
-                <br />
+          <div className='login-rightsContainer'>
+            <span>
+              <a href='https://www.linkedin.com/in/thaleslj' className='no-decoration'>
+                <AiFillLinkedin className='login-rightsLinkedin' />
+              </a>
+              <a href='https://github.com/ThalesLJ' className='no-decoration'>
+                <AiFillGithub className='login-rightsLinkedin' />
+              </a>
+            </span>
+          </div>
+        </motion.div>
+      </AnimatePresence>
 
-                <CustomButton type='submit' className='login-btnAcessar' variant="contained" width="80%">
-                  {isLogging ? (<CircularProgress size={24} color="inherit" />) : (strings.login_btnLogin)}
-                </CustomButton>
-
-              </form>
-
-              <div className="login-redirects">
-                <CustomLink to="/AddAccount" className='login-txtCriar'>{strings.login_create}</CustomLink>
-                <CustomLink to="/RecoveryAccount" className='login-txtRecuperar'>{strings.login_recovery}</CustomLink>
-              </div>
-
-              <div className='login-rightsContainer'>
-                <span>
-                  <a href='https://www.linkedin.com/in/thaleslj' className='no-decoration'>
-                    <AiFillLinkedin className='login-rightsLinkedin' />
-                  </a>
-                  <a href='https://github.com/ThalesLJ' className='no-decoration'>
-                    <AiFillGithub className='login-rightsLinkedin' />
-                  </a>
-                </span>
-              </div>
-              <br /><br />
-
-            </motion.div>
-          </AnimatePresence>
-
-          <AnimatePresence key='divLoginFloatingButton'>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-              <CustomFloatingBtn className="custom-select">
-                <Select value={language} onChange={handleLanguageChange} displayEmpty inputProps={{ 'aria-label': 'Select Language' }} className="MuiSelect-select">
-                  <MenuItem value={'en'} className="custom-select-menu-item">EN</MenuItem>
-                  <MenuItem value={'pt'} className="custom-select-menu-item">PT</MenuItem>
-                </Select>
-              </CustomFloatingBtn>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      )}
-    </Observer>
+      <AnimatePresence key='divLoginFloatingButton'>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+          <LanguageFloatingButton className="custom-select" />
+        </motion.div>
+      </AnimatePresence>
+    </div>
   )
 }
