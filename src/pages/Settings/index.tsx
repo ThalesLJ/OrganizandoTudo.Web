@@ -29,28 +29,30 @@ export default function Settings() {
   const formRef = useRef<HTMLFormElement>(null);
   const hasChanges = username !== initialUsername || email !== initialEmail;
 
-  // Default colors for light mode
+  // Default colors for light mode - Preto 1A1A1A, Branco FFFFFF
+  // Bege Escuro 946A56, Bege Médio E2C8BC, Bege Claro 1.0 FFE3D5, Bege Claro 2.0 DB9D83
   const defaultLightColors = {
     primary: "#946a56",
-    secondary: "#ffe3d5",
-    primaryText: "#ffffff",
-    primaryTextTint: "#e2c8bc",
-    secondaryText: "#000000",
-    secondaryTextTint: "#946a56",
-    background: "#ffffff",
+    secondary: "#FFE3D5",
+    primaryText: "#FFFFFF",
+    primaryTextTint: "#E2C8BC",
+    secondaryText: "#946a56",
+    secondaryTextTint: "#DB9D83",
+    background: "#FFFFFF",
     appBackground: "#ffe3d5",
   };
 
-  // Default colors for dark mode
+  // Default colors for dark mode - Preto 1A1A1A, Branco FFFFFF
+  //  Marrom: 2C2420, Bege Escuro 946A56
   const defaultDarkColors = {
-    primary: "#1a1a1a",
-    secondary: "#2c2420",
-    primaryText: "#ffffff",
-    primaryTextTint: "#e2c8bc",
-    secondaryText: "#000000",
-    secondaryTextTint: "#1a1a1a",
-    background: "#ffffff",
-    appBackground: "#2c2420",
+    primary: "#946A56",
+    secondary: "#2C2420",
+    primaryText: "#FFFFFF",
+    primaryTextTint: "#E2C8BC",
+    secondaryText: "#946A56",
+    secondaryTextTint: "#DB9D83",
+    background: "#1A1A1A",
+    appBackground: "#2C2420",
   };
 
   // Function to reset global colors to default

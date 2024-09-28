@@ -61,6 +61,16 @@ code {
   font-size: 16px;
 }
 
+.custom-link {
+  color: var(--secondaryText) !important;
+  text-decoration: none;
+}
+
+.custom-link:hover {
+  color: var(--secondaryTextTint) !important;
+  text-decoration: none;
+}
+
 /* ========== APP ========== */
 .app-unique-containers {
   display: flex;
@@ -399,15 +409,8 @@ span.ql-picker-label {
 }
 
 .login-txtCriar {
-  color: var(--primary);
   font-size: 15px;
   font-weight: 600;
-  text-decoration: none;
-}
-
-.login-txtCriar:hover {
-  color: #a87861;
-  text-decoration: underline;
 }
 
 .login-divtxtUsuario {
@@ -570,6 +573,10 @@ span.ql-picker-label {
   border-color: var(--primary) !important;
   background-color: transparent !important;
   height: 50px;
+}
+
+.txt-search::placeholder {
+  color: var(--primary) !important;
 }
 
 .floating-btn {

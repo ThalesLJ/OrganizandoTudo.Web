@@ -37,6 +37,9 @@ const FormInput: React.FC<FormInputProps> = ({ id, type = 'text', value,
                             '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                                 borderColor: colors.primary,
                             },
+                            '& .MuiOutlinedInput-input::placeholder': {
+                                color: colors.primary,
+                            },
                         }}
                     />
                 </FormControl>

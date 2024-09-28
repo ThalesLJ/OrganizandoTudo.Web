@@ -1,6 +1,6 @@
+import "../index.css";
 import React from 'react';
 import { Link, LinkProps } from 'react-router-dom';
-import { useColors } from '../context/ColorContext';
 
 interface CustomLinkProps extends LinkProps {
   className?: string;
@@ -8,18 +8,10 @@ interface CustomLinkProps extends LinkProps {
 }
 
 const CustomLink: React.FC<CustomLinkProps> = ({ to, className, children, ...rest }) => {
-  const { colors } = useColors();
-
   return (
     <Link
       to={to}
-      className={className}
-      style={{
-        color: colors.primary,
-        textDecoration: 'none',
-      }}
-      onMouseEnter={(e) => (e.currentTarget.style.color = colors.primaryTextTint)}
-      onMouseLeave={(e) => (e.currentTarget.style.color = colors.primary)}
+      className={`custom-link ${className}`}
       {...rest}
     >
       {children}
