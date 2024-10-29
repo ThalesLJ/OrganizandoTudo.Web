@@ -682,15 +682,6 @@ span.ql-picker-label {
   box-sizing: border-box;
 }
 
-.note-title:hover {
-  color: var(--primaryTextTint) !important;
-  user-select: auto;
-  cursor: pointer;
-  padding: 0px 10px 10px 10px;
-  border-bottom: 1px solid #ddd;
-  box-sizing: border-box;
-}
-
 .note-content {
   color: var(--secondaryText) !important;
   margin-top: 5px;
