@@ -1,6 +1,7 @@
 import "../../index.css";
 import * as React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+import { useColors } from "../../context/ColorContext";
 import { AnimatePresence, motion } from 'framer-motion';
 import { CircularProgress } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -20,6 +21,7 @@ import LanguageFloatingButton from "../../components/LanguageFloatingBtn";
 
 export default function Login() {
   const { strings } = useLanguage();
+  const { colors } = useColors();
 
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -82,7 +84,7 @@ export default function Login() {
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} edge="end" >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <VisibilityOff style={{ color: colors.primary }} /> : <Visibility style={{ color: colors.primary }} />}
                   </IconButton>
                 </InputAdornment>
               }

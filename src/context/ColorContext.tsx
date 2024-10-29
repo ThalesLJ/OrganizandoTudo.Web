@@ -34,12 +34,12 @@ export const ColorProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // Updated default colors
   const defaultColors: Colors = {
     primary: "#946a56",
-    secondary: "#ffe3d5",
-    primaryText: "#ffffff",
-    primaryTextTint: "#e2c8bc",
-    secondaryText: "#000000",
-    secondaryTextTint: "#946a56",
-    background: "#ffffff",
+    secondary: "#FFE3D5",
+    primaryText: "#FFFFFF",
+    primaryTextTint: "#E2C8BC",
+    secondaryText: "#946a56",
+    secondaryTextTint: "#DB9D83",
+    background: "#FFFFFF",
     appBackground: "#ffe3d5",
   };
 
