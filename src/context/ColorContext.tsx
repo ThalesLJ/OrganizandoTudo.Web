@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import colorsJSON from '../global/colors.json';
 
-// Updated Colors interface
 interface Colors {
   primary: string;
   secondary: string;
@@ -9,49 +9,34 @@ interface Colors {
   secondaryText: string;
   secondaryTextTint: string;
   background: string;
-  appBackground: string; // New color added
+  appBackground: string;
 }
 
-// Definindo o contexto
 const ColorContext = createContext<{
   colors: Colors;
   setColors: React.Dispatch<React.SetStateAction<Colors>>;
 } | undefined>(undefined);
 
-// Função para obter o valor de um cookie pelo nome
 const getCookie = (name: string): string | null => {
   const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
   return match ? decodeURIComponent(match[2]) : null;
 };
 
-// Função para definir um cookie
 const setCookie = (name: string, value: string, days: number) => {
   const expires = new Date(Date.now() + days * 864e5).toUTCString();
   document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
 };
 
 export const ColorProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Updated default colors
-  const defaultColors: Colors = {
-    primary: "#946a56",
-    secondary: "#FFE3D5",
-    primaryText: "#FFFFFF",
-    primaryTextTint: "#E2C8BC",
-    secondaryText: "#946a56",
-    secondaryTextTint: "#DB9D83",
-    background: "#FFFFFF",
-    appBackground: "#ffe3d5",
-  };
+  const defaultColors: Colors = colorsJSON.defaultLightColors;
 
-  // Estado inicial que verifica a existência de cores nos cookies ou usa as cores padrão
   const [colors, setColors] = useState<Colors>(() => {
     const savedColors = getCookie('colors');
     return savedColors ? JSON.parse(savedColors) : defaultColors;
   });
 
   useEffect(() => {
-    // Atualiza as cores nos cookies sempre que elas mudarem
-    setCookie('colors', JSON.stringify(colors), 5000);  // Expira em 365 dias
+    setCookie('colors', JSON.stringify(colors), 5000);
   }, [colors]);
 
   return (
@@ -61,7 +46,6 @@ export const ColorProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   );
 };
 
-// Hook para usar as cores
 export const useColors = () => {
   const context = useContext(ColorContext);
   if (context === undefined) {

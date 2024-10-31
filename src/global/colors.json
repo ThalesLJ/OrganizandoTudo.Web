@@ -1,10 +1,22 @@
 {
-    "primary": "#946a56",
-    "secondary": "#FFE3D5",
-    "primaryText": "#FFFFFF",
-    "primaryTextTint": "#E2C8BC",
-    "secondaryText": "#946a56",
-    "secondaryTextTint": "#DB9D83",
-    "background": "#FFFFFF",
-    "appBackground": "#ffe3d5"
+    "defaultLightColors": {
+        "primary": "#946a56",
+        "secondary": "#FFE3D5",
+        "primaryText": "#FFFFFF",
+        "primaryTextTint": "#E2C8BC",
+        "secondaryText": "#946a56",
+        "secondaryTextTint": "#DB9D83",
+        "background": "#FFE3D5",
+        "appBackground": "#FFE3D5"
+    },
+    "defaultDarkColors": {
+        "primary": "#946A56",
+        "secondary": "#2C2420",
+        "primaryText": "#FFFFFF",
+        "primaryTextTint": "#E2C8BC",
+        "secondaryText": "#946A56",
+        "secondaryTextTint": "#DB9D83",
+        "background": "#1A1A1A",
+        "appBackground": "#2C2420"
+    }
 }

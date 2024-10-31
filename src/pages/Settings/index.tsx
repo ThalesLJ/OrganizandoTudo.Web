@@ -9,9 +9,10 @@ import Auth from '../../context/Auth';
 import Api from '../../services/Api';
 import FormInput from "../../components/FormInput";
 import FormButton from "../../components/FormButton";
-import CustomButton from "../../components/CustomButton";
 import LanguageFloatingButton from "../../components/LanguageFloatingBtn";
 import CustomColorPicker from "../../components/CustomColorPicker";
+import colorsJSON from '../../global/colors.json';
+import { AiOutlineReload } from "react-icons/ai";
 
 export default function Settings() {
   const { strings } = useLanguage();
@@ -25,39 +26,14 @@ export default function Settings() {
   const [initialEmail, setInitialEmail] = useState<string>('');
   const [activeSection, setActiveSection] = useState<'profile' | 'account' | 'appearance' | 'notifications'>('profile');
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isReloading, setIsReloading] = useState<boolean>(false);
 
   const formRef = useRef<HTMLFormElement>(null);
   const hasChanges = username !== initialUsername || email !== initialEmail;
 
-  // Default colors for light mode - Preto 1A1A1A, Branco FFFFFF
-  // Bege Escuro 946A56, Bege Médio E2C8BC, Bege Claro 1.0 FFE3D5, Bege Claro 2.0 DB9D83
-  const defaultLightColors = {
-    primary: "#946a56",
-    secondary: "#FFE3D5",
-    primaryText: "#FFFFFF",
-    primaryTextTint: "#E2C8BC",
-    secondaryText: "#946a56",
-    secondaryTextTint: "#DB9D83",
-    background: "#FFFFFF",
-    appBackground: "#ffe3d5",
-  };
-
-  // Default colors for dark mode - Preto 1A1A1A, Branco FFFFFF
-  //  Marrom: 2C2420, Bege Escuro 946A56
-  const defaultDarkColors = {
-    primary: "#946A56",
-    secondary: "#2C2420",
-    primaryText: "#FFFFFF",
-    primaryTextTint: "#E2C8BC",
-    secondaryText: "#946A56",
-    secondaryTextTint: "#DB9D83",
-    background: "#1A1A1A",
-    appBackground: "#2C2420",
-  };
-
   // Function to reset global colors to default
   const resetColors = () => {
-    const defaultColors = isDarkMode ? defaultDarkColors : defaultLightColors;
+    const defaultColors = isDarkMode ? colorsJSON.defaultDarkColors : colorsJSON.defaultLightColors; // Obtendo os valores do JSON
     setColors(defaultColors);
     sessionStorage.setItem('colors', JSON.stringify(defaultColors));
   };
@@ -66,7 +42,7 @@ export default function Settings() {
   const toggleDarkMode = () => {
     const newIsDarkMode = !isDarkMode;
     setIsDarkMode(newIsDarkMode);
-    const newColors = newIsDarkMode ? defaultDarkColors : defaultLightColors;
+    const newColors = newIsDarkMode ? colorsJSON.defaultDarkColors : colorsJSON.defaultLightColors; // Obtendo os valores do JSON
     setColors(newColors);
     sessionStorage.setItem('colors', JSON.stringify(newColors));
     sessionStorage.setItem('isDarkMode', JSON.stringify(newIsDarkMode));
@@ -139,7 +115,7 @@ export default function Settings() {
     switch (activeSection) {
       case 'profile':
         return (
-          <Form ref={formRef} onSubmit={handleFormSubmit}>
+          <Form ref={formRef} onSubmit={handleFormSubmit} className="updateProfileForm">
             <FormInput value={username} placeholder={strings.settings_usernamePlaceholder} required
               onChange={(e) => setUsername(e.target.value)} label={strings.settings_username} />
             <FormInput value={email} placeholder={strings.settings_emailPlaceholder} required
@@ -156,12 +132,26 @@ export default function Settings() {
       case 'appearance':
         return (
           <>
-            <Form.Group className="mb-3">
-              <Form.Check type="switch" id="dark-mode-switch" label={strings.settings_darkMode}
-                checked={isDarkMode} onChange={toggleDarkMode}
-              />
-            </Form.Group>
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', cursor: 'pointer' }} className="mb-3">
+              <Form.Group>
+                <Form.Check type="switch" id="dark-mode-switch" label={strings.settings_darkMode}
+                  checked={isDarkMode} onChange={toggleDarkMode}
+                />
+              </Form.Group>
+
+              <div onClick={handleReloadClick} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+                <AiOutlineReload
+                  style={{
+                    marginLeft: '16px',
+                    transition: 'transform 0.5s ease',
+                    transform: isReloading ? 'rotate(360deg)' : 'rotate(0deg)'
+                  }}
+                />
+                <span style={{ marginLeft: '5px' }}>{strings.settings_btnResetColors}</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-start', marginBottom: '20px', marginTop: '20px' }}>
               <CustomColorPicker label={strings.settings_primaryColor}
                 color={colors.primary}
                 onChange={(color) => handleColorChange(color, 'primary')} />
@@ -187,13 +177,22 @@ export default function Settings() {
                 color={colors.background}
                 onChange={(color) => handleColorChange(color, 'background')} />
             </div>
-            <CustomButton onClick={resetColors} style={{ marginTop: '10px' }}>
-              {strings.settings_btnResetColors}
-            </CustomButton>
           </>
         );
       default:
-        return <Typography>Select an option from the sidebar</Typography>;
+        return <Typography>{strings.settings_chooseSomePage}</Typography>;
+    }
+  };
+
+  const handleReloadClick = () => {
+    if (!isReloading) {
+      setIsReloading(true);
+      resetColors(); // Chama a função de resetar cores
+
+      // Remove a classe de animação após a animação ser concluída
+      setTimeout(() => {
+        setIsReloading(false);
+      }, 1000); // Duração da animação em milissegundos
     }
   };
 
@@ -216,9 +215,7 @@ export default function Settings() {
             </Grid>
             <Grid item xs={12} md={9}>
               <Paper elevation={3} style={{ padding: '20px' }}>
-                <Typography variant="h4" gutterBottom>
-                  {strings[`settings_${activeSection}Title`]}
-                </Typography>
+                <p className="subPageTitle">{strings[`settings_${activeSection}Title`]}</p>
                 {renderContent()}
               </Paper>
             </Grid>

@@ -9,7 +9,7 @@ interface CustomColorPickerProps {
 
 const CustomColorPicker: React.FC<CustomColorPickerProps> = ({ label, color, onChange }) => {
   return (
-    <div style={{ marginBottom: '20px', width: '48%' }}>
+    <div style={{ marginBottom: '20px', marginRight: '10px' }}>
       <p>{label}</p>
       <ChromePicker
         color={color}

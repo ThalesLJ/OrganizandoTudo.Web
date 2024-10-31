@@ -1,13 +1,13 @@
 /* ========== Index ========== */
 :root {
   --primary: #946a56;
-  --secondary: #ffe3d5;
-  --primaryText: #ffffff;
-  --primaryTextTint: #e2c8bc;
-  --secondaryText: #000000;
-  --secondaryTextTint: #946a56;
-  --background: #ffffff;
-  --appBackground: #ffffff;
+  --secondary: #FFE3D5;
+  --primaryText: #FFFFFF;
+  --primaryTextTint: #E2C8BC;
+  --secondaryText: #946A56;
+  --secondaryTextTint: #DB9D83;
+  --background: #FFE3D5;
+  --appBackground: #FFE3D5;
 }
 
 span,
@@ -350,11 +350,13 @@ span.ql-picker-label {
   overflow: auto;
   min-height: 200px;
   max-height: 1000px;
-  background-color: white !important;
+  background-color: var(--background) !important;
+  border-color: var(--primary) !important;
 }
 
 .resizable-editor .ql-toolbar {
-  background-color: white !important;
+  background-color: var(--background) !important;
+  border-color: var(--primary) !important;
 }
 
 .resizable-editor .ql-editor {
@@ -658,6 +660,16 @@ span.ql-picker-label {
   display: flex;
   flex-direction: column;
   height: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+.note-card-body::-webkit-scrollbar-thumb {
+  background: var(--secondaryTextTint);
+}
+
+.note-card-body::-webkit-scrollbar-thumb:hover {
+  background: var(--secondaryTextTint);
 }
 
 .note-text-container {
@@ -704,6 +716,14 @@ span.ql-picker-label {
 
 .note-content span {
   color: var(--secondaryText) !important;
+}
+
+.note-content p::-webkit-scrollbar {
+  width: 8px;
+}
+
+.note-content p::-webkit-scrollbar-track {
+  background: var(--secondaryTextTint);
 }
 
 .note-visible {
@@ -887,13 +907,35 @@ span.ql-picker-label {
 }
 
 /* ========== SETTINGS ========== */
+.settings-container {
+  padding: 20px 120px 120px 30px;
+}
+
 .app-container-settings {
   margin-top: 55px;
   padding: 0px 30px 0px 30px;
 }
 
+.subPageTitle {
+  color: var(--primary) !important;
+  font-size: x-large;
+  font-weight: 650;
+}
+
+.css-3su884-MuiPaper-root {
+  background-color: var(--background) !important;
+}
+
+.updateProfileForm {
+  width: 100%;
+}
+
 span.MuiTypography-root.MuiTypography-body1.MuiListItemText-primary.css-10hburv-MuiTypography-root {
   color: var(--secondaryText) !important;
+}
+
+.css-zow5z4-MuiGrid-root>.MuiGrid-item {
+  padding-top: 22px !important;
 }
 
 @media only screen and (min-width: 480px) {
